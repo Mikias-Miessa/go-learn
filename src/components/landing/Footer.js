@@ -65,6 +65,7 @@ const footerSections = [
 ]
 
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
     return (
         <>
 
@@ -183,7 +184,7 @@ const Footer = () => {
                             <Typography component='span' sx={{
                                 m: 0, fontSize: '0.875rem', lineHeight: '1.5', color: '#fff', fontWeight: '400', letterSpacing: '-0.125px', fontFamily: 'Montserrat'
                             }}>
-                                All rights reserved. Copyright © 2022 Gobeze Consult.
+                                All rights reserved. Copyright © {currentYear} Gobeze Consult.
                             </Typography>
                         </Grid>
                     </Grid>
