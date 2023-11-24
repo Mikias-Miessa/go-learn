@@ -27,19 +27,19 @@ import { addStudent, reset } from '../../../../store/studentSlice';
 import Information from './Information';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { withGoogleMap, GoogleMap } from 'react-google-maps';
+// import { withGoogleMap, GoogleMap } from 'react-google-maps';
 
-const MyMap = withGoogleMap(() => {
-  if (typeof window !== 'undefined' && typeof window.google !== 'undefined') {
-    return (
-      <GoogleMap
-        defaultZoom={18}
-        defaultCenter={{ lat: 9.017626, lng: 38.8012533 }}
-      />
-    );
-  }
-  return null;
-});
+// const MyMap = withGoogleMap(() => {
+//   if (typeof window !== 'undefined' && typeof window.google !== 'undefined') {
+//     return (
+//       <GoogleMap
+//         defaultZoom={18}
+//         defaultCenter={{ lat: 9.017626, lng: 38.8012533 }}
+//       />
+//     );
+//   }
+//   return null;
+// });
 
 const modalStyle = {
   position: 'absolute',
@@ -332,12 +332,12 @@ const TrainingsPage = () => {
                     </Button>
                   </Box>
                 </form>
-                <Paper sx={{ pt: '20px', height: '500px' }}>
+                {/* <Paper sx={{ pt: '20px', height: '500px' }}>
                   <MyMap
                     containerElement={<div style={{ height: '100%' }} />}
                     mapElement={<div style={{ height: '100%' }} />}
                   />
-                </Paper>
+                </Paper> */}
               </Box>
               <Box
                 sx={{

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import Moment from 'moment';
 
-import graphics from '../../../images/graphics.avif';
+import graphics from '../../../images/logo.png';
 import Link from '../../Link';
 import { getRunningClassesAd } from '../../../../store/classSlice';
 const textStyle = {
