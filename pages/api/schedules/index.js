@@ -15,7 +15,7 @@ import Schedule from '../../../models/Schedule'
        await schedule.save();
         res.json(schedule);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
  }
@@ -25,7 +25,7 @@ import Schedule from '../../../models/Schedule'
         let schedules = await Schedule.find()
         res.json(schedules);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
  }
@@ -35,7 +35,7 @@ import Schedule from '../../../models/Schedule'
         await Schedule.findOneAndDelete({ _id: id })
         return res.json(id)
     } catch (err) {
-        console.log(err)
+        
         res.status(500).send('Server Error')
     }
  }

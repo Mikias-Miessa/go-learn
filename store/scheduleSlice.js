@@ -17,9 +17,9 @@ export const getSchedules = createAsyncThunk(
             const res = await axios.get('/api/schedules');
             return res.data;
         } catch (error) {
-            console.log(error)
+            
             const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
-            console.log(message)
+            
 
             return thunkAPI.rejectWithValue(message)
 

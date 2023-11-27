@@ -12,17 +12,17 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     await next(); // call next in chain
   })
   .put(async (req, res) => {
-    // console.log(req)
+    // 
     const { query, body } = req;
 
-    console.log(query);
-    console.log(body);
+    
+    
     try {
       const { remark, payment_with, reference, amount, bank, course } = body;
       let updatedStudent = await Student.findById(query.id).populate({
@@ -39,8 +39,8 @@ router
       let studentPayment = await Payment.findById(updatedStudent.payment);
 
       let coursePrice = updatedStudent?.course?.course.price;
-      // console.log('coursePrice: ' + coursePrice);
-      // console.log('paidAmount: ' + amount);
+      // 
+      // 
       studentPayment.payment_with = payment_with;
       studentPayment.confirmed = true;
       studentPayment.amount = amount;
@@ -57,8 +57,8 @@ router
       await studentPayment.save();
 
       updatedStudent.status = 'enrolled';
-      console.log(updatedStudent.course._id);
-      console.log(course);
+      
+      
       if (updatedStudent.course._id != course) {
         const [updatedClass, prevClass] = await Promise.all([
           Class.findById(course),
@@ -67,11 +67,11 @@ router
         // let updatedClass = await Class.findById(course);
         // let prevClass = await Class.findById(updatedStudent.course);
         //Get remove Index
-        console.log(prevClass.students);
-        console.log(updatedStudent._id);
+        
+        
         const removeIndex = prevClass.students.indexOf(updatedStudent._id);
-        console.log('removeIndex');
-        console.log(removeIndex);
+        
+        
         prevClass.students.splice(removeIndex, 1);
         updatedClass.students.push(updatedStudent._id);
 
@@ -89,7 +89,7 @@ router
 
       res.json(populatedUpdatedStudent);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });

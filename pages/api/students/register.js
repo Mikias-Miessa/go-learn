@@ -11,9 +11,9 @@ export default async function addStudent(req, res) {
 
   const { name, email, phone, bank, course, remark, contacted, schedule } = body;
   try {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     if (method === 'POST') {
       let classFound = await Class.findById(course);
       if (!classFound) {
@@ -37,8 +37,8 @@ export default async function addStudent(req, res) {
       });
       await newPayment.save();
       newStudent.payment = newPayment._id;
-      console.log('contacted');
-      console.log(contacted);
+      
+      
 
       if (contacted !== undefined && contacted) {
         newStudent.contacted = true;
@@ -58,7 +58,7 @@ export default async function addStudent(req, res) {
           },
         }
       );
-      // console.log(newStudentPayment);
+      // 
       if (contacted == undefined && email) {
         sendEmail(newStudentPayment);
       }
@@ -66,7 +66,7 @@ export default async function addStudent(req, res) {
       res.json(newStudent);
     }
   } catch (err) {
-    console.log(err);
+    
     res.status(500).send('Server Error');
   }
 }

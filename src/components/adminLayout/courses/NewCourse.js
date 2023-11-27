@@ -30,7 +30,7 @@ const NewCourse = ({ setOpen }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values)
+    
     dispatch(addCourse(values))
   }
 

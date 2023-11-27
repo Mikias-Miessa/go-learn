@@ -22,7 +22,7 @@ let storage = new GridFsStorage({
       const filename = `${Date.now()}-gobeze-${file.originalname}`;
       return filename;
     }
-    console.log('got here');
+    
     return {
       bucketName: 'files',
       filename: `${Date.now()}-gobeze-${file.originalname}`,
@@ -36,9 +36,9 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     await next(); // call next in chain
   })
   .use(upload.single('thumbnail'))
@@ -79,7 +79,7 @@ router
 
       res.json(populatedNewClass);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });

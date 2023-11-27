@@ -17,7 +17,7 @@ const initialState = {
   
 //     try {
 //       const res = await axios.get('/api/auth/user');
-//       // console.log(res.data);
+//       // 
 //       dispatch({
 //         type: USER_LOADED,
 //         payload: res.data,
@@ -51,7 +51,7 @@ const initialState = {
       //     // You can chain calls, or have separate `builder.addCase()` lines each time
       //     .addCase(loadUser.fulfilled, (state, action) => {
       //       state.loading = false;
-      //       // console.log(action.payload)
+      //       // 
       //       state.user = action.payload
       //     })
       //     // You can match a range of action types
@@ -73,8 +73,8 @@ const initialState = {
     //           state.user = action.payload
     //       },
     //       [loadUser.rejected]: (state, action)=>{
-    //           console.log('action.payload')
-    //           console.log(action.payload)
+    //           
+    //           
     //         state.loading = false;
     //     }
     //   }

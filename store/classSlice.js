@@ -19,12 +19,12 @@ export const getClasses = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -38,12 +38,12 @@ export const getRunningClassesAd = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -57,12 +57,12 @@ export const getRunningClasses = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -76,12 +76,12 @@ export const getClosedClasses = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -96,12 +96,12 @@ export const getClass = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -119,15 +119,15 @@ export const addClass = createAsyncThunk(
     };
     try {
       const res = await axios.post('/api/classes', formData, config);
-      console.log(res.data);
+      // 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -137,7 +137,7 @@ export const addClass = createAsyncThunk(
 export const enrollStudent = createAsyncThunk(
   'student/enroll',
   async (student, thunkAPI) => {
-    console.log(student);
+    // 
     const {
       course,
       name,
@@ -165,15 +165,15 @@ export const enrollStudent = createAsyncThunk(
     });
     try {
       const res = await axios.post('/api/students/enroll', body, config);
-      console.log(res.data);
+      // 
       return res.data;
     } catch (error) {
-      console.log(error);
+      
       const message =
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -214,7 +214,7 @@ export const classSlice = createSlice({
         state.loading = true;
       })
       .addCase(getClasses.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // 
         state.loading = false;
         state.classes = action.payload;
       })
@@ -225,7 +225,7 @@ export const classSlice = createSlice({
         state.loading = true;
       })
       .addCase(getRunningClassesAd.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // 
         state.loading = false;
         state.runningClasses = action.payload;
       })
@@ -236,7 +236,7 @@ export const classSlice = createSlice({
         state.loading = true;
       })
       .addCase(getRunningClasses.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // 
         state.loading = false;
         state.runningClasses = action.payload;
       })
@@ -247,7 +247,7 @@ export const classSlice = createSlice({
         state.loading = true;
       })
       .addCase(getClosedClasses.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // 
         state.loading = false;
         state.closedClasses = action.payload;
       })

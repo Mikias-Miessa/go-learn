@@ -14,18 +14,18 @@ import Payment from '../../../../models/Payment'
 
   router
   .use(async (req, res, next) => {
-    console.log('connecting...')
+    
     await connectMongo();
-    console.log('connected!')
+    
     await next(); // call next in chain
    
   })
   .put(async (req, res) => {
-    // console.log(req)
+    // 
     const {query,body} = req;
  
-    console.log(query)
-    console.log(body)
+    
+    
     try {
         const { remark} = body;
         let updatedStudent = await Student.findById(query.id);
@@ -45,7 +45,7 @@ import Payment from '../../../../models/Payment'
 
         res.json(populatedUpdatedStudent);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
   })

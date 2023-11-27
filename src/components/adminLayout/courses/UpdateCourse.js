@@ -7,7 +7,7 @@ import {updateCourse,reset} from '../../../../store/courseSlice';
 
 const NewCourse = ({setOpen,course}) => {
 
-// console.log(course)
+// 
     const [values, setValues] = useState({
         courseName: '',
     courseCode: '',
@@ -43,7 +43,7 @@ const dispatch = useDispatch();
   }
   const handleSubmit =(e)=>{
     e.preventDefault();
-    // console.log(values)
+    // 
     dispatch(updateCourse({
       ...values,
       id:course._id
@@ -53,7 +53,7 @@ const dispatch = useDispatch();
  
 
   useEffect(() => {
-console.log(newCourseAdded)
+
     if(newCourseAdded==='pending'){
       setBackdrop(true)
     }

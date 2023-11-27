@@ -77,7 +77,7 @@ export default function Followup() {
     }
   }, [status]);
   const handlePopperClick = (event, id) => {
-    // console.log(id);
+    // 
     let student = students.find((c) => c._id === id);
     setUpdatedStudent(student);
     setAnchorEl(event.currentTarget);
@@ -85,7 +85,7 @@ export default function Followup() {
   };
 
   const handleDelete = () => {
-    console.log(`will delete ${updatedStudent?._id}`);
+    
     dispatch(deleteStudent(updatedStudent?._id));
   };
 

@@ -12,9 +12,9 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
 
     await next(); // call next in chain
   })
@@ -33,14 +33,14 @@ router
 
       res.json(student);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   })
   .delete(async (req, res) => {
     const { query } = req;
 
-    console.log(query);
+    
     try {
       //remove review from Hospitals and doctors data
 
@@ -58,7 +58,7 @@ router
       await Class.updateMany({}, { $pullAll: { students: [query.id] } });
       res.json({ id: query.id, msg: 'Student deleted' });
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });

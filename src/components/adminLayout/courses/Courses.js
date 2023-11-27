@@ -60,7 +60,7 @@ export default function Courses() {
   }, []);
 
   const handlePopperClick = (event,id) => {
-    // console.log(id);
+    // 
     let course = courses.find((c) => c._id === id);
     setUpdatedCourse(course);
     setAnchorEl(event.currentTarget);
@@ -79,13 +79,13 @@ export default function Courses() {
     setOpenPoper(false);
   };
   //   const updateCourse = (course)=>{
-  // console.log(course)
+  // 
   //   }
   const handleUpdate = () => {
    
     setUpdate(true);
   };
-console.log('rendered again')
+
   return (
     <>
       <Title>Courses </Title>

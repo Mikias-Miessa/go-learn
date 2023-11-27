@@ -29,7 +29,7 @@ let storage = new GridFsStorage({
       const filename = `${Date.now()}-gobeze-${file.originalname}`;
       return filename;
     }
-    console.log('got here');
+    
     return {
       bucketName: 'files',
       filename: `${Date.now()}-gobeze-${file.originalname}`,
@@ -44,16 +44,16 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     gfs = Grid(mongoose.connection.db, mongoose.mongo);
     gfs.collection('files');
     await next(); // call next in chain
   })
   .get(async (req, res) => {
     const { query } = req;
-    // console.log(query.slug);
+    // 
     try {
       await Schedule.find({})
       let course = await Class.findOne({ slug: query.slug })
@@ -73,8 +73,8 @@ router
         });
       }
       let classes = await Class.find({ course: course?.course?._id });
-      console.log('classes.length');
-      console.log(classes.length);
+      
+      
       if (classes.length > 1) {
         course.schedules = [];
         classes.forEach((training) => {
@@ -86,7 +86,7 @@ router
       }
       res.json(course);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   })
@@ -121,15 +121,15 @@ router
   //         })
   //     );
   //   } catch (err) {
-  //     console.log(err);
+  //     
   //     res.status(500).send('Server Error');
   //   }
   // })
   .use(upload.single('thumbnail'))
   .put(async (req, res) => {
     const { query } = req;
-    console.log('query');
-    console.log(query);
+    
+    
     try {
       const { course, description, schedule, start_date, instructor, remark } =
         req.body;
@@ -139,7 +139,7 @@ router
           errors: [{ msg: 'Class not found' }],
         });
       }
-      console.log(req.file);
+      
       // gfs.remove(
       //   {
       //     filename: updatedClass.thumbnail.replace('/api/files/images/', ''),
@@ -152,7 +152,7 @@ router
       //       });
       //     } else {
       //       //image is removed from db
-      //       console.log('image is deleted from mongodb');
+      //       
       //     }
       //   }
       // );
@@ -183,7 +183,7 @@ router
 
       res.json(populatedUpdatedClass);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });

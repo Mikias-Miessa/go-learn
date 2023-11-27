@@ -25,7 +25,7 @@ import { getRunningClasses } from '../../../../store/classSlice';
 
 const Contacted = ({ setOpen, student }) => {
   const dispatch = useDispatch();
-  // console.log(student)
+  // 
   const [values, setValues] = useState({
     id: student?._id ? student?._id : '',
     remark: '',
@@ -60,7 +60,7 @@ const Contacted = ({ setOpen, student }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    
     dispatch(enrollRegisteredStudent(values));
   };
   useEffect(() => {

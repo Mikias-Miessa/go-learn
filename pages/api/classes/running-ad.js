@@ -7,9 +7,9 @@ import Student from '../../../models/Student';
 
 const handler = async (req, res) => {
   const { method } = req;
-  console.log('connecting...');
+  
   await connectMongo();
-  console.log('connected!');
+  
 
   if (method === 'GET') {
     try {
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
         .populate('course students')
         .lean();
       let foundId = '';
-      console.log(classes.length);
+      
       const adClasses = [];
       classes.forEach((training) => {
         const courseFound = adClasses.find(
@@ -27,7 +27,7 @@ const handler = async (req, res) => {
           adClasses.push(training);
         } else {
           foundId = courseFound._id;
-          console.log(courseFound);
+          
           courseFound.schedules = [
             {
               name: courseFound.schedule,
@@ -38,14 +38,14 @@ const handler = async (req, res) => {
               value: training._id,
             },
           ];
-          console.log(training);
+          
         }
       });
-      // console.log(adClasses.length);
-      // console.log(adClasses.find((cl) => cl._id === foundId));
+      // 
+      // 
       res.json(adClasses);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   }

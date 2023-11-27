@@ -13,9 +13,9 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
 
     await next(); // call next in chain
   })
@@ -26,7 +26,7 @@ router
       let certificate = await Certificate.findOne({
         certificateId: query.id,
       }).populate('student');
-      console.log(certificate);
+      
       // if (!certificate) {
       //   return res.status(400).json({
       //     errors: [{ msg: 'Certificate not found' }],
@@ -35,14 +35,14 @@ router
 
       res.json(certificate);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });
 //   .delete(async (req, res) => {
 //     const { query } = req;
 
-//     console.log(query);
+//     
 //     try {
 //       let updatedStudent = await Student.findById(query.id);
 //       if (!updatedStudent) {
@@ -56,7 +56,7 @@ router
 //       });
 //       res.json({ id: query.id, msg: 'Donation deleted' });
 //     } catch (err) {
-//       console.log(err);
+//       
 //       res.status(500).send('Server Error');
 //     }
 //   });

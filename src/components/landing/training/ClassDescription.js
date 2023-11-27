@@ -10,7 +10,7 @@ const textStyle = {
 };
 
 const ClassDescription = ({ training }) => {
-  console.log(training.schedules);
+  
   return (
     <>
       <Box

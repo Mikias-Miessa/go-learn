@@ -25,19 +25,19 @@ const CertificatePage = ({ certificate }) => {
 };
 
 export const getServerSideProps = async ({ query }) => {
-  console.log('query');
-  console.log(query);
+  
+  
   const API =
     process.env.NODE_ENV === 'production'
       ? 'https://gobeze.com'
       : 'http://localhost:3000';
-  console.log(API);
+  
   const res = await axios.get(`${API}/api/certificate/${query.id}`);
-  console.log('res');
-  console.log(res.status);
+  
+  
   const certificate = res.data;
   // const {data} = await res.data
-  // console.log(JSON.stringify(data))
+  // 
   return {
     props: {
       certificate,

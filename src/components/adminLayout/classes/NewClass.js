@@ -84,7 +84,7 @@ const NewCourse = ({ setOpen }) => {
   }, [newClassAdded])
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values)
+    
     const formData = new FormData();
     formData.append('course', values.course);
     formData.append('description', values.description);

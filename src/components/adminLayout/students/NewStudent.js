@@ -99,7 +99,7 @@ const NewStudent = ({ setOpen }) => {
   }, [status]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    
 
     dispatch(addStudent(values));
   };

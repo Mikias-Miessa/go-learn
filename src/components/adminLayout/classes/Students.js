@@ -113,7 +113,7 @@ export default function Students() {
     }
   }, [copied]);
   useEffect(() => {
-    console.log(query);
+    
     query && dispatch(getClass(query.id));
   }, [query]);
 
@@ -232,7 +232,7 @@ export default function Students() {
                                 <TableRow key={index}>
                                   <TableCell
                                     onClick={() => {
-                                      console.log(row._id);
+                                      
                                     }}
                                   >
                                     {row.name}

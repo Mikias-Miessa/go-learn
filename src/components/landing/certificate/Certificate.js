@@ -20,7 +20,7 @@ import {
   LinkedinIcon,
 } from 'next-share';
 const Certificate = ({ certificate }) => {
-  console.log(certificate);
+  
   const imageSrc = certificate
     ? process.env.NODE_ENV === 'production'
       ? `https://gobeze.com/certificates/${certificate?.certificateImage}`

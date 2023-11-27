@@ -15,7 +15,7 @@ import { addPaymentReference, reset } from '../../../../store/studentSlice';
 // import { getClass } from '../../../../store/classSlice';
 
 const NewReference = ({ setOpen, course, price, id, getClassStudents }) => {
-  console.log(course);
+  
   const { status } = useSelector((state) => state.student);
   const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const NewReference = ({ setOpen, course, price, id, getClassStudents }) => {
   }, [status]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    
     dispatch(addPaymentReference(values));
   };
 

@@ -68,7 +68,7 @@ export default function Classes() {
   };
 
   useEffect(() => {
-    console.log(runningClasses)
+    
   }, [])
 
   return (

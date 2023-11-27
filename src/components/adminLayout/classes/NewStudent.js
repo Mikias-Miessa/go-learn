@@ -25,7 +25,7 @@ import 'react-phone-number-input/style.css';
 import { enrollStudent, reset, status } from '../../../../store/classSlice';
 
 const NewStudent = ({ setOpen, course, price }) => {
-  console.log(course);
+  
   const { status } = useSelector((state) => state.classroom);
   const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const NewStudent = ({ setOpen, course, price }) => {
   }, [status]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    validPhoneNumber && console.log(values);
+    validPhoneNumber && 
 
     validPhoneNumber && dispatch(enrollStudent(values));
   };

@@ -7,7 +7,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function RunningClasses() {
+export default function 
   return (
     <React.Fragment>
       <Title>Running Classes</Title>

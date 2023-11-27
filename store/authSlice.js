@@ -22,13 +22,13 @@ const router = useRouter();
 
         setAuthToken(localStorage.token);
         try {
-            // console.log('got here')
+            // 
         const res = await axios.get('http://localhost:3000/api/auth/user');
         
         window.location.href = 'http://localhost:3000/admin/dashboard'
         return res.data
         } catch (err) {
-            console.log(err.message)
+            
         }
         
     }
@@ -38,7 +38,7 @@ const router = useRouter();
  export const login = createAsyncThunk(
   "auth/login",
   async (user,thunkAPI) =>{
-    // console.log(user)
+    // 
     const { email, password } = user;
     const config = {
       headers: {
@@ -48,7 +48,7 @@ const router = useRouter();
     const body = JSON.stringify({ email, password });
       try {
       const res = await axios.post('/api/auth/login', body, config);
-console.log(res.data)
+
       if(res.data){
 
         localStorage.setItem('token', res.data.token);
@@ -58,9 +58,9 @@ console.log(res.data)
       }
       
       } catch (error) {
-        console.log(error)
+        
         const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
-        console.log(message)
+        
              
            return thunkAPI.rejectWithValue(message)
           
@@ -96,7 +96,7 @@ console.log(res.data)
           // You can chain calls, or have separate `builder.addCase()` lines each time
           .addCase(loadUser.fulfilled, (state, action) => {
             state.loading = false;
-            console.log(action.payload)
+            
             state.auth = action.payload
             state.isAuthenticated = true;
           })
@@ -116,7 +116,7 @@ console.log(res.data)
           .addCase(login.fulfilled, (state, action) => {
             state.loading = false;
             state.isSuccess = true;
-            console.log(action.payload)
+            
             state.user = action.payload.user
             state.isAuthenticated = true;
             state.status='';

@@ -2,7 +2,7 @@ import {  useRouter } from 'next/router'
 import {useEffect} from 'react'
 const index = () => {
     const router = useRouter();
-    console.log('got here')
+    
     
     useEffect(() => {
         router.push('/admin/dashboard')

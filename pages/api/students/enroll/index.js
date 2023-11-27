@@ -14,9 +14,9 @@ const enrollStudent = async (req, res) => {
   const { course, name, email, phone, bank, payment_with, reference, amount } =
     body;
   try {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     if (method === 'POST') {
       let classFound = await Class.findById(course);
       if (!classFound) {
@@ -58,7 +58,7 @@ const enrollStudent = async (req, res) => {
       //         }
       //     }
       // })
-      // console.log(newStudentPayment)
+      // 
       // email && sendEmail(newStudentPayment)
       classFound = await Class.findById(course).populate({
         path: 'course students',
@@ -72,7 +72,7 @@ const enrollStudent = async (req, res) => {
       res.json(classFound);
     }
   } catch (err) {
-    console.log(err);
+    
     res.status(500).send('Server Error');
   }
 };

@@ -76,7 +76,7 @@ export default function RecentRegistration() {
     }
   }, [status]);
   const handlePopperClick = (event, id) => {
-    // console.log(id);
+    // 
     let student = students.find((c) => c._id === id);
     setUpdatedStudent(student);
     setAnchorEl(event.currentTarget);
@@ -84,7 +84,7 @@ export default function RecentRegistration() {
   };
 
   const handleDelete = () => {
-    console.log(`will delete ${updatedStudent?._id}`);
+    
     dispatch(deleteStudent(updatedStudent?._id));
   };
   const handleClose = () => {

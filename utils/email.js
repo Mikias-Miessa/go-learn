@@ -4,9 +4,9 @@ import followRedirects from 'follow-redirects'
 const https = followRedirects.https;
 
 export const sendEmail = async (obj) => {
-  console.log(obj)
+  
   const { student:{name,email,course},_id,bank } = obj;
-  console.log(course)
+  
   const bankAccount = bank == 'cbe' ? '1000228828843' : '0146776045011';
 
   const bankName =
@@ -80,7 +80,7 @@ export const sendEmail = async (obj) => {
       // cc: 'meaza2095@gmail.com, nfeleke568@gmail.com',
     });
 // luwamaddis@gmail.com --- will add these for production, later
-    console.log('Message sent: %s', info.messageId);
+    
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   } catch (err) {
     console.error(err);

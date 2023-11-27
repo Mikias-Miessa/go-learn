@@ -12,15 +12,15 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     await next(); // call next in chain
   })
   .put(async (req, res) => {
     //add payment to an enrolled student who didn't finish his payment.
     const { query, body } = req;
-    console.log('goth');
+    
     try {
       const { reference, amount } = body;
       let updatedStudent = await Student.findById(query.id).populate({
@@ -53,7 +53,7 @@ router
 
       res.json(populatedUpdatedStudent);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });

@@ -12,9 +12,9 @@ import Course from '../../../models/Course';
 
   router
   .use(async (req, res, next) => {
-    console.log('connecting...')
+    
     await connectMongo();
-    console.log('connected!')
+    
     await next(); // call next in chain
    
   }) .get(async (req, res) => {
@@ -30,7 +30,7 @@ import Course from '../../../models/Course';
      
        res.json(students);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
   })

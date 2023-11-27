@@ -62,7 +62,7 @@ const TrainingsPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { query } = router;
-  // console.log(query)
+  // 
   const [values, setValues] = useState({
     name: '',
     email: '',
@@ -114,12 +114,12 @@ const TrainingsPage = () => {
   }, [status]);
 
   useEffect(() => {
-    console.log(query);
+    
     query && dispatch(getClass(query.slug));
   }, [query]);
 
   const handleInputChange = (e) => {
-    console.log(e);
+    
     const { name, value } = e.target;
 
     setValues({
@@ -133,7 +133,7 @@ const TrainingsPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    
     validPhoneNumber && dispatch(addStudent(values));
   };
 

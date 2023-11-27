@@ -4,7 +4,7 @@ import HeadLayout from '../../src/components/HeadLayout';
 import TrainingPage from '../../src/components/landing/training/';
 
 const Training = ({ training }) => {
-  // console.log(training)
+  // 
   return (
     <>
       <HeadLayout
@@ -24,10 +24,10 @@ export const getServerSideProps = async ({ query }) => {
       ? 'https://gobeze.com'
       : 'http://localhost:3000';
   const res = await axios.get(`${API}/api/classes/${query.slug}`);
-  // console.log(res)
+  // 
   const training = res.data;
   // const {data} = await res.data
-  // console.log(JSON.stringify(data))
+  // 
   return {
     props: {
       training,

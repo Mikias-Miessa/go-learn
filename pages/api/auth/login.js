@@ -10,14 +10,14 @@ import User from '../../../models/User'
 export default async function loginUser(req, res){
  const { email, password} = req.body;
  try {
-    console.log('connecting...')
+    
     await connectMongo();
-    console.log('connected!')
-    console.log('loging env varaibles')
-    console.log('jwtSecret:'+process.env.jwtSecret)
-    console.log('emailPassword:'+process.env.emailPassword)
-    console.log('ATLAS_MONGO_URI:'+process.env.ATLAS_MONGO_URI)
-    console.log('MONGO_URI:'+process.env.MONGO_URI)
+    
+    
+    
+    
+    
+    
     let user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
@@ -38,7 +38,7 @@ export default async function loginUser(req, res){
         id: user.id,
       },
     };
-// console.log('secrret' + process.env.jwtSecret)
+// 
     jwt.sign(
       payload,
       process.env.jwtSecret,
@@ -51,7 +51,7 @@ export default async function loginUser(req, res){
       }
     );
  } catch (err) {
-     console.log(err);
+     
      res.status(500).send('Server Error')
  }
 

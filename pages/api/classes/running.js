@@ -7,9 +7,9 @@ import Student from '../../../models/Student';
 
 const handler = async (req, res) => {
   const { method } = req;
-  console.log('connecting...');
+  
   await connectMongo();
-  console.log('connected!');
+  
 
   if (method === 'GET') {
     try {
@@ -17,10 +17,10 @@ const handler = async (req, res) => {
         'course students schedule'
       );
 
-      console.log(classes.length);
+      
       res.json(classes);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   }

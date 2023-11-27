@@ -11,9 +11,9 @@ import Course from '../../../models/Course'
  const handler = async (req, res)=> {
  const {method,body,query} = req;
  const {id,courseName,courseCode,duration, price,online_url} = body;
- console.log('connecting...')
+ 
  await connectMongo();
- console.log('connected!')
+ 
  if(method === 'POST') {
     try {
       const slug = slugify(courseName);
@@ -24,7 +24,7 @@ import Course from '../../../models/Course'
        await course.save();
         res.json(course);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
  }
@@ -45,10 +45,10 @@ import Course from '../../../models/Course'
         course.price = price;
         course.online_url = online_url;
        await course.save();
-       console.log(course)
+       
        res.json(course);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
  }
@@ -60,7 +60,7 @@ import Course from '../../../models/Course'
    
         res.json(courses);
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
  }

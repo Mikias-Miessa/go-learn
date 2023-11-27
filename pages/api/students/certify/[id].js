@@ -13,17 +13,17 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...');
+    
     await connectMongo();
-    console.log('connected!');
+    
     await next(); // call next in chain
   })
   .post(async (req, res) => {
-    // console.log(req)
+    // 
     const { query, body } = req;
 
-    console.log(query);
-    console.log(body);
+    
+    
     try {
       const { certificateId, certificateImage } = body;
       let updatedStudent = await Student.findById(query.id).populate({
@@ -54,13 +54,13 @@ router
 
       res.json(populatedUpdatedStudent);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   })
   .put(async (req, res) => {
-    // console.log(req)
-    console.log('ghhh');
+    // 
+    
     const { query, body } = req;
 
     try {
@@ -83,7 +83,7 @@ router
         certificate: updatedStudent.certificate,
       });
       if (updatedCertificate) {
-        console.log('certificate found');
+        
         updatedCertificate.certificateId = certificateId;
         updatedCertificate.certificateImage = certificateImage;
         await updatedCertificate.save();
@@ -95,7 +95,7 @@ router
 
       res.json(populatedUpdatedStudent);
     } catch (err) {
-      console.log(err);
+      
       res.status(500).send('Server Error');
     }
   });

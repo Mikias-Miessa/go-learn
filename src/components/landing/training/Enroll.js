@@ -4,7 +4,7 @@ import Link from '../../Link';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 const Enroll = ({ training }) => {
-  console.log(training);
+  
   return (
     <Container
       sx={{ mt: -10, pb: 6, textAlign: 'center', mx: 'auto', zIndex: '10' }}

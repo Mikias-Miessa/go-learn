@@ -33,8 +33,8 @@ useEffect(()=>{
   }
   if(error){
 
-  console.log(error.length)
-  // console.log(error)
+  
+  // 
 error.forEach(err =>{
   toast.error(err.msg)
 })
@@ -48,7 +48,7 @@ if(isSuccess || user ){
 }
 if( !loading && isAuthenticated){
 
-  console.log('will redirect')
+  
   router.push('/admin/dashboard')
 }
 dispatch(reset)
@@ -60,7 +60,7 @@ dispatch(reset)
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    
       email: data.get('email'),
       password: data.get('password'),
     });

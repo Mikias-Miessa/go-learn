@@ -19,9 +19,9 @@ const initialState = {
         
         
         } catch (error) {
-          console.log(error)
+          
           const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
-          console.log(message)
+          
                
              return thunkAPI.rejectWithValue(message)
             
@@ -32,7 +32,7 @@ const initialState = {
  export const addCourse = createAsyncThunk(
     "course/add",
     async (course,thunkAPI) =>{
-     // console.log(course)
+     // 
       const { courseName,
       courseCode,duration,
       price,online_url } = course;
@@ -46,14 +46,14 @@ const initialState = {
         price,duration,online_url });
         try {
         const res = await axios.post('/api/courses', body, config);
-  console.log(res.data)
+  
         return res.data;
         
         
         } catch (error) {
-          console.log(error)
+          
           const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
-          console.log(message)
+          
                
              return thunkAPI.rejectWithValue(message)
             
@@ -65,7 +65,7 @@ const initialState = {
  export const updateCourse = createAsyncThunk(
   "course/update",
   async (course,thunkAPI) =>{
-   console.log(course)
+   
     const { id,courseName,
     courseCode,duration,
     price,online_url } = course;
@@ -79,13 +79,13 @@ const initialState = {
       price,duration,online_url });
       try {
       const res = await axios.put(`/api/courses`, body, config);
-console.log(res.data)
+
       return res.data;
       
       } catch (error) {
-        console.log(error)
+        
         const message = (error.response && error.response.data && error.response.data.errors) || error.message || error.toString();
-        console.log(message)
+        
              
            return thunkAPI.rejectWithValue(message)
           
@@ -157,7 +157,7 @@ console.log(res.data)
 
           })
           .addCase(getCourses.fulfilled, (state, action) => {
-            console.log(action.payload);
+            
             state.loading = false;
             state.courses = action.payload;
                    

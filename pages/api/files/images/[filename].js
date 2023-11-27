@@ -12,9 +12,9 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    console.log('connecting...')
+    
     await connectMongo();
-    console.log('connected!')
+    
     gfs = Grid(mongoose.connection.db, mongoose.mongo);
    gfs.collection('files');
     
@@ -39,7 +39,7 @@ router
         });
         // res.send('wii do')
      } catch (err) {
-         console.log(err);
+         
          res.status(500).send('Server Error')
      }
   })
