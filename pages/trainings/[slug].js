@@ -19,20 +19,33 @@ const Training = ({ training }) => {
 };
 
 export const getServerSideProps = async ({ query }) => {
-  const API =
-    process.env.NODE_ENV === 'production'
-      ? 'https://gobeze.com'
-      : 'http://localhost:3000';
-  const res = await axios.get(`${API}/api/classes/${query.slug}`);
-  // 
-  const training = res.data;
-  // const {data} = await res.data
-  // 
-  return {
-    props: {
-      training,
-    },
-  };
+  try {
+    const API =
+      process.env.NODE_ENV === 'production'
+        ? 'https://gobeze.com'
+        : 'http://localhost:3000';
+      
+    const res = await axios.get(`${API}/api/classes/${query.slug}`);
+    
+    // Assuming the response data is in the 'data' property
+    const training = res.data;
+
+    return {
+      props: {
+        training,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+
+    // Returning an empty object or a specific error prop in case of an error
+    return {
+      props: {
+        error: 'Failed to fetch data',
+      },
+    };
+  }
 };
+
 
 export default Training;

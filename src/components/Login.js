@@ -58,17 +58,17 @@ dispatch(reset)
 
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    dispatch(login({
-      email: data.get('email'),
-      password: data.get('password'),
-    }))
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+
+  const formData = {
+    email: data.get('email'),
+    password: data.get('password'),
   };
+
+  dispatch(login(formData));
+};
+
 
   return (<>
       <Container component="main" maxWidth="xs">

@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Statistics from '../dashboard/Statistics';
-import 
+import RunningClasses from './RunningClasses';
 import RecentRegistration from './RecentRegistration';
 
 export default function Dashboard() {

@@ -12,8 +12,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://gobeze.com/">
+        Gobeze Counsult
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -63,28 +63,39 @@ const Contact = () =>{
 
   // Validation for the entire form
   const validateForm = () => {
-    let isValid = true;
-    const newErrors = {};
+  let isValid = true;
+  const newErrors = {};
 
-    // Check each required field for emptiness and email format
-    ['name', 'email', 'message', 'companyName', 'phoneNumber', 'subject'].forEach((field) => {
-      if (!query[field].trim()) {
-        newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
-        isValid = false;
-      }
-    });
-
-    if (!query.email.trim()) {
-      newErrors.email = 'Email is required';
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(query.email)) {
-      newErrors.email = 'Invalid email address';
+  // Check each required field for emptiness and email format
+  ['companyName', 'name', 'email', 'phoneNumber', 'subject', 'message'].forEach((field) => {
+    if (!query[field].trim()) {
+      newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
       isValid = false;
     }
+  });
 
-    setErrors(newErrors);
-    return isValid;
-  };
+  if (!query.email.trim()) {
+    newErrors.email = 'Email is required';
+    isValid = false;
+  } else if (!/\S+@\S+\.\S+/.test(query.email)) {
+    newErrors.email = 'Invalid email address';
+    isValid = false;
+  }
+
+  // Phone number validation
+  const phoneNumberPattern = /^\d{10}$/; // Adjust the pattern based on your validation rules
+  if (!query.phoneNumber.trim()) {
+    newErrors.phoneNumber = 'Phone number is required';
+    isValid = false;
+  } else if (!phoneNumberPattern.test(query.phoneNumber.replace(/\D/g, ''))) {
+    newErrors.phoneNumber = 'Invalid phone number';
+    isValid = false;
+  }
+
+  setErrors(newErrors);
+  return isValid;
+};
+
 
   // Form submission handler
   const handleSubmit = (e) => {
@@ -94,12 +105,20 @@ const Contact = () =>{
 
     setLoading(true);
 
-    // Creating FormData and appending form data
-    const formData = new FormData();
-    Object.entries(query).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+   const formData = new FormData();
 
+// Manually append key-value pairs in the desired order
+formData.append('companyName', query.companyName);
+formData.append('name', query.name);
+formData.append('email', query.email);
+formData.append('phoneNumber', query.phoneNumber);
+formData.append('subject', query.subject);
+formData.append('message', query.message);
+
+// Log the contents of the FormData object
+for (const pair of formData.entries()) {
+  console.log(pair[0], pair[1]);
+}
     // Sending form data to a server (replace '#' with actual endpoint)
     axios
       .post('https://getform.io/f/2026ca1a-adcd-4e28-86c1-3287386b2d6d', formData, {
@@ -172,7 +191,7 @@ const Contact = () =>{
       {/* Form section */}
       <div className="flex justify-center items-center">
         <form onSubmit={handleSubmit} className="flex flex-col w-full md:w-1/2">
- {/* Input fields for name, company name, email, phone, subject, and message */}
+              {/* Input fields for name, company name, email, phone, subject, and message */}
             <input
               type="text"
               name="name"
@@ -213,7 +232,7 @@ const Contact = () =>{
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
             <input
-              type="number"
+              type="tel"
               name="phoneNumber"
               value={query.phoneNumber}
               onChange={handleChange}
@@ -251,12 +270,14 @@ const Contact = () =>{
             ></textarea>
             {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
 
-            <button
-              type="submit"
-              className="text-white bg-gradient-to-r from-orange-300 to-orange-500 px-6 py-3 my-8 mx-auto flex items-center rounded-md hover:scale-110 duration-300"
-            >
-              Let's talk
-            </button>
+             <button
+      type="submit"
+      className="text-white bg-gradient-to-r from-orange-300 to-orange-500 px-6 py-3 my-8 mx-auto flex items-center rounded-md hover:scale-110 duration-300"
+      disabled={loading} // Disable the button when loading is true
+   
+    >
+      {loading ? 'Sending...' : "Let's talk"}
+    </button>
 
             {formStatus && (
               <div className="mt-4 p-4 bg-green-500 text-white rounded-md">
@@ -330,8 +351,11 @@ const Contact = () =>{
                 <Link href='tel:+251920956048'>
                 +251920956048
                 </Link>
-            </Box>
-          
+                  </Box>
+                  <Box className='flex text-end mt-auto'>
+<Copyright/>
+                  </Box>
+              
           </Box>
         </Grid>
       </Grid>
