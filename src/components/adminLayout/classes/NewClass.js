@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux'
-import { Grid, TextField, Box, Button, InputLabel, Select, MenuItem, FormHelperText, CircularProgress, Backdrop } from "@mui/material"
+import { Grid, TextField, Box, Button, InputLabel, Select, MenuItem, FormHelperText, CircularProgress, Backdrop, Paper } from "@mui/material"
 import { toast } from 'react-toastify';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -121,15 +121,19 @@ const NewCourse = ({ setOpen }) => {
 
   return (
     <>
-      <Box
-        component="form"
-        sx={{
-          width: '100%'
+      <Paper
+  elevation={3}
+  sx={{
+    width: '100%',
+    maxHeight: '80vh', // Set a maximum height (adjust as needed)
+    overflowY: 'auto',
+    p: 2,
         }}
-        // noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
+    component="form"
+    autoComplete="off"
+    onSubmit={handleSubmit}
+>
+  
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <InputLabel id="courseSelect">Select Course</InputLabel>
@@ -254,7 +258,8 @@ const NewCourse = ({ setOpen }) => {
             Add
           </Button>
         </Box>
-      </Box>
+       
+</Paper>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={backdrop}

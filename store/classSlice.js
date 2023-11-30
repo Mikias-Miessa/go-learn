@@ -117,9 +117,10 @@ export const addClass = createAsyncThunk(
         'Content-Type': 'multipart/form-data',
       },
     };
+    console.log('this is the form data :', formData);
     try {
       const res = await axios.post('/api/classes', formData, config);
-      // 
+      console.log(res.data);
       return res.data;
     } catch (error) {
       
@@ -127,7 +128,7 @@ export const addClass = createAsyncThunk(
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      
+      console.log(message);
 
       return thunkAPI.rejectWithValue(message);
     }

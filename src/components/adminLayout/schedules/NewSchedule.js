@@ -6,6 +6,8 @@ import { KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import { toast } from 'react-toastify'
 import { addSchedule, reset } from '../../../../store/scheduleSlice';
+import TimePicker from 'react-time-picker';
+import 'react-time-picker/dist/TimePicker.css';
 
 const NewSchedule = ({ setOpen }) => {
     const [backdrop, setBackdrop] = useState(false);
@@ -99,33 +101,22 @@ const NewSchedule = ({ setOpen }) => {
                     </FormGroup>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardTimePicker
-                            margin="normal"
-                            id="start-hour"
-                            label="Start Hour"
-                            value={startHour}
-                            onChange={handleStartHourChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
-                    </MuiPickersUtilsProvider>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardTimePicker
-                            margin="normal"
-                            id="end-hour"
-                            label="End Hour"
-                            value={endHour}
-                            onChange={handleEndHourChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
-                        />
-                    </MuiPickersUtilsProvider>
-                </Grid>
+        <TimePicker
+          onChange={handleStartHourChange}
+          value={startHour}
+          clearIcon={null}
+          clockAriaLabel="Start Hour"
+        />
+      </Grid>
+
+      {/* End Hour */}
+      <Grid item xs={12} sm={6}>
+        <TimePicker
+          onChange={handleEndHourChange}
+          value={endHour}
+          clearIcon={null}
+        />
+      </Grid>
             </Grid>
 
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

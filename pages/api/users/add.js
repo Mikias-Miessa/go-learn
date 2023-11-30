@@ -34,7 +34,8 @@ export default async function addUser(req, res){
     //Save to MongoDB
     await user.save();
     
-    res.json(user);
+   res.json(user);
+   console.log('user added successfully')
  } catch (err) {
      
      res.status(500).send('Server')
