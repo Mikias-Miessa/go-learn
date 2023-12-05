@@ -14,7 +14,7 @@ const initialState = {
          
         try {
         const res = await axios.get('/api/courses');
-  
+          console.log(res.data)
         return res.data;
         
         
@@ -138,10 +138,11 @@ const initialState = {
               if(course._id === action.payload._id) return action.payload;
               return course;
             })
+            console.log('yessssss :',state.courses)
             state.newCourseAdded = 'success';
            
           })
-          // You can match a range of action types
+          // You can match a range of action types  
           .addCase(
             updateCourse.rejected,
             // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard

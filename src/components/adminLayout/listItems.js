@@ -11,9 +11,15 @@ import BatchPredictionIcon from '@mui/icons-material/BatchPrediction';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 import EventIcon from '@mui/icons-material/Event';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const mainListItems = (
-  <>
+
+
+export default function MainListItems() {
+const { user } = useSelector((state) => state.auth);
+
+  return (
+    <>
     <Link href="/admin/dashboard" color="primary">
       <ListItemButton>
         <ListItemIcon>
@@ -60,14 +66,19 @@ export const mainListItems = (
         <ListItemText primary="Followup" />
       </ListItemButton>
     </Link>
-    {/* <Link href="/admin/users" color="primary">
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Users" />
-    </ListItemButton>
-</Link> */}
+    <Link href="/admin/users" color="primary">
+     {user && user.role && user.role === 'admin' && (
+  <ListItemButton>
+    <ListItemIcon>
+      <PeopleIcon />
+    </ListItemIcon>
+    <ListItemText primary="Users" />
+  </ListItemButton>
+)}
+
+
+    
+    </Link>
     {/* <ListItemButton>
       <ListItemIcon>
         <LayersIcon />
@@ -75,30 +86,32 @@ export const mainListItems = (
       <ListItemText primary="Integrations" />
     </ListItemButton> */}
   </>
-);
+  );
+  
+}
 
-export const secondaryListItems = (
-  <>
-    <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
-  </>
-);
+// export const secondaryListItems = (
+//   <>
+//     <ListSubheader component="div" inset>
+//       Saved reports
+//     </ListSubheader>
+//     <ListItemButton>
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Current month" />
+//     </ListItemButton>
+//     <ListItemButton>
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Last quarter" />
+//     </ListItemButton>
+//     <ListItemButton>
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Year-end sale" />
+//     </ListItemButton>
+//   </>
+// );

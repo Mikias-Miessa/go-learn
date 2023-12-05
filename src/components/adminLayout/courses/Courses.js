@@ -177,7 +177,8 @@ export default function Courses() {
                       </TableCell>
                     </TableRow>
                   )
-              )}
+                )}
+                {console.log(courses)}
             </TableBody>
           </Table>
           <Link

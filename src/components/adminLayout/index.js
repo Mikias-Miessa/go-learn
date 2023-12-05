@@ -18,6 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
+import MainListItems from './listItems'
 // import Chart from './dashboard/Chart';
 import RunningClasses from './dashboard/RunningClasses';
 import RecentRegistration from './dashboard/RecentRegistration';
@@ -136,7 +137,8 @@ export default function AdminLayout({title, children}) {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {/* {mainListItems} */}
+            <MainListItems/>
             {/* <Divider sx={{ my: 1 }} />
             {secondaryListItems} */}
           </List>
