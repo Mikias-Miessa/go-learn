@@ -1,5 +1,6 @@
 module.exports = {
-  env:{
+  env: {
+    // ATLAS_MONGO_URI : "mongodb+srv://localhost/traingobez?retryWrites=true&w=majority",
     ATLAS_MONGO_URI : "mongodb+srv://mikiasmiessa:B0l5uNyqnu1pqzY9@cluster0.oyiswrr.mongodb.net/gobeze?retryWrites=true&w=majority",
     // ATLAS_MONGO_URI : "mongodb+srv://natty:wZycRUgZM8CqPY74@cluster0.ndidq.mongodb.net/gobeze?retryWrites=true&w=majority",
 jwtSecret : "secrettoken",
