@@ -46,7 +46,7 @@ function preventDefault(event) {
 }
 
 export default function Classes() {
-  const { runningClasses, loading } = useSelector((state) => state.classroom);
+  const { runningClasses, loading, newClassAdded } = useSelector((state) => state.classroom);
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -55,7 +55,7 @@ export default function Classes() {
 
   useEffect(() => {
     dispatch(getRunningClasses());
-  }, []);
+  }, [newClassAdded]);
   const handlePopperClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpenPoper((prev) => !prev);

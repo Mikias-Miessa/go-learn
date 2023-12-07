@@ -4,8 +4,6 @@ const uri = process.env.MONGO_URI;
 const atlasUri = process.env.ATLAS_MONGO_URI;
 
 // console.log('Mongo URI:', uri);
-console.log('Atlas Mongo URI:', atlasUri);
-
 const connectMongo = async () => {
   try {
     await mongoose.connect(atlasUri, {
@@ -17,5 +15,8 @@ const connectMongo = async () => {
     console.error('MongoDB connection error:', error);
   }
 };
+
+
+
 
 module.exports = connectMongo;

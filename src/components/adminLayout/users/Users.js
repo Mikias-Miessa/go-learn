@@ -90,10 +90,10 @@ export default function Users() {
     if(getuser === 'idel')
     dispatch(getUsers());
     
-  }, [getuser]);
+  }, [getuser, deleteUserStatus]);
   useEffect(() => {
     if (deleteUserStatus === 'success') {
-      toast.success('Schedule removed successfully!');
+      toast.success('User removed successfully!');
       setOpenDelete(false)
       dispatch(reset())
     }
