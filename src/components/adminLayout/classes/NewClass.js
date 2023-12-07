@@ -81,6 +81,12 @@ const NewCourse = ({ setOpen }) => {
       setBackdrop(false)
       dispatch(reset())
     }
+    if( newClassAdded === 'failed'){
+      toast.error('Failed to add Class')
+      setBackdrop(false)
+      dispatch(reset())
+      setOpen(false);
+    }
   }, [newClassAdded])
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,6 +99,9 @@ const NewCourse = ({ setOpen }) => {
     formData.append('instructor', values.instructor);
     formData.append('remark', values.remark);
     formData.append('thumbnail', values.thumbnail);
+//     for (const entry of formData.entries()) {
+//   console.log('this is the form data: ',entry[0], entry[1]);
+// } 
     dispatch(addClass(formData))
   }
 

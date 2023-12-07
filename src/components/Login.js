@@ -35,9 +35,11 @@ useEffect(()=>{
 
   
   // 
-error.forEach(err =>{
-  toast.error(err.msg)
-})
+  error.forEach(err => {
+    toast.error(err.msg);
+  });
+
+
 }
 if(isSuccess || user ){
   setBackdrop(false)

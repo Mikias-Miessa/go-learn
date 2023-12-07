@@ -117,7 +117,10 @@ export const addClass = createAsyncThunk(
         'Content-Type': 'multipart/form-data',
       },
     };
-    console.log('this is the form data :', formData);
+    for (const entry of formData.entries()) {
+      console.log('this is the form data: ', entry[0], entry[1])
+    }
+    
     try {
       const res = await axios.post('/api/classes', formData, config);
       console.log(res.data);
@@ -128,7 +131,7 @@ export const addClass = createAsyncThunk(
         (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      // console.log(message);
 
       return thunkAPI.rejectWithValue(message);
     }
@@ -199,18 +202,21 @@ export const classSlice = createSlice({
         state.loading = false;
         state.classes = [...state.classes, action.payload];
         state.newClassAdded = 'success';
+      }).addCase(addClass.rejected, (state) => {
+        state.newClassAdded = 'failed'
+        state.loading = false
       })
-      // You can match a range of action types
-      .addCase(
-        addClass.rejected,
-        // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
-        (state, action) => {
-          state.loading = false;
-          state.newClassAdded = '';
+      // // You can match a range of action types
+      // .addCase(
+      //   addClass.rejected,
+      //   // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
+      //   (state, action) => {
+      //     state.loading = false;
+      //     state.newClassAdded = 'failed';
 
-          // state.error= action.error.message
-        }
-      )
+      //     // state.error= action.error.message
+      //   }
+      // )
       .addCase(getClasses.pending, (state, action) => {
         state.loading = true;
       })

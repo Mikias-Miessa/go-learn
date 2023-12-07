@@ -15,14 +15,13 @@ export const config = {
 
 let storage = new GridFsStorage({
   url: process.env.ATLAS_MONGO_URI,
-  options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     const match = ['image/png', 'image/jpeg'];
     if (match.indexOf(file.mimetype) === -1) {
       const filename = `${Date.now()}-gobeze-${file.originalname}`;
       return filename;
     }
-    
+
     return {
       bucketName: 'files',
       filename: `${Date.now()}-gobeze-${file.originalname}`,
@@ -36,14 +35,19 @@ const router = createRouter();
 
 router
   .use(async (req, res, next) => {
-    
     await connectMongo();
-    
     await next(); // call next in chain
   })
   .use(upload.single('thumbnail'))
   .post(async (req, res) => {
     try {
+      if (!req.file) {
+        // No file was provided in the request
+        return res.status(400).json({
+          errors: [{ msg: 'No file uploaded' }],
+        });
+      }
+
       const { course, description, schedule, start_date, instructor, remark } =
         req.body;
 
@@ -79,7 +83,15 @@ router
 
       res.json(populatedNewClass);
     } catch (err) {
-      
+      console.error(err);
+
+      if (err instanceof multer.MulterError) {
+        // Multer error occurred (e.g., file size exceeded)
+        return res.status(400).json({
+          errors: [{ msg: 'File upload error', detail: err.message }],
+        });
+      }
+
       res.status(500).send('Server Error');
     }
   });
@@ -95,6 +107,3 @@ export default router.handler({
     res.status(404).end('Page is not found');
   },
 });
-
-// export default handler;
-// export default userAuth(handler)
