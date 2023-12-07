@@ -62,6 +62,7 @@ export default function Followup() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getStudents());
+     console.log('non contacted students: ', students)
   }, []);
 
   useEffect(() => {
@@ -116,6 +117,7 @@ export default function Followup() {
   const nonContactedStudents = students.filter(
     (student) => !student.contacted && student.status === 'registered'
   );
+ 
   return (
     <>
       <Title>

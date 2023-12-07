@@ -34,36 +34,45 @@ const NewStudent = ({ setOpen }) => {
   const [phone, setPhone] = useState('');
   const [validPhoneNumber, setValidPhone] = useState(false);
 
-  let courseOptions = [
-    <MenuItem key={0} value=''>
-      No Courses
-    </MenuItem>,
-  ];
-  // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
-  if (runningClasses.length > 0) {
-    courseOptions = runningClasses.map(
-      (course, index) =>
-        course && (
-          <MenuItem
-            key={index + 1}
-            value={course._id && course._id}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-            }}
-          >
-            <Typography sx={{ fontWeight: '300' }}>
-              {course.course?.courseName && course.course?.courseName}
-            </Typography>
-
-            <Typography sx={{ fontWeight: '400', color: 'primary.main' }}>
-              {course?.schedule}
-            </Typography>
-          </MenuItem>
-        )
-    );
+  function summarizeSchedule(schedule) {
+    const startTime = formatTime(schedule.startHour);
+    const endTime = formatTime(schedule.endHour);
+    const timeRange = `${startTime} to ${endTime}`;
+    return `${[...schedule.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(0, 1) + ' - ' + [...schedule.days].sort((a, b) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(a) - ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].indexOf(b)).slice(-1)} (${timeRange})`;
   }
+
+  let courseOptions = [
+  <MenuItem key={0} value=''>
+    No Courses
+  </MenuItem>,
+];
+
+if (runningClasses.length > 0) {
+  courseOptions = [
+    ...courseOptions, // Keep the "No Courses" option
+    ...runningClasses.map((course, index) => (
+      course && (
+        <MenuItem
+          key={index + 1}
+          value={course._id && course._id}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Typography sx={{ fontWeight: '300' }}>
+            {course.course?.courseName && course.course?.courseName}
+          </Typography>
+
+          <Typography sx={{ fontWeight: '400', color: 'primary.main' }}>
+            {course?.schedule?.startHour&& course?.schedule?.startHour}
+          </Typography>
+        </MenuItem>
+      )
+    )),
+  ];
+}
 
   useEffect(() => {
     dispatch(getRunningClasses());
@@ -103,6 +112,9 @@ const NewStudent = ({ setOpen }) => {
 
     dispatch(addStudent(values));
   };
+courseOptions.forEach((option, index) => {
+  console.log(`Element ${index + 1}:`, option);
+});
 
   return (
     <>
@@ -117,20 +129,20 @@ const NewStudent = ({ setOpen }) => {
       >
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <InputLabel id='courseSelect'>Select Course</InputLabel>
-            <Select
-              labelId='courseSelect'
-              value={values.course}
-              name='course'
-              label='Course *'
-              onChange={handleInputChange}
-              required
-              sx={{
-                minWidth: '200px',
-              }}
-            >
-              {courseOptions}
-            </Select>
+           <InputLabel id='courseSelect'>Select Course</InputLabel>
+    <Select
+      labelId='courseSelect'
+      value={values.course}
+      name='course'
+      label='Course *'
+      onChange={handleInputChange}
+      required
+      sx={{
+        minWidth: '200px',
+      }}
+    >
+      {courseOptions}
+    </Select>
             <FormHelperText>Required</FormHelperText>
           </Grid>
           <Grid item xs={12}>

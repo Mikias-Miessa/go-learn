@@ -95,7 +95,7 @@ const Contacted = ({ setOpen, student }) => {
               </Typography>
 
               <Typography sx={{ fontWeight: '400', color: 'primary.main' }}>
-                {course?.schedule}
+                {/* {course?.schedule} */}
               </Typography>
             </Box>
 
