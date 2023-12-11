@@ -1,23 +1,29 @@
-import { useState, useEffect } from 'react'
-import Image from 'next/image';
-import { useSelector, useDispatch } from 'react-redux'
+"use client"
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types'
+import {useSelector, useDispatch } from 'react-redux';
 import { Grid, TextField, Box, Button, InputLabel, Select, MenuItem, FormHelperText, CircularProgress, Backdrop, Paper } from "@mui/material"
-import { toast } from 'react-toastify';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { toast } from 'react-toastify'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { addClass, reset } from '../../../../store/classSlice';
+// import {updateCourse,reset} from '../../../../store/courseSlice';
+import { updateClass, reset } from '../../../../store/classSlice';
 import { getCourses } from '../../../../store/courseSlice';
 import { getSchedules } from '../../../../store/scheduleSlice';
 
+const UpdateClass = ({setOpen,selectedClass}) => {
 
-const NewCourse = ({ setOpen }) => {
-  const { classes, loading, newClassAdded } = useSelector((state) => state.classroom)
-  const { schedules } = useSelector((state) => state.schedule);
-  const { courses } = useSelector((state) => state.course)
-  const [backdrop, setBackdrop] = useState(false);
-  const dispatch = useDispatch();
-  const [values, setValues] = useState({
+    const dispatch = useDispatch();
+    const { schedules } = useSelector((state) => state.schedule);
+    const { courses } = useSelector((state) => state.course);
+    const { updateClassStatus } = useSelector((state) => state.classroom);
+
+   
+    const [imageInput, setImageInput] = useState(null)
+    const [backdrop, setBackdrop] = useState(false);
+    
+   const [values, setValues] = useState({
     course: '',
     description: '',
     schedule: [],
@@ -26,10 +32,8 @@ const NewCourse = ({ setOpen }) => {
     remark: '',
     thumbnail: null
   });
-
-  const [imageInput, setImageInput] = useState(null)
-
-  let courseOptions = [<MenuItem key={0} value=''>No Courses</MenuItem>];
+    
+    let courseOptions = [<MenuItem key={0} value=''>No Courses</MenuItem>];
   // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
   if (courses.length > 0) {
     courseOptions = courses.map((course, index) => course && (
@@ -45,9 +49,10 @@ const NewCourse = ({ setOpen }) => {
   useEffect(() => {
     dispatch(getSchedules())
   }, [])
+    
 
-
-  const handleImageChange = (e) => {
+   
+    const handleImageChange = (e) => {
     const file = e.target.files[0];
     setValues({
       ...values,
@@ -62,57 +67,61 @@ const NewCourse = ({ setOpen }) => {
       }
       fileReader.readAsDataURL(file)
     }
-  }
+    }
+      
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  useEffect(() => {
+
+   if(selectedClass){
+       setValues({
+        course: selectedClass.course?.courseName ? selectedClass.course?.courseName : '',
+        schedule:selectedClass.email ? user.email : '',
+        description: selectedClass.description? selectedClass.description : '',
+        start_date: selectedClass.start_date ? selectedClass.start_date : '',
+        instructor: selectedClass.instructor ? selectedClass.instructor : '',
+        remark: selectedClass.remark ? selectedClass.remark : '',
+        thumbnail: selectedClass.thumbnail? selectedClass.thumbnail:''
+       })
+   }
+  }, [])
+
+// const {alert} = useSelector((state)=> state.alert)
+
+
+  const handleInputChange = (e)=>{
+    const {name,value} = e.target;
 
     setValues({
       ...values,
-      [name]: value
+      [name]:value
     })
   }
-  useEffect(() => {
-    if (newClassAdded === 'pending') {
-      setBackdrop(true)
-    }
-    if (newClassAdded === 'success') {
-      toast.success('New Class added successfully!');
-      setOpen(false);
-      setBackdrop(false)
-      dispatch(reset())
-    }
-    if( newClassAdded === 'failed'){
-      toast.error('Failed to add Class')
-      setBackdrop(false)
-      dispatch(reset())
-      setOpen(false);
-    }
-  }, [newClassAdded])
-  const handleSubmit = (e) => {
+  const handleSubmit =(e)=>{
     e.preventDefault();
     
-    const formData = new FormData();
-    formData.append('course', values.course);
-    formData.append('description', values.description);
-    formData.append('schedule', values.schedule);
-    formData.append('start_date', values.start_date);
-    formData.append('instructor', values.instructor);
-    formData.append('remark', values.remark);
-    formData.append('thumbnail', values.thumbnail);
-//     for (const entry of formData.entries()) {
-//   console.log('this is the form data: ',entry[0], entry[1]);
-// } 
-    dispatch(addClass(formData))
+    dispatch(updateClass({
+      ...values,
+      id:selectedClass._id
+    }))
   }
 
-  const renderValue = (selected) => {
-    if (!Array.isArray(selected)) {
-      return '';
-    }
-    return selected.join(', ');
-  };
+ 
 
+  useEffect(() => {
+
+    if(updateClassStatus==='pending'){
+      setBackdrop(true)
+    }
+    if(updateClassStatus === 'success'){
+      toast.success('class updated successfully!');
+      setOpen();
+      setBackdrop(false)
+      dispatch(reset())
+    }
+  }, [updateClassStatus])
+    
+
+    
   function summarizeSchedule(schedule) {
     const startTime = formatTime(schedule.startHour);
     const endTime = formatTime(schedule.endHour);
@@ -127,10 +136,10 @@ const NewCourse = ({ setOpen }) => {
     const formattedMinute = String(minute).padStart(2, '0');
     const period = isPM ? 'pm' : 'am';
     return `${formattedHour}:${formattedMinute}${period}`;
-  }
-
+    }
+    
   return (
-    <>
+     <>
       <Paper
   elevation={3}
   sx={{
@@ -146,7 +155,7 @@ const NewCourse = ({ setOpen }) => {
   
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <InputLabel id="courseSelect">Select Course</InputLabel>
+             <InputLabel id="courseSelect">Select Course</InputLabel>
             <Select
               labelId="courseSelect"
               value={values.course}
@@ -281,4 +290,8 @@ const NewCourse = ({ setOpen }) => {
   )
 }
 
-export default NewCourse
+UpdateClass.propTypes = {
+  setOpen: PropTypes.func.isRequired
+}
+
+export default UpdateClass

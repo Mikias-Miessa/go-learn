@@ -53,7 +53,7 @@ if( !loading && isAuthenticated){
   
   router.push('/admin/dashboard')
 }
-dispatch(reset)
+dispatch(reset())
 
 
 },[user, isAuthenticated, error,loading,router,status,dispatch])

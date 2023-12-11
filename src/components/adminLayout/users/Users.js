@@ -206,9 +206,9 @@ export default function Users() {
           </Table>
           <Modal open={update} onClose={handleClose}>
         <Box sx={{ ...modalStyle, width: '80%' }}>
-          <h2 id='parent-modal-title'>Update course</h2>
+          <h2 id='parent-modal-title'>Update User</h2>
           <p id='parent-modal-description'>
-            Update Users.
+            Update User.
           </p>
               <UpdateUser setOpen={handleClose} user={updatedUser} />
               

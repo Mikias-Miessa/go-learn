@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from '../../Link';
@@ -26,6 +27,7 @@ import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { getRunningClasses } from '../../../../store/classSlice';
+import UpdateClass from './UpdateClass';
 
 const modalStyle = {
   position: 'absolute',
@@ -41,22 +43,39 @@ const modalStyle = {
   pb: 3,
 };
 
-function preventDefault(event) {
-  event.preventDefault();
-}
+
 
 export default function Classes() {
+
+
+
+  const [update, setUpdate] = useState(false)
+  const { } = useSelector((state) => state.user);
   const { runningClasses, loading, newClassAdded } = useSelector((state) => state.classroom);
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [openPoper, setOpenPoper] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedClass, setSelectedClass] = useState();
 
   useEffect(() => {
     dispatch(getRunningClasses());
   }, [newClassAdded]);
-  const handlePopperClick = (event) => {
+
+    function preventDefault(event) {
+  event.preventDefault();
+}
+const handleUpdate = () => {
+  setUpdate(true);
+  console.log('update clicked')
+};
+  const handlePopperClick = (event, id) => {
+    let updatedClass = runningClasses.find((c) => c._id === id);
+    setSelectedClass(updatedClass);
+    console.log(updatedClass);
+    console.log(id)
+    //  let user = users.find((u) => u._id === id);
     setAnchorEl(event.currentTarget);
     setOpenPoper((prev) => !prev);
   };
@@ -65,11 +84,10 @@ export default function Classes() {
   };
   const handleClose = () => {
     setOpen(false);
+    setUpdate(false);
   };
 
-  useEffect(() => {
-    
-  }, [])
+
 
   return (
     <>
@@ -183,6 +201,7 @@ export default function Classes() {
                                     startIcon={
                                       <EditOutlinedIcon fontSize='small' />
                                     }
+                                    onClick={handleUpdate}
                                   >
                                     Edit Class
                                   </Button>
@@ -204,7 +223,10 @@ export default function Classes() {
                               </Fade>
                             )}
                           </Popper>
-                          <IconButton onClick={handlePopperClick}>
+                          <IconButton onClick={(e)=>{
+                        
+                          handlePopperClick(e,item._id && item._id)
+                        }}>
                             <MoreVertIcon />
                           </IconButton>
                         </TableCell>
@@ -253,6 +275,18 @@ export default function Classes() {
             Add In-person classes which are held on Gobeze.
           </p>
           <NewClass setOpen={setOpen} />
+        </Box>
+      </Modal>
+       <Modal open={update} onClose={handleClose}>
+        <Box sx={{ ...modalStyle, width: '80%' }}>
+          <h2 id='parent-modal-title'>Update class</h2>
+          <p id='parent-modal-description'>
+            Update class.
+          </p>
+          <UpdateClass setOpen={handleClose} selectedClass={selectedClass}/>
+          {/* <UpdateUser setOpen={handleClose} user={updatedUser} /> */}
+          
+              
         </Box>
       </Modal>
     </>

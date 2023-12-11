@@ -6,7 +6,7 @@ import { toast} from 'react-toastify'
 // import {updateCourse,reset} from '../../../../store/courseSlice';
 import {updateUser,reset} from '../../../../store/userSlice';
 
-const NewCourse = ({setOpen,user}) => {
+const UpdateUser = ({setOpen,user}) => {
 
 // 
     const [values, setValues] = useState({
@@ -135,8 +135,8 @@ const dispatch = useDispatch();
   )
 }
 
-NewCourse.propTypes = {
+UpdateUser.propTypes = {
   setOpen: PropTypes.func.isRequired
 }
 
-export default NewCourse
+export default UpdateUser
