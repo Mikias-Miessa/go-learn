@@ -21,7 +21,7 @@ const TrainingPage = ({training}) =>{
             
               <div>
                   <Hero training={training} />
-            <Nav/>
+            <Nav training={training}/>
             <OverView training={training}/>
             <Curriculum /> 
             <Instructors />

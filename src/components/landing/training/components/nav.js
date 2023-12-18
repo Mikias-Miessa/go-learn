@@ -25,7 +25,7 @@ const links = [
     },
 ]
 
-const Nav = () => {
+const Nav = ({training}) => {
     return (
         <nav className='hidden lg:flex lg:sticky lg:top-20 lg:bg-gray-100 rounded-md h-80 w-48 xl:ml-32 ml-10 z-50 flex-col justify-between pt-3'>
             <div className='flex flex-col justify-between'>
@@ -38,7 +38,7 @@ const Nav = () => {
                 ))}
             </div>
 
-            <button className='bg-orange-400 rounded-sm h-12'> Apply Now</button>
+            <a className='bg-orange-400 rounded-sm h-12 cursor-pointer flex items-center justify-center' href={`/enroll/${training.slug && training.slug}`}     > Apply Now</a>
         </nav>
     );
 };
