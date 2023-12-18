@@ -29,7 +29,7 @@ export const getServerSideProps = async ({ query }) => {
   
   const API =
     process.env.NODE_ENV === 'production'
-      ? 'https://gobeze.com'
+      ? 'https://go-learn-eq269dth2-mikias-miessa.vercel.app'
       : 'http://localhost:3000';
   
   const res = await axios.get(`${API}/api/certificate/${query.id}`);

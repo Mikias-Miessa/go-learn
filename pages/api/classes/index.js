@@ -53,7 +53,7 @@ router
 
       const API =
         process.env.NODE_ENV == 'production'
-          ? 'https://gobeze.com'
+          ? 'https://go-learn-eq269dth2-mikias-miessa.vercel.app'
           : 'http://localhost:3000';
 
       const thumbnailImage = '/api/files/images/' + req.file.filename;
