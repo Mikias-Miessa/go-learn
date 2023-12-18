@@ -1,16 +1,24 @@
 import {Box,CircularProgress,Paper, Typography} from '@mui/material'
-import ClassDescription from "./ClassDescription"
+// import ClassDescription from "./ClassDescription"
 import Footer from "../Footer"
 import Header from "./Header"
-import Hero from './ClassHero';
-import Enroll from './Enroll';
+// import Hero from './ClassHero';
+// import Enroll from './Enroll';
+import React from 'react'
+import OverView from './components/overview'
+import Curriculum from './components/curriculum'
+import Hero from './components/hero'
+import Nav from './components/nav'
+import Instructors from './components/instructors'
+import FAQ from './components/faq'
+import Tuition from './components/tuition'
 const TrainingPage = ({training}) =>{
     return   (
       <>
         <Header />
-        <main>
-          <Hero />
-          <Paper
+        <main className='bg-white'>
+          {/* <Hero /> */}
+          {/* <Paper
             sx={{
               ml: 3,
               mr: 3,
@@ -32,7 +40,7 @@ const TrainingPage = ({training}) =>{
              
             }}
             
-          >
+          > */}
             {/* <Box sx={{
                  '@media screen and (min-width: 576px)': {
                     maxWidth: '540',
@@ -45,14 +53,21 @@ const TrainingPage = ({training}) =>{
                   },
             }}> </Box> */}
             {training ?  <>
-              <ClassDescription training={training}/>
+              {/* <ClassDescription training={training}/>
 
-              <Enroll training={training}/>
+              <Enroll training={training}/> */}
+            <Hero training={training} />
+            <Nav/>
+            <OverView />
+            <Curriculum /> 
+            <Instructors />
+            <Tuition/>
+            <FAQ/>
             </>: <CircularProgress color='primary' sx={{m:'auto'}} />
             
           }
                
-          </Paper>
+          {/* </Paper> */}
         </main>
         <Footer />
       </>

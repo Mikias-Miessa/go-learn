@@ -27,7 +27,7 @@ const Header = () => {
             left: 0,
             zIndex: '100',
             width: '100%',
-            background: 'transparent',
+            background: 'white',
             backdropFilter: 'saturate(200%) blur(30px)',
           }}
         >
@@ -36,7 +36,7 @@ const Header = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: 'transparent',
+              background: 'white',
             }}
           >
             <Box>
@@ -47,13 +47,13 @@ const Header = () => {
             <Box
               sx={{
                 display: 'flex',
-                background: 'transparent',
+                background: 'white',
                 ml: 'auto',
                 mr: 0,
                 gap: '2rem',
                 '&.MuiBox-root a': {
                   textDecoration: 'none',
-                  color: '#fff',
+                  color: '#105a7E',
                   fontWeight: '500',
                   fontSize: '0.85rem',
                   fontFamily: 'Montserrat',
