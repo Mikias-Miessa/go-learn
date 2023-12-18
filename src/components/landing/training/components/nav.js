@@ -31,7 +31,7 @@ const Nav = () => {
             <div className='flex flex-col justify-between'>
                 {links.map(({ id, link }) => (
                     <p key={id} className='px-4 cursor-pointer my-3 capitalize font-medium  text-gray-700 hover:text-sky-800 duration-200'>
-                        <Link to={link} smooth duration={500} spy={true} activeClass='nav-active' >
+                        <Link to={link}  duration={200} spy={true} activeClass='nav-active'  smooth={true} offset={-50}  >
                             {link}
                         </Link>
                     </p>

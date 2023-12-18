@@ -7,14 +7,15 @@ const Curriculum = () => {
   return (
     <div name='Curriculum' className='h-min bg-white w-full lg:mb-14'>
       <div className="md:bg-[url('/bg.jpg')] md:bg-cover lg:bg-cotain md:bg-no-repeat  md:h-min pb-20">
-        <div className='visible md:hidden my-6 flex justify-center'>
-              <Image src={bg} alt='hero Image' className='w-fit '/>
+        <div className='visible md:hidden my-6 flex justify-center '>
+          <Image src={bg} alt='hero Image' className='w-fit' />
+          {/* <img src='../../../../../public/bg.jpg' alt="hero Image" className='w-fit' /> */}
              </div>
         <div className="grid md:grid-cols-7">
            
              <div className='md:col-span-4'> </div>
           <div className='md:col-span-3 md:mr-10'>
-            <div className='flex flex-col justify-center items-start bg-white py-6 px-8 mx-6 md:mx-0 md:-mt-12 -mt-20 w-10/12 h-fit'>
+            <div className='flex flex-col justify-center items-start bg-white py-6 px-8 mx-6 md:mx-0 md:-mt-12 -mt-20 w-10/12 h-fit border '>
              
               <h1 className='text-black text-2xl md:text-4xl font-bold'>Inside Our Best-in-Class Curriculum</h1>
               <h3 className='text-black md:text-lg font-semibold mt-10'>

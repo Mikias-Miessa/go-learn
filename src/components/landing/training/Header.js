@@ -151,7 +151,7 @@ const Header = () => {
                     gap: '1rem',
                     '&.MuiBox-root a': {
                       textDecoration: 'none',
-                      color: '#fff',
+                      color: '#105a7E',
                       fontWeight: '600 !important',
                       fontFamily: 'Montserrat',
                       fontSize: '.875rem',

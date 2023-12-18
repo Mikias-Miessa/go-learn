@@ -1,9 +1,8 @@
 import {Box,CircularProgress,Paper, Typography} from '@mui/material'
-// import ClassDescription from "./ClassDescription"
+
 import Footer from "../Footer"
 import Header from "./Header"
-// import Hero from './ClassHero';
-// import Enroll from './Enroll';
+
 import React from 'react'
 import OverView from './components/overview'
 import Curriculum from './components/curriculum'
@@ -19,19 +18,24 @@ const TrainingPage = ({training}) =>{
         <main className='bg-white'>
           
           {training ?
-            <>
-
-            <Hero training={training} />
+            
+              <div>
+                  <Hero training={training} />
             <Nav/>
-            <OverView />
+            <OverView training={training}/>
             <Curriculum /> 
             <Instructors />
             <Tuition/>
             <FAQ/>
-          </> : 
-            <div className='bg-white flex justify-center items-center'>
-          <div className='text-center'><CircularProgress color='primary' sx={{ m: 'auto' }} /></div>
-        </div>
+              </div>
+
+          
+           : 
+            <div className='bg-white h-screen flex justify-center items-center'>
+              <div className='text-center'>
+                <CircularProgress color='primary' sx={{ m: 'auto' }} />
+              </div>
+            </div>
             
           }
                

@@ -1,8 +1,9 @@
 import React from 'react';
 import Nav from './nav';
 import Image from 'next/image'
+import Moment from 'moment';
 import companyLogos from '../../../../../public/companyLogos.jpg'
-const OverView = () => {
+const OverView = ({training}) => {
   return (
     <div name="Overview" className='h-fit bg-white grid lg:grid-cols-8 px-10 mb-3 lg:-mt-80'>
       <div className='hidden lg:block lg:col-span-2'>
@@ -15,7 +16,8 @@ const OverView = () => {
             <div className='col-span-1 '>
               <h1 className='text-black font-bold text-xl lg:text-2xl mb-4'> Course Overview: </h1>
               <h3 className='text-black tracking-wide text-sm ml-5 leading-6'>
-                <ol className='mb-2'><strong>Duration:</strong> 3 Months</ol>
+                <ol className='mb-2'><strong>Duration: </strong>{ training.course?.duration}</ol>
+                <ol className='mb-2'><strong>Start day: </strong>{Moment(training.start_date).format('MMM DD YYYY ')}</ol>
                 <ol className='mb-2'><strong>Prerequisites: </strong> Basics of Programming Language,
                   Basics of English Language and Individuals with unique project ideas
                   or a specific goal in mind will derive the most benefit from the course.</ol>
