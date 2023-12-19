@@ -28,7 +28,7 @@ const Certificate = ({ certificate }) => {
   //   : null;
   const imageSrc = certificate
     ? process.env.NODE_ENV === 'production'
-      ? `https://go-learn-ashen.vercel.app/certificates/${certificate?.certificateImage}`
+      ? `https://go-learn-mikias-miessa.vercel.app/certificates/${certificate?.certificateImage}`
       : `http://localhost:3000/certificates/${certificate?.certificateImage}`
     : null;
 

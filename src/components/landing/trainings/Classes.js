@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import Moment from 'moment';
 
-import graphics from '../../../images/graphics.avif';
+import logo from '../../../../public/logo.png';
 import Link from '../../Link';
 import { getRunningClassesAd } from '../../../../store/classSlice';
 const textStyle = {
@@ -180,7 +180,7 @@ const Courses = () => {
                             >
                               <Image
                                 src={
-                                  course.thumbnail ? course.thumbnail : graphics
+                                  course.thumbnail ? course.thumbnail : logo
                                 }
                                 alt='graphic Design'
                                 layout='fill'

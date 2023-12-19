@@ -10,7 +10,7 @@ emailPassword: 'neenvekyziuguhrq'
   },
   reactStrictMode: false,
   images: {
-    domains: ['images.unsplash.com','gobeze.com','localhost','go-learn-fsf8cqfmr-mikias-miessa.vercel.app']
+    domains: ['images.unsplash.com','gobeze.com','localhost','go-learn-mikias-miessa.vercel.app']
 },
 async headers() {
   return [
