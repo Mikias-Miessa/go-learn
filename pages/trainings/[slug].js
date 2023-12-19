@@ -11,7 +11,7 @@ const Training = ({ training }) => {
         title={training?.course?.courseName}
         description={training?.description}
         // image={`https://gobeze.com${training?.thumbnail}`}
-        image={`https://go-learn-fsf8cqfmr-mikias-miessa.vercel.app${training?.thumbnail}`}
+        image={`https://go-learn-ashen.vercel.app/${training?.thumbnail}`}
       >
         <TrainingPage training={training} />
       </HeadLayout>
@@ -27,7 +27,7 @@ export const getServerSideProps = async ({ query }) => {
     //     : 'http://localhost:3000';
     const API =
       process.env.NODE_ENV === 'production'
-        ? 'https://go-learn-fsf8cqfmr-mikias-miessa.vercel.app'
+        ? 'https://go-learn-ashen.vercel.app'
         : 'http://localhost:3000';
       
     const res = await axios.get(`${API}/api/classes/${query.slug}`);

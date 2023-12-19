@@ -14,7 +14,7 @@ const CertificatePage = ({ certificate }) => {
         title={pageTitle}
         image={
           certificate
-            ? `https://gobeze.com/certificates/${certificate?.certificateImage}`
+            ? `https://go-learn-ashen.vercel.app/certificates/${certificate?.certificateImage}`
             : ''
         }
       >
@@ -33,7 +33,7 @@ export const getServerSideProps = async ({ query }) => {
   //     : 'http://localhost:3000';
   const API =
     process.env.NODE_ENV === 'production'
-      ? 'https://go-learn-fsf8cqfmr-mikias-miessa.vercel.app'
+      ? 'https://go-learn-ashen.vercel.app'
       : 'http://localhost:3000';
   
   const res = await axios.get(`${API}/api/certificate/${query.id}`);

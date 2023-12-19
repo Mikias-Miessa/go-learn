@@ -57,7 +57,7 @@ router
       //     : 'http://localhost:3000';
       const API =
         process.env.NODE_ENV == 'production'
-          ? 'https://go-learn-fsf8cqfmr-mikias-miessa.vercel.app'
+          ? 'https://go-learn-ashen.vercel.app'
           : 'http://localhost:3000';
 
       const thumbnailImage = '/api/files/images/' + req.file.filename;
