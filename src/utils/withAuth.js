@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useSelector } from "react-redux";
+import {useEffect} from 'react'
 import Login from '../components/Login';
 const withAuth = Component => {
     const Auth = (props) => {
@@ -9,16 +10,20 @@ const withAuth = Component => {
       // useEffect(() => {
       //   if(!loading && !isAuthenticated){
       //     if (typeof window !== 'undefined') {
-      //       router.push('/')
+      //       router.push('/admin/')
       //     }
       //   }
       //     }, [isAuthenticated,loading])
   
       // If user is not logged in, return login component
-      if (!loading && !isAuthenticated) {
+      if ( !isAuthenticated) {
         return (
           <Login />
         );
+      } else if (!loading) {
+        return (
+          <Login/>
+        )
       }
 
   

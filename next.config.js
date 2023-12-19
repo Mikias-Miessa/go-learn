@@ -2,15 +2,15 @@ module.exports = {
   env: {
     // ATLAS_MONGO_URI : "mongodb+srv://localhost/traingobez?retryWrites=true&w=majority",
     // ATLAS_MONGO_URI: "mongodb+srv://mikiasmiessa:B0l5uNyqnu1pqzY9@cluster0.oyiswrr.mongodb.net/gobeze?retryWrites=true&w=majority",
-    // ATLAS_MONGO_URI:"mongodb+srv://mikiasmiessa:fAAhP99sgY0ypC2m@cluster0.ykx8xjn.mongodb.net/gobeze?retryWrites=true&w=majority",
-    ATLAS_MONGO_URI : "mongodb+srv://natty:wZycRUgZM8CqPY74@cluster0.ndidq.mongodb.net/gobeze?retryWrites=true&w=majority",
+    ATLAS_MONGO_URI:"mongodb+srv://mikiasmiessa:fAAhP99sgY0ypC2m@cluster0.ykx8xjn.mongodb.net/gobeze?retryWrites=true&w=majority",
+    // ATLAS_MONGO_URI : "mongodb+srv://natty:wZycRUgZM8CqPY74@cluster0.ndidq.mongodb.net/gobeze?retryWrites=true&w=majority",
 jwtSecret : "secrettoken",
 emailPassword: 'neenvekyziuguhrq'
 
   },
   reactStrictMode: false,
   images: {
-    domains: ['images.unsplash.com','gobeze.com','localhost']
+    domains: ['images.unsplash.com','gobeze.com','localhost','go-learn-fsf8cqfmr-mikias-miessa.vercel.app']
 },
 async headers() {
   return [

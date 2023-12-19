@@ -21,9 +21,14 @@ import {
 } from 'next-share';
 const Certificate = ({ certificate }) => {
   
+  // const imageSrc = certificate
+  //   ? process.env.NODE_ENV === 'production'
+  //     ? `https://gobeze.com/certificates/${certificate?.certificateImage}`
+  //     : `http://localhost:3000/certificates/${certificate?.certificateImage}`
+  //   : null;
   const imageSrc = certificate
     ? process.env.NODE_ENV === 'production'
-      ? `https://gobeze.com/certificates/${certificate?.certificateImage}`
+      ? `https://go-learn-fsf8cqfmr-mikias-miessa.vercel.app/certificates/${certificate?.certificateImage}`
       : `http://localhost:3000/certificates/${certificate?.certificateImage}`
     : null;
 

@@ -51,9 +51,13 @@ router
       const { course, description, schedule, start_date, instructor, remark } =
         req.body;
 
+      // const API =
+      //   process.env.NODE_ENV == 'production'
+      //     ? 'https://gobeze.com'
+      //     : 'http://localhost:3000';
       const API =
         process.env.NODE_ENV == 'production'
-          ? 'https://gobeze.com'
+          ? 'https://go-learn-fsf8cqfmr-mikias-miessa.vercel.app'
           : 'http://localhost:3000';
 
       const thumbnailImage = '/api/files/images/' + req.file.filename;
