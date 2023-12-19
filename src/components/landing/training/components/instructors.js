@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import user from '../../../../../public/male.png'
-const Instructors = () => {
+const Instructors = ({training}) => {
   return (
     <div name='Instructors' className='h-fit'>
     <div  className='h-fit bg-sky-800 grid md:grid-cols-8 py-10'>
@@ -19,7 +19,7 @@ const Instructors = () => {
         </div>
         <div className='lg:col-span-1 flex flex-col items-center justify-center gap-4 lg:py-20 py-10'>
           <Image src={user} width={150} height={150} alt='instructor image' className='rounded-full' />
-          <h2 className='text-base ' >Nathnael Zerihun</h2>
+          <h2 className='text-base ' >{training.instructor}</h2>
           <p className='font-light text-center px-10 md:px-0'>Instructor(Regular), In-calss
 Chief Technology Officer at Tolo Technology Solutions
 Mobile Application Developer at Engida Travel and Technology

@@ -24,7 +24,7 @@ const TrainingPage = ({training}) =>{
             <Nav training={training}/>
             <OverView training={training}/>
             <Curriculum /> 
-            <Instructors />
+            <Instructors training={training}/>
             <Tuition/>
             <FAQ/>
               </div>

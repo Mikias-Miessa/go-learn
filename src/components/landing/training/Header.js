@@ -27,16 +27,16 @@ const Header = () => {
             left: 0,
             zIndex: '100',
             width: '100%',
-            background: 'white',
+            background: 'rgba(255, 255, 255, 0.8)',
             backdropFilter: 'saturate(200%) blur(30px)',
           }}
         >
           <Box
-            sx={{
+           sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: 'white',
+              background: 'transparent',
             }}
           >
             <Box>
@@ -45,15 +45,15 @@ const Header = () => {
               </Link>
             </Box>
             <Box
-              sx={{
+             sx={{
                 display: 'flex',
-                background: 'white',
+                background: 'transparent',
                 ml: 'auto',
                 mr: 0,
                 gap: '2rem',
                 '&.MuiBox-root a': {
                   textDecoration: 'none',
-                  color: '#105a7E',
+                  color: 'secondary.main',
                   fontWeight: '500',
                   fontSize: '0.85rem',
                   fontFamily: 'Montserrat',
