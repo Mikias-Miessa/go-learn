@@ -33,7 +33,7 @@ export const getServerSideProps = async ({ query }) => {
   //     : 'http://localhost:3000';
   const API =
     process.env.NODE_ENV === 'production'
-      ? 'https://go-learn-ashen.vercel.app'
+      ? 'https://gobezelearning.vercel.app'
       : 'http://localhost:3000';
   
   const res = await axios.get(`${API}/api/certificate/${query.id}`);

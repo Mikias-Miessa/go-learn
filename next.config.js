@@ -10,7 +10,7 @@ emailPassword: 'neenvekyziuguhrq'
   },
   reactStrictMode: false,
   images: {
-    domains: ['images.unsplash.com','gobeze.com','localhost','https://go-learn-ashen.vercel.app']
+    domains: ['images.unsplash.com','gobeze.com','localhost','gobezelearning.vercel.app']
 },
 async headers() {
   return [

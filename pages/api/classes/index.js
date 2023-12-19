@@ -57,7 +57,7 @@ router
       //     : 'http://localhost:3000';
       const API =
         process.env.NODE_ENV == 'production'
-          ? 'https://go-learn-ashen.vercel.app'
+          ? 'https://gobezelearning.vercel.app'
           : 'http://localhost:3000';
 
       const thumbnailImage = '/api/files/images/' + req.file.filename;
