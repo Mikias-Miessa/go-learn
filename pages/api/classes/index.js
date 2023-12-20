@@ -98,7 +98,23 @@ router
 
       res.status(500).send('Server Error');
     }
-  });
+  })
+  .delete(async (req, res) => {
+    const { id } = req.query;
+    console.log('id from the backnd', id);
+    try {
+      if (!id) {
+        return res.status(400).json({
+          errors: [{ msg: 'missing class id in the request parameter' }],
+        });
+      }
+      await Class.findByIdAndDelete({ _id: id });
+      return res.json({id})
+    } catch (e) {
+      console.log(e)
+      res.status(500).send('Server Error');
+    }
+  })
 
 // create a handler from router with custom
 // onError and onNoMatch

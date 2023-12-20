@@ -4,6 +4,7 @@ import Footer from "./Footer"
 import Header from "./Header"
 import Hero from './Hero'
 import Stats from './Stats'
+import About from './about'
 const LandingPage = () =>{
 
     return (
@@ -30,6 +31,7 @@ const LandingPage = () =>{
             }}
             
           >
+            <About/>
             <Stats />
             {/* <Box sx={{
                  '@media screen and (min-width: 576px)': {

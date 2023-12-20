@@ -19,3 +19,12 @@ html {
   font-weight: 600;
   /* Sky Blue color */
 }
+.gobeze-primary{
+  color:#FF7F00
+}
+.gobeze-secondary{
+  color:#0A122D
+}
+.gobeze-secondary-light{
+  color: rgb(123, 128, 154);
+}

@@ -8,7 +8,7 @@ const Hero = ({training}) => {
         <div   className="md:bg-[url('/heroo.jpg')] md:bg-cover lg:bg-cotain md:bg-no-repeat  md:h-min pb-20">
           <div className="grid lg:grid-cols-5">
              <div className='lg:col-span-3 flex flex-col justify-center ml-10 lg:ml-40 mr-10 mt-10 md:mt-16'>
-                <h3 className='text-black text-xs sm:text-sm font-medium mb-10 bg-blue-300 text-center w-fit px-1 md:tracking-wider mt-10'>MASTER THE DIGITAL LANDSCAPE: DIGITAL MARKETING UNLEASHED</h3>
+            <h3 className='text-black text-xs sm:text-sm font-medium mb-10 bg-blue-300 text-center w-fit px-1 md:tracking-wider mt-10'>{ training.remark}</h3>
                 <h1 className='text-3xl font-bold md:text-5xl text-black tracking-wider xl:leading-normal'>{training.course?.courseName}</h1>
                 <div className='visible md:hidden my-6 flex justify-center'>
               <Image src={training.thumbnail} alt='hero Image' className='w-fit' width={600} height={300}/>

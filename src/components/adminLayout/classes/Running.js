@@ -26,7 +26,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { getRunningClasses } from '../../../../store/classSlice';
+import { getRunningClasses, deleteClass } from '../../../../store/classSlice';
 import UpdateClass from './UpdateClass';
 
 const modalStyle = {
@@ -49,19 +49,23 @@ export default function Classes() {
 
 
 
-  const [update, setUpdate] = useState(false)
+  const [update, setUpdate] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  
   const { } = useSelector((state) => state.user);
-  const { runningClasses, loading, newClassAdded } = useSelector((state) => state.classroom);
+  const { runningClasses, loading, newClassAdded, classDeleted } = useSelector((state) => state.classroom);
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [openPoper, setOpenPoper] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedClass, setSelectedClass] = useState();
+  const [updatedClass, setupdatedClass] = useState();
+  const [deletedClass, setDeletedClass] = useState();
+  
 
   useEffect(() => {
     dispatch(getRunningClasses());
-  }, [newClassAdded]);
+  }, [newClassAdded, classDeleted]);
 
     function preventDefault(event) {
   event.preventDefault();
@@ -69,11 +73,16 @@ export default function Classes() {
 const handleUpdate = () => {
   setUpdate(true);
   console.log('update clicked')
-};
+  };
+  const handleDelete = () => {
+    dispatch(deleteClass(deletedClass));
+  console.log('delete clicked')
+}
   const handlePopperClick = (event, id) => {
-    let updatedClass = runningClasses.find((c) => c._id === id);
-    setSelectedClass(updatedClass);
-    console.log(updatedClass);
+    let choosedClass = runningClasses.find((c) => c._id === id);
+    setupdatedClass(choosedClass);
+    setDeletedClass(choosedClass);
+    console.log(choosedClass);
     console.log(id)
     //  let user = users.find((u) => u._id === id);
     setAnchorEl(event.currentTarget);
@@ -85,6 +94,7 @@ const handleUpdate = () => {
   const handleClose = () => {
     setOpen(false);
     setUpdate(false);
+    setOpenDelete(false);
   };
 
 
@@ -216,6 +226,9 @@ const handleUpdate = () => {
                                     startIcon={
                                       <DeleteOutlineOutlinedIcon fontSize='small' />
                                     }
+                                    onClick={() => {
+                                    setOpenDelete(true)
+                                    }}
                                   >
                                     Delete Class
                                   </Button>
@@ -283,10 +296,31 @@ const handleUpdate = () => {
           <p id='parent-modal-description'>
             Update class.
           </p>
-          <UpdateClass setOpen={handleClose} selectedClass={selectedClass}/>
+          <UpdateClass setOpen={handleClose} selectedClass={updatedClass}/>
           {/* <UpdateUser setOpen={handleClose} user={updatedUser} /> */}
           
               
+        </Box>
+      </Modal>
+       <Modal open={openDelete} onClose={handleClose}>
+        <Box sx={{ ...modalStyle, width: '60%' }}>
+          <h2 id='parent-modal-title'>Delete Class</h2>
+          <p id='parent-modal-description'>
+            Are you sure do you want to delete this class?
+          </p>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={handleClose} sx={{ mt: 3, ml: 1 }}>
+              Cancel
+            </Button>
+
+            <Button
+              variant='contained'
+              onClick={handleDelete}
+              sx={{ mt: 3, ml: 1 }}
+            >
+              Delete
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </>
