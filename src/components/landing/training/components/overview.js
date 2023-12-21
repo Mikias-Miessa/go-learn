@@ -18,21 +18,17 @@ const OverView = ({training}) => {
               <h3 className='text-black tracking-wide text-sm ml-5 leading-6'>
                 <ol className='mb-2'><strong>Duration: </strong>{ training.course?.duration}</ol>
                 <ol className='mb-2'><strong>Start day: </strong>{Moment(training.start_date).format('MMM DD YYYY ')}</ol>
-                <ol className='mb-2'><strong>Prerequisites: </strong> Basics of Programming Language,
-                  Basics of English Language and Individuals with unique project ideas
-                  or a specific goal in mind will derive the most benefit from the course.</ol>
-                <ol className='mb-2'><strong>Technologies Covered: </strong> HTML, CSS, JavaScript, PHP, mySQL & NoSQL .</ol>
+                <ol className='mb-2'><strong>Prerequisites: </strong> {training.prerequisites} </ol>
+                {/* <ol className='mb-2'><strong>Technologies Covered: </strong> HTML, CSS, JavaScript, PHP, mySQL & NoSQL .</ol> */}
 
-                <ol><strong>WeeklyCommitment:</strong>  Intensive, boot camp-style course </ol>
+                <ol><strong>WeeklyCommitment:</strong> { training.WeeklyCommitment}</ol>
 
               </h3>
              </div>
             <div className='col-span-1'>
               <h1 className='text-black font-bold text-xl lg:text-2xl mb-4'> Why Choose Us: </h1>
               <p className='text-black font-medium leading-8'>
-                This isn't your typical classroom experience. Immerse yourself in a hands-on journey,
-                from the basics of web development to launching your own apps.
-                Network with industry veterans and build a foundation for success in Ethiopia's emerging tech industry.
+                {training.WhyChooseUs}
               </p>
              </div>
           </div>
@@ -40,10 +36,7 @@ const OverView = ({training}) => {
               <div className='col-span-1'>
               <h1 className='text-black font-bold text-xl lg:text-2xl mb-4'> What You Will Gain: </h1>
               <p className='text-black font-medium leading-8'>
-                Upon completion of this course, student will have the ability of foundational
-                understanding and practical skills in various aspects of web development.
-                They will be equipped to design, build, and deploy functional web applications
-                from both front-end and back-end perspectives
+                {training.WhatYouWillGain}
               </p>
              </div>
           </div>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Hero = ({training}) => {
   return (
     <div name='hero' className='h-min bg-white w-full lg:mb-14'>
-        <div   className="md:bg-[url('/heroo.jpg')] md:bg-cover lg:bg-cotain md:bg-no-repeat  md:h-min pb-20">
+        <div   className="md:bg-[url('/heroo.jpg')] md:bg-cover lg:bg-cotain md:bg-no-repeat  md:h-min md:pb-20 pb-5">
           <div className="grid lg:grid-cols-5">
              <div className='lg:col-span-3 flex flex-col justify-center ml-10 lg:ml-40 mr-10 mt-10 md:mt-16'>
             <h3 className='text-black text-xs sm:text-sm font-medium mb-10 bg-blue-300 text-center w-fit px-1 md:tracking-wider mt-10'>{ training.remark}</h3>

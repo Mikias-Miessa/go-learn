@@ -19,14 +19,14 @@ import {
   IconButton,
   CircularProgress,
 } from '@mui/material';
-
+import { toast } from 'react-toastify';
 import Title from '../../Title';
 import NewClass from './NewClass';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DoDisturbAltOutlinedIcon from '@mui/icons-material/DoDisturbAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { getRunningClasses, deleteClass } from '../../../../store/classSlice';
+import { getRunningClasses, deleteClass, reset } from '../../../../store/classSlice';
 import UpdateClass from './UpdateClass';
 
 const modalStyle = {
@@ -65,8 +65,23 @@ export default function Classes() {
 
   useEffect(() => {
     dispatch(getRunningClasses());
+   
   }, [newClassAdded, classDeleted]);
 
+  useEffect(() => { 
+ 
+    if (classDeleted === 'success') {
+      toast.success('Class deleted successfully!');
+      setOpenDelete(false);
+      dispatch(reset())
+    }
+    if( classDeleted === 'failed'){
+      toast.error('Failed to delete Class')
+      dispatch(reset())
+      setOpenDelete(false);
+    }
+
+  }, [classDeleted]);
     function preventDefault(event) {
   event.preventDefault();
 }
@@ -272,7 +287,8 @@ const handleUpdate = () => {
             sx={{ mt: 3 }}
           >
             See more
-          </Link>
+            </Link>
+            
         </>
       )}
 

@@ -21,6 +21,29 @@ const ClassSchema = new Schema(
     instructor: {
       type: String,
     },
+    instructorQualification: {
+      type: String,
+    },
+    prerequisites: {
+      type: String,
+    },
+    WhyChooseUs: {
+      type: String,
+    },
+    WhatYouWillGain: {
+      type: String,
+    },
+    Curriculum: {
+      type: String,
+    },
+     Modules: [
+      {
+        type: String,
+      },
+    ],
+    WeeklyCommitment: {
+      type: String,
+    },
     thumbnail: {
       type: String,
     },

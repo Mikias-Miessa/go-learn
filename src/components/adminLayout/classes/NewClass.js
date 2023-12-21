@@ -23,6 +23,13 @@ const NewCourse = ({ setOpen }) => {
     schedule: [],
     start_date: null,
     instructor: '',
+    instructorQualification:'',
+    prerequisites: '',
+    WeeklyCommitment: '',
+    WhyChooseUs: '',
+    WhatYouWillGain: '',
+    Curriculum: '',
+    Modules: [],
     remark: '',
     thumbnail: null
   });
@@ -36,7 +43,7 @@ const NewCourse = ({ setOpen }) => {
       <MenuItem key={index + 1} value={course._id && course._id}>{course.courseName && course.courseName}</MenuItem>
     ))
   }
-  console.log(courseOptions)
+  // console.log(courseOptions)
 
   useEffect(() => {
     dispatch(getCourses())
@@ -63,6 +70,25 @@ const NewCourse = ({ setOpen }) => {
       fileReader.readAsDataURL(file)
     }
   }
+
+const handleModulesInputChange = (event) => {
+  const { name, value } = event.target;
+
+  // Remove extra spaces after commas
+  const cleanedValue = value.replace(/,\s+/g, ',');
+
+  // Split the cleaned input by commas
+  const modulesArray = cleanedValue.split(',');
+
+  setValues({
+    ...values,
+    Modules: modulesArray,
+  });
+
+  console.log(values.Modules);
+};
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -98,11 +124,21 @@ const NewCourse = ({ setOpen }) => {
     formData.append('schedule', values.schedule);
     formData.append('start_date', values.start_date);
     formData.append('instructor', values.instructor);
+    formData.append('instructorQualification', values.instructorQualification);
     formData.append('remark', values.remark);
     formData.append('thumbnail', values.thumbnail);
-//     for (const entry of formData.entries()) {
-//   console.log('this is the form data: ',entry[0], entry[1]);
-// } 
+    formData.append('prerequisites', values.prerequisites);
+    formData.append('WeeklyCommitment', values.WeeklyCommitment);
+    formData.append('WhyChooseUs', values.WhyChooseUs);
+    formData.append('WhatYouWillGain', values.WhatYouWillGain);
+    formData.append('Curriculum', values.Curriculum);
+      values.Modules.forEach((module, index) => {
+    formData.append(`Modules[${index}]`, module);
+  });
+  //   for (const entry of formData.entries()) {
+  // console.log(entry[0],' :', entry[1]);
+  //   } 
+    // console.log(formData);
     dispatch(addClass(formData))
   }
 
@@ -216,7 +252,7 @@ const NewCourse = ({ setOpen }) => {
 
           <Grid item xs={12}>
             <TextField
-              // required
+              required
               name="instructor"
               label="Course instructor"
               fullWidth
@@ -226,7 +262,89 @@ const NewCourse = ({ setOpen }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor='thumbnail'>Upload thumbnail</InputLabel>
+            <TextField
+              required
+              name="instructorQualification"
+              label="Course instructor qualifications"
+              fullWidth
+              variant="outlined"
+              onChange={handleInputChange}
+              value={values.instructorQualification}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="prerequisites"
+              label="Course prerequisites"
+              fullWidth
+              variant="outlined"
+              onChange={handleInputChange}
+              value={values.prerequisites}
+              multiline
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="WeeklyCommitment"
+              label="Course WeeklyCommitment"
+              fullWidth
+              variant="outlined"
+              onChange={handleInputChange}
+              value={values.WeeklyCommitment}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="WhyChooseUs"
+              label="Why Choose Us"
+              fullWidth
+              variant="outlined"
+              onChange={handleInputChange}
+              value={values.WhyChooseUs}
+              multiline
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="WhatYouWillGain"
+              label="What you will gain"
+              fullWidth
+              variant="outlined"
+              onChange={handleInputChange}
+              value={values.WhatYouWillGain}
+              multiline
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="Curriculum"
+              label="Curriculum overview"
+              fullWidth
+              variant="outlined"
+              onChange={handleInputChange}
+              value={values.Curriculum}
+              multiline
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              name="Modules"
+              label="Enter Course Modules separated with a comma (,)"
+              fullWidth
+              variant="outlined"
+              onChange={handleModulesInputChange}
+              value={values.Modules.join(', ')} // Join the array back to a string for display
+              multiline
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel htmlFor='thumbnail'>Upload thumbnail with a dimension of 1280 x 720</InputLabel>
             <TextField
               id='thumbnail'
               type='file'
@@ -237,7 +355,7 @@ const NewCourse = ({ setOpen }) => {
               variant="outlined"
               onChange={handleImageChange}
             />
-            {imageInput && <Image src={imageInput} width={100} height='100' />}
+            {imageInput && <Image src={imageInput} width={200} height={100}/>}
           </Grid>
           <Grid item xs={12}>
             <TextField

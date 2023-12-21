@@ -17,14 +17,15 @@ const Instructors = ({training}) => {
             Gobeze instructors are committed to providing personalized feedback
             and support to help you gain confidence with key concepts and tools. </p>
         </div>
-        <div className='lg:col-span-1 flex flex-col items-center justify-center gap-4 lg:py-20 py-10'>
-          <Image src={user} width={150} height={150} alt='instructor image' className='rounded-full' />
-          <h2 className='text-base ' >{training.instructor}</h2>
-          <p className='font-light text-center px-10 md:px-0'>Instructor(Regular), In-calss
-Chief Technology Officer at Tolo Technology Solutions
-Mobile Application Developer at Engida Travel and Technology
-IT Director of Allure Communication PLC and Letena Ethiopia
-IT consult for Axis Advocate, Yen & Co Law Office, and Aswale Coffee Import Export Company</p>
+        <div className='lg:col-span-1 flex flex-row md:flex-col items-center justify-around ml-4 md:ml-0 md:gap-4  lg:py-20 py-10'>
+            <Image src={user} width={120} height={120} alt='instructor image' className='rounded-full' />
+            <div className='flex flex-col items-center gap-4'>
+               <h2 className='text-base ' >{training.instructor? training.instructor:'TBA'}</h2>
+            <p className='font-light text-center px-10 md:px-0'>
+              {training.instructorQualification?training.instructorQualification:'--'}
+            </p>
+            </div>
+         
 
         </div>
         
@@ -39,11 +40,11 @@ IT consult for Axis Advocate, Yen & Co Law Office, and Aswale Coffee Import Expo
             <Image src={user} width={150} height={150} alt='user image' className='rounded-full '/>
           </div>
           <div className='lg:col-span-2 px-6 text-gray-500 tracking-wide font-semibold flex flex-col justify-start '>
-                <em>“The Tech Entrepreneurship Bootcamp exceeded my expectations! The hands-on learning approach and expert instructors
+                <em>“Gobeze learning exceeded my expectations! The hands-on learning approach and expert instructors
                             fueled my innovation. Networking opportunities were a game-changer, connecting me with industry leaders. Ready to build,
-              innovate, and succeed? This bootcamp is the perfect launchpad!”</em>
-            <h5 className='font-bold text-sm my-2 text-black'>Former Tech Entrepreneurship Bootcamp Student</h5>
-            <h5 className='font-normal text-sm  text-black'>Mikias Walelign</h5>
+              innovate, and succeed? Gobeze is the perfect launchpad!”</em>
+            <h5 className='font-bold text-sm my-2 text-black'>Former Gobeze's Student</h5>
+            <h5 className='font-normal text-sm  text-black'>Dagim Asnake</h5>
           </div>
         
         </div>

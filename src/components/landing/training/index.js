@@ -20,10 +20,10 @@ const TrainingPage = ({training}) =>{
           {training ?
             
               <div>
-                  <Hero training={training} />
+            <Hero training={training} />
             <Nav training={training}/>
             <OverView training={training}/>
-            <Curriculum /> 
+            <Curriculum training={training} /> 
             <Instructors training={training}/>
             <Tuition/>
             <FAQ/>
