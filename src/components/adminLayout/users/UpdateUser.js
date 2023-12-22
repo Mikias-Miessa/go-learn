@@ -66,38 +66,38 @@ const dispatch = useDispatch();
     <><form action="" onSubmit={handleSubmit}>
       
       
-    <Grid container spacing={3}>
-    <Grid item xs={12} sm={6}>
+    <Grid container spacing={3} className="mt-4" >
+    <Grid item xs={12} >
           <TextField
             required
             id="Name"
             name="Name"
             label="Name"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={values.Name}
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <TextField
             required
             id="Email"
             name="Email"
             label="Email"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={values.Email}
             onChange={handleInputChange}
           />
         </Grid>
-    <Grid item xs={12} sm={6}>
+    <Grid item xs={12} >
           <TextField
             required
             name="Phone"
             label="Phone"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={values.Phone}
             onChange={handleInputChange}
           />
@@ -118,7 +118,8 @@ const dispatch = useDispatch();
                     variant="contained"
                     type='submit'
                     // onClick={handleSubmit}
-                    sx={{ mt: 3, ml: 1 }}
+          sx={{ mt: 3, ml: 1 }}
+          className="hover:text-white"
                   >
                    Update
                   </Button>

@@ -78,6 +78,7 @@ export default function Users() {
     setOpen(false);
     setUpdate(false);
     setOpenPoper(false);
+    setOpenDelete(false);
   };
   const handleDelete = (e) => {
     e.preventDefault()
@@ -181,7 +182,6 @@ export default function Users() {
                                   }
                                   onClick={() => {
                                     setOpenDelete(true);
-
                                     // setSelectedId(user._id)
                                   }}
                                 >
@@ -205,9 +205,9 @@ export default function Users() {
             </TableBody>
           </Table>
           <Modal open={update} onClose={handleClose}>
-        <Box sx={{ ...modalStyle, width: '80%' }}>
-          <h2 id='parent-modal-title'>Update User</h2>
-          <p id='parent-modal-description'>
+        <Box sx={{ ...modalStyle, width: '40%' }} className='rounded-md'>
+          <h2 id='parent-modal-title' className='font-semibold text-lg'>Update User</h2>
+          <p id='parent-modal-description' className=''>
             Update User.
           </p>
               <UpdateUser setOpen={handleClose} user={updatedUser} />
@@ -215,18 +215,18 @@ export default function Users() {
         </Box>
       </Modal>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={{ ...modalStyle, width: '80%' }}>
-          <h2 id='parent-modal-title'>Add new course</h2>
-          <p id='parent-modal-description'>
+        <Box sx={{ ...modalStyle, width: '40%' }} className='rounded-md' >
+          <h2 id='parent-modal-title' className='text-lg font-semibold'>New User</h2>
+          <p id='parent-modal-description' className='text-base font-medium'>
             Add a new user.
           </p>
           <NewUser setOpen={setOpen} />
         </Box>
           </Modal>
           <Modal open={openDelete} onClose={handleClose}>
-        <Box sx={{ ...modalStyle, width: '60%' }}>
-          <h2 id='parent-modal-title'>Delete User</h2>
-          <p id='parent-modal-description'>
+        <Box sx={{ ...modalStyle, width: '40%' }} className='rounded-md'>
+          <h2 id='parent-modal-title' className='font-semibold text-lg' >Delete User</h2>
+          <p id='parent-modal-description' className='text-base font-medium'>
             Are you sure do you want to delete the user?
           </p>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -238,6 +238,7 @@ export default function Users() {
               variant='contained'
               onClick={handleDelete}
               sx={{ mt: 3, ml: 1 }}
+              className='hover:text-white hover:gobeze-primary-bg'
             >
               Delete
             </Button>

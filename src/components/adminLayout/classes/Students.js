@@ -157,9 +157,9 @@ export default function Students() {
                       <div>
                         <Title>
                           {singleClass.course?.courseName}
-                          <Box component='span' sx={{ fontWeight: '300' }}>
-                            {' '}
-                            {/* {singleClass.schedule.days}{' '} */}
+                          <Box component='span' sx={{ fontWeight: '300' }} className='bg-red-500 h-10 w-10'>
+                            {/* {l} */}
+                            {singleClass.schedule._id}{' '}
                           </Box>
                         </Title>
                         <Typography variant='body1'>

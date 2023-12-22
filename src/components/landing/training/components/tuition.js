@@ -16,8 +16,10 @@ const Tuition = () => {
                   </a>
                   <p className='mt-10'>
                       Or give us a call </p>
-                     <p className='text-xl mt-4 font-bold'>+251984786060</p> 
-                  
+          {/* <p className='text-xl mt-4 font-bold'>+251984786060</p>  */}
+          <div className='hover:scale-105 duration-200 mt-6'>
+            <a href="tel:+251984786060" className='gobeze-primary-bg text-2xl px-6 py-2  text-white font-semibold rounded' > Call Now</a>
+            </div>
         </div>
       </div>
         

@@ -52,37 +52,37 @@ const NewCourse = ({ setOpen }) => {
     <><form action="" onSubmit={handleSubmit}>
 
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={3} className="mt-4 flex flex-col ">
+        <Grid item xs={12} >
           <TextField
             required
             id="name"
             name="name"
             label=" Name"
             fullWidth
-            variant="standard"
+            variant="outlined"
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <TextField
             required
             id="email"
             name="email"
             label="Email"
             fullWidth
-            variant="standard"
+            variant="outlined"
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <TextField
             required
             id="phone"
             name="phone"
             label="Phone"
             fullWidth
-            variant="standard"
+            variant="outlined"
             onChange={handleInputChange}
           />
         </Grid>
@@ -97,14 +97,14 @@ const NewCourse = ({ setOpen }) => {
             onChange={handleInputChange}
           />
         </Grid> */}
-        <Grid item xs={12} >
+        <Grid item xs={12}  >
           <TextField
             required
             id="password"
             name="password"
             label="Password"
             fullWidth
-            variant="standard"
+            variant="outlined"
             onChange={handleInputChange}
           />
         </Grid>
@@ -123,6 +123,7 @@ const NewCourse = ({ setOpen }) => {
           type='submit'
           // onClick={handleSubmit}
           sx={{ mt: 3, ml: 1 }}
+          className="hover:text-white"
         >
           Add
         </Button>
