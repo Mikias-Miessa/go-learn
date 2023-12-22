@@ -159,7 +159,7 @@ export default function Students() {
                           {singleClass.course?.courseName}
                           <Box component='span' sx={{ fontWeight: '300' }}>
                             {' '}
-                            {singleClass.schedule}{' '}
+                            {/* {singleClass.schedule.days}{' '} */}
                           </Box>
                         </Title>
                         <Typography variant='body1'>

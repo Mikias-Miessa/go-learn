@@ -226,9 +226,11 @@ const NewStudent = ({ setOpen, course, price }) => {
             // onClick={handleSubmit}
             sx={{
               mt: 3,
-              color: 'white',
+              color: 'primary.main',
+              
               ':hover': {
                 backgroundColor: 'primary.main',
+                color:'white',
               },
             }}
           >
