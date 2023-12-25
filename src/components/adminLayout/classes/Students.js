@@ -102,6 +102,7 @@ export default function Students() {
   const { singleClass, loading } = useSelector((state) => state.classroom);
 
   const [open, setOpen] = useState(false);
+  const [openCertify, setOpenCertify] = useState(false)
   const [addReferenceModal, setAddReferenceModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -124,10 +125,14 @@ export default function Students() {
   const handleOpen = () => {
     setOpen(true);
   };
+  const handleOpenCertify = () => {
+    setOpenCertify(true);
+  }
 
   const handleClose = () => {
     setOpen(false);
     setAddReferenceModal(false);
+    setOpenCertify(false);
   };
   const enrolledStudents = singleClass?.students.filter(
     (student) => student.status === 'enrolled' || student.status === 'certified'
@@ -326,6 +331,18 @@ export default function Students() {
                                       'Not Certified'}
                                   </TableCell>
                                   <TableCell>
+                                     <Button
+                                            variant='contained'
+                                            sx={{
+                                              fontSize: '0.75rem',
+                                              p: '0px',
+                                              ml: 2,
+                                              // color,
+                                            }}
+                                            onClick={handleOpenCertify}
+                                          >
+                                            <AddIcon />
+                                          </Button>
                                     {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>
          <Link href={`/admin/classes/students`}>See Students</Link>
@@ -419,6 +436,50 @@ export default function Students() {
             price={singleClass?.course?.price}
             getClassStudents={getClassStudents}
           />
+        </Box>
+      </Modal>
+      <Modal
+        open={openCertify}
+        onClose={handleClose}
+        aria-labelledby='parent-modal-title'
+        aria-describedby='parent-modal-description'
+      >
+        <Box sx={{ ...modalStyle, width: '70%' }}>
+          <h2 id='parent-modal-title'>
+            
+            <Box
+              component='span'
+              sx={{
+                display: 'block',
+                fontWeight: '300',
+                color: 'primary.main',
+              }}
+            >
+             
+            </Box>{' '}
+          </h2>
+          <div  className="h-fit  text-black flex flex-col items-center gap-10 bg-[url('/certeficateBg.png')] bg-center bg-contain bg-no-repeat">
+      <h1>.</h1>
+      <div>
+        {/* Additional content goes here */}
+        <p>.</p>
+      </div>
+      <form className='flex flex-col gap-56 items-center' >
+        {/* <label htmlFor="name">Name:</label> */}
+        <input type="text" id="date" name="date" className=' text-center -mt-3 w-fit bg-transparent pt-2 text-gray-600 font-normal text-xl' />
+
+        {/* <label htmlFor="email">Email:</label> */}
+        <input type="text" id="stname" name="stname" className=' -mt-5 text-center font-normal text-4xl w-fit bg-transparent' />
+        <input type="text" id="course" name="course" className=' -mt-36 mb-36 text-center font-normal text-4xl  w-fit bg-transparent pb-4' />
+
+        {/* Add more form elements as needed */}
+      </form>
+      
+          </div>
+          <div className='flex justify-end '>
+                <button className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
+          </div>
+          
         </Box>
       </Modal>
     </>
