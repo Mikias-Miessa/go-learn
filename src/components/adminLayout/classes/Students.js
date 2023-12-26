@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import Link from '@mui/material/Link';
 import Moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,6 +31,7 @@ import { TryOutlined } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import NewReference from './NewReference';
 import AddIcon from '@mui/icons-material/Add';
+import Certificate from './Certificate';
 // Generate Order Data
 function createData(id, name, phone, email, paidAmount, registeredBy) {
   return { id, name, phone, email, paidAmount, registeredBy };
@@ -106,7 +109,7 @@ export default function Students() {
   const [addReferenceModal, setAddReferenceModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
-
+ 
   useEffect(() => {
     if (copied) {
       toast.success('Reference Id copied!');
@@ -125,9 +128,7 @@ export default function Students() {
   const handleOpen = () => {
     setOpen(true);
   };
-  const handleOpenCertify = () => {
-    setOpenCertify(true);
-  }
+ 
 
   const handleClose = () => {
     setOpen(false);
@@ -137,6 +138,34 @@ export default function Students() {
   const enrolledStudents = singleClass?.students.filter(
     (student) => student.status === 'enrolled' || student.status === 'certified'
   );
+
+
+  const containerRef = useRef(null);
+
+  const convertToPdf = async () => {
+    const containerElement = containerRef.current;
+
+    if (!containerElement) {
+      console.error('Container element not found');
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(containerElement);
+
+      const pdf = new jsPDF({
+        orientation: 'landscape', // or 'landscape'
+        unit: 'mm',
+        format: 'a4', // or [width, height]
+      });
+
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
+
+      pdf.save('form.pdf');
+    } catch (error) {
+      console.error('Error converting to PDF', error);
+    }
+  };
 
   return (
     <>
@@ -339,9 +368,15 @@ export default function Students() {
                                               ml: 2,
                                               // color,
                                             }}
-                                            onClick={handleOpenCertify}
+                                      onClick={() => {
+                                        setOpenCertify(true);
+                                        setSelectedStudent(row);
+                                        console.log(row.course.course.courseName);
+                                      }}
+                                      className='px-2 py-1'
                                           >
-                                            <AddIcon />
+                                      {/* <AddIcon /> */}
+                                      Certify Student
                                           </Button>
                                     {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>
@@ -458,27 +493,19 @@ export default function Students() {
              
             </Box>{' '}
           </h2>
-          <div  className="h-fit  text-black flex flex-col items-center gap-10 bg-[url('/certeficateBg.png')] bg-center bg-contain bg-no-repeat">
+          <div ref={containerRef}  className="h-fit  text-black flex flex-col items-center gap-10 bg-[url('/certeficateBg.png')] bg-center bg-contain bg-no-repeat">
       <h1>.</h1>
       <div>
         {/* Additional content goes here */}
         <p>.</p>
       </div>
-      <form className='flex flex-col gap-36 items-center' >
-        {/* <label htmlFor="name">Name:</label> */}
-        <input type="text" id="date" name="date" className=' text-center -mt-3 w-fit bg-transparent pt-2 text-gray-600 font-normal text-xl' />
-
-        {/* <label htmlFor="email">Email:</label> */}
-              <input type="text" id="stname" name="stname" className=' -mt-5 text-center font-normal text-4xl w-fit bg-transparent' />
-              <p className='text-orange-500 text-lg'>Has Successfully completed the</p>
-        <input type="text" id="course" name="course" className=' -mt-36 mb-36 text-center font-normal text-4xl  w-fit bg-transparent pb-4' />
-
-        {/* Add more form elements as needed */}
-      </form>
+      <Certificate selectedStudent={selectedStudent}/>
       
           </div>
-          <div className='flex justify-end '>
-                <button className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
+          <div className='flex justify-end gap-4 '>
+                
+            <button onClick={handleClose} className='bg-white px-4 py-2 rounded text-orange-500 hover:scale-105 duration-200 shadow-sm' >Cancel</button>
+            <button onClick={convertToPdf} className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
           </div>
           
         </Box>
