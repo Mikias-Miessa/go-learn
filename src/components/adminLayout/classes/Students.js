@@ -464,12 +464,13 @@ export default function Students() {
         {/* Additional content goes here */}
         <p>.</p>
       </div>
-      <form className='flex flex-col gap-56 items-center' >
+      <form className='flex flex-col gap-36 items-center' >
         {/* <label htmlFor="name">Name:</label> */}
         <input type="text" id="date" name="date" className=' text-center -mt-3 w-fit bg-transparent pt-2 text-gray-600 font-normal text-xl' />
 
         {/* <label htmlFor="email">Email:</label> */}
-        <input type="text" id="stname" name="stname" className=' -mt-5 text-center font-normal text-4xl w-fit bg-transparent' />
+              <input type="text" id="stname" name="stname" className=' -mt-5 text-center font-normal text-4xl w-fit bg-transparent' />
+              <p className='text-orange-500 text-lg'>Has Successfully completed the</p>
         <input type="text" id="course" name="course" className=' -mt-36 mb-36 text-center font-normal text-4xl  w-fit bg-transparent pb-4' />
 
         {/* Add more form elements as needed */}
