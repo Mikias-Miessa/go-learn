@@ -26,7 +26,16 @@ const Certificate = ({ selectedStudent }) => {
   })
   useEffect(() => {
     if (selectedStudent) {
-     const certificateId = `${selectedStudent.name}`
+      const sanitizedName = selectedStudent.name.replace(/\s/g, '');
+      const time = new Date();
+      const year = time.getFullYear();
+      const date = time.getDate();
+      const seconds = time.getSeconds();
+      const formatedDate = String(date).padStart(2, '0');
+      const formattedSeconds = String(seconds).padStart(2, '0');
+      const certificateId = `${sanitizedName}${year}${formatedDate}${formattedSeconds}`;
+
+
       setValues({
         date: formattedDate,
         stname: selectedStudent.name ? selectedStudent.name : '',
