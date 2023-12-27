@@ -494,10 +494,10 @@ export default function Students() {
             </Box>{' '}
           </h2>
           <div ref={containerRef}  className="h-fit  text-black flex flex-col items-center gap-10 bg-[url('/certeficateBg.png')] bg-center bg-contain bg-no-repeat">
-      <h1>.</h1>
+      {/* <h1>.</h1> */}
       <div>
         {/* Additional content goes here */}
-        <p>.</p>
+        {/* <p>.</p> */}
       </div>
       <Certificate selectedStudent={selectedStudent}/>
       
