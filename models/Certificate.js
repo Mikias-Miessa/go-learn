@@ -2,14 +2,30 @@ const { Schema, model, models } = require('mongoose');
 
 const CertificateSchema = new Schema(
   {
-    certificateId: { type: String },
-    certificateImage: {
-      type: String,
-    },
-    student: {
-      type: Schema.Types.ObjectId,
-      ref: 'student',
-    },
+  date: {
+    type: String,
+    required: true,
+  },
+  pdfFile: {
+    type: String,
+    required: true,
+  },
+  certificateID: {
+    type: String,
+    required: true,
+  },
+  shareLink: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  course: {
+    type: String,
+    required: true,
+  },
   },
   {
     timestamps: true,

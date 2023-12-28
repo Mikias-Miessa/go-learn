@@ -3,10 +3,9 @@ import { GridFsStorage } from 'multer-gridfs-storage';
 import { createRouter } from 'next-connect';
 import slugify from 'slugify';
 import connectMongo from '../../../utils/db';
-// import userAuth from '../../../middleware/userAuth';
-import Certificate from '../../../models/Certificate';
-// import Class from '../../../models/Class';
-// import Course from '../../../models/Course';
+import userAuth from '../../../middleware/userAuth';
+import Class from '../../../models/Class';
+import Course from '../../../models/Course';
 
 export const config = {
   api: {
@@ -17,23 +16,18 @@ export const config = {
 let storage = new GridFsStorage({
   url: process.env.ATLAS_MONGO_URI,
   file: (req, file) => {
-    const match = ['application/pdf'];
-
+    const match = ['image/png', 'image/jpeg'];
     if (match.indexOf(file.mimetype) === -1) {
-      // If the file is not a PDF, generate a filename based on the original name
       const filename = `${Date.now()}-gobeze-${file.originalname}`;
-      return { filename, certificateID: req.body.certificateID };
+      return filename;
     }
 
-    // If the file is a PDF, store it in the 'pdfs' bucket with a unique filename
     return {
-      bucketName: 'pdfs',
+      bucketName: 'files',
       filename: `${Date.now()}-gobeze-${file.originalname}`,
-      certificateID: req.body.certificateID,
     };
   },
 });
-
 
 const upload = multer({ storage });
 
@@ -44,30 +38,27 @@ router
     await connectMongo();
     await next(); // call next in chain
   })
-  .use(upload.single('pdf'))
+  .use(upload.single('thumbnail'))
   
-  .post( async (req, res) => {
+  .delete(async (req, res) => {
+    const { id } = req.query;
+    console.log('id from the backnd', id);
     try {
-    if (!req.file) {
-        // No file was provided in the request
+      if (!id) {
         return res.status(400).json({
-          errors: [{ msg: 'No file uploaded' }],
+          errors: [{ msg: 'missing class id in the request parameter' }],
         });
       }
-      const { name, course, shareLink, date, certificateID, } = req.body;
-      const pdfFile = '/api/files/pdf/' + certificateID ;
-      let newCertificate = new Certificate({
-        name,
-        course,
-        shareLink,
-        date,
-        certificateID,
-        pdfFile
-      });
-      await newCertificate.save();
-      
-      console.log('it works ' + name);
-      console.log(req.file.filename)
+      await Class.findByIdAndDelete({ _id: id });
+      return res.json({id})
+    } catch (e) {
+      console.log(e)
+      res.status(500).send('Server Error');
+    }
+  }).post( async (req, res) => {
+  try {
+
+    console.log('it works'+req.body);
 
     res.status(201).json({ message: 'Certificate saved successfully' });
   } catch (error) {

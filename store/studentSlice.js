@@ -208,6 +208,45 @@ export const deleteStudent = createAsyncThunk(
     }
   }
 );
+export const saveCertificate = createAsyncThunk(
+  'student/saveCertificate',
+  async (data, thunkAPI) => {
+    try {
+      // Create a FormData object to handle file upload
+      const formData = new FormData();
+
+      // Append the PDF file to the FormData
+      formData.append('pdf', data.pdf);
+
+      // Append other data to the FormData
+      formData.append('date', data.date);
+      formData.append('shareLink', data.shareLink);
+      formData.append('name', data.stname);
+      formData.append('course', data.course);
+      formData.append('certificateID', data.certificateID)
+
+       for (const entry of formData.entries()) {
+      console.log('this is the form data: ', entry[0], entry[1])
+    } 
+      // Make the POST request using Axios
+      const response = await axios.post('/api/certificate', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set the correct content type for file upload
+        },
+      });
+
+      // Log the response or handle it as needed
+      console.log(response.data);
+
+      // Return any data you want to include in the Redux store
+      return response.data;
+    } catch (error) {
+      // Handle errors or dispatch actions accordingly
+      console.error('Error saving certificate:', error);
+      throw error; // Propagate the error to be handled by the calling code
+    }
+  }
+);
 
 export const studentSlice = createSlice({
   name: 'student',

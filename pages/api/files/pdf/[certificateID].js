@@ -26,7 +26,7 @@ router
 
     try {
      
-        gfs.certificates.findOne({ filename: query.filename }, (err, file) => {
+        gfs.pdfs.findOne({ certificateID: query.certificateID }, (err, file) => {
             //check if file
             if (!file || file.length === 0) {
               return res.status(404).json({
@@ -34,7 +34,7 @@ router
               });
             }
       
-            const readstream = gfs.createReadStream(file.filename);
+            const readstream = gfs.createReadStream(file.certificateID);
             readstream.pipe(res);
         });
         // res.send('wii do')

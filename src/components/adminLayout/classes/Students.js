@@ -24,61 +24,34 @@ import {
 } from '@mui/material';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getClass } from '../../../../store/classSlice';
-
+import { saveCertificate } from '../../../../store/studentSlice';
 import Title from '../../Title';
 import NewStudent from './NewStudent';
 import { TryOutlined } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 import NewReference from './NewReference';
 import AddIcon from '@mui/icons-material/Add';
-import Certificate from './Certificate';
-// Generate Order Data
-function createData(id, name, phone, email, paidAmount, registeredBy) {
-  return { id, name, phone, email, paidAmount, registeredBy };
-}
+// import Certificate from './Certificate';
 
-const rows = [
-  createData(
-    0,
-    'Abebe Lakew',
-    '0926564865',
-    'abelakew@gmail.com',
-    3800,
-    'Meaza'
-  ),
-  createData(
-    1,
-    'Abebe Lakew',
-    '0926564865',
-    'abelakew@gmail.com',
-    3800,
-    'Meaza'
-  ),
-  createData(
-    2,
-    'Abebe Lakew',
-    '0926564865',
-    'abelakew@gmail.com',
-    2000,
-    'Online'
-  ),
-  createData(
-    3,
-    'Abebe Lakew',
-    '0926564865',
-    'abelakew@gmail.com',
-    3800,
-    'Meaza'
-  ),
-  createData(
-    4,
-    'Abebe Lakew',
-    '0926564865',
-    'abelakew@gmail.com',
-    3800,
-    'Meaza'
-  ),
-];
+import QRCode from "react-qr-code";
+
+function getCurrentFormattedDate() {
+  const months = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+
+  const currentDate = new Date();
+  const month = months[currentDate.getMonth()];
+  const day = currentDate.getDate();
+  const year = currentDate.getFullYear();
+
+  const formattedDate = `${month} ${day}, ${year}`;
+  return formattedDate;
+}
+// Generate Order Data
+
 
 const modalStyle = {
   position: 'absolute',
@@ -109,7 +82,48 @@ export default function Students() {
   const [addReferenceModal, setAddReferenceModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
- 
+  const [values, setValues] = useState({
+      date :'',
+      stname:'',
+      course:'',
+      courseType: '',
+      shareLink:'',
+  })
+  const fillCertificate = ( selectedStudent ) => {
+    // console.log()
+    if (selectedStudent) {
+      const sanitizedName = selectedStudent.name.replace(/\s/g, '');
+      const time = new Date();
+      const year = time.getFullYear();
+      const currentMonth = time.getMonth();
+      const date = time.getDate();
+      const seconds = time.getSeconds();
+      const formatedDate = String(date).padStart(2, '0');
+      const formattedSeconds = String(seconds).padStart(2, '0');
+      const certificateId = `${sanitizedName}${year}${currentMonth}${formatedDate}${formattedSeconds}`;
+
+      console.log(selectedStudent.name)
+
+      setValues({
+        date: formattedDate,
+        stname: selectedStudent.name ? selectedStudent.name : '',
+        course: selectedStudent.course ? selectedStudent.course.course.courseName : '',
+        courseType:'Enter course Type here',
+        shareLink: `https://gobezelearning.vercel.app/certificate/${certificateId}`,
+        certificateID:certificateId,
+      })
+      
+    }
+  }
+   const handleCertificateInputChange = (e)=>{
+    const {name,value} = e.target;
+
+    setValues({
+      ...values,
+      [name]:value
+    })
+  }
+    const formattedDate = getCurrentFormattedDate();
   useEffect(() => {
     if (copied) {
       toast.success('Reference Id copied!');
@@ -142,30 +156,47 @@ export default function Students() {
 
   const containerRef = useRef(null);
 
-  const convertToPdf = async () => {
-    const containerElement = containerRef.current;
+    const convertToPdf = async () => {
+  const containerElement = containerRef.current;
 
-    if (!containerElement) {
-      console.error('Container element not found');
-      return;
-    }
+  if (!containerElement) {
+    console.error('Container element not found');
+    return;
+  }
 
-    try {
-      const canvas = await html2canvas(containerElement);
+  try {
+    const canvas = await html2canvas(containerElement);
 
-      const pdf = new jsPDF({
-        orientation: 'landscape', // or 'landscape'
-        unit: 'mm',
-        format: 'a4', // or [width, height]
-      });
+    const pdf = new jsPDF({
+      orientation: 'landscape', // or 'landscape'
+      unit: 'mm',
+      format: 'a4', // or [width, height]
+    });
 
-      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
+    pdf.addImage(
+      canvas.toDataURL('image/png'),
+      'PNG',
+      0,
+      0,
+      pdf.internal.pageSize.width,
+      pdf.internal.pageSize.height
+    );
 
-      pdf.save('form.pdf');
-    } catch (error) {
-      console.error('Error converting to PDF', error);
-    }
-  };
+    // Convert the data URL to a Blob
+    const blob = await fetch(pdf.output('blob')).then((res) => res.blob());
+
+    // Create a File object from the Blob
+    const pdfFile = new File([blob], `${values.stname}.pdf`, {
+      type: 'application/pdf',
+    });
+
+    // Dispatch the action with the PDF file
+    dispatch(saveCertificate({ ...values, pdf: pdfFile }));
+  } catch (error) {
+    console.error('Error converting to PDF', error);
+  }
+};
+
 
   return (
     <>
@@ -370,8 +401,9 @@ export default function Students() {
                                             }}
                                       onClick={() => {
                                         setOpenCertify(true);
-                                        setSelectedStudent(row);
-                                        console.log(row.course.course.courseName);
+                                        // setSelectedStudent(row);
+                                        fillCertificate(row);
+                                        // console.log(row.course.course.courseName);
                                       }}
                                       className='px-2 py-1'
                                           >
@@ -499,8 +531,50 @@ export default function Students() {
         {/* Additional content goes here */}
         {/* <p>.</p> */}
       </div>
-      <Certificate selectedStudent={selectedStudent}/>
-      
+      {/* <Certificate selectedStudent={selectedStudent}/> */}
+      <div className='mt-20'>
+          <form className='flex flex-col  items-center' >
+              {/* <label htmlFor="name">Name:</label> */}
+              <div className='-mt-4'>
+          <input
+            type="text"
+            id="date"
+            name="date"
+            value={values.date}
+            onChange={handleCertificateInputChange}
+            className=' text-center  w-fit bg-transparent  text-gray-600 font-normal text-xl '
+          />
+              </div>
+
+        <input
+          type="text"
+          id="stname"
+          name="stname"
+          value={values.stname}
+          onChange={handleCertificateInputChange}
+          className=' mt-44 text-center font-normal text-3xl w-fit bg-transparent'
+        />
+
+        <p className='text-orange-500 text-lg mb-10 '>Has Successfully completed the</p>
+
+        <input
+          type="text"
+          id="course"
+          name="course"
+          value={values.course}
+          onChange={handleCertificateInputChange}
+          className=' text-center font-normal text-2xl w-screen flex bg-transparent py-1'
+        />
+        <input
+          name='courseType'
+          className='text-orange-500 text-lg  bg-transparent  text-center mb-2'
+          value={values.courseType}
+          onChange={handleCertificateInputChange}
+        />
+        <QRCode name='slug' value={values.shareLink} onChange={handleCertificateInputChange} className='w-14 h-14 mb-8' />
+      </form>
+
+    </div>
           </div>
           <div className='flex justify-end gap-4 '>
                 

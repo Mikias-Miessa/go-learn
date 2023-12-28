@@ -29,11 +29,12 @@ const Certificate = ({ selectedStudent }) => {
       const sanitizedName = selectedStudent.name.replace(/\s/g, '');
       const time = new Date();
       const year = time.getFullYear();
+      const currentMonth = time.getMonth();
       const date = time.getDate();
       const seconds = time.getSeconds();
       const formatedDate = String(date).padStart(2, '0');
       const formattedSeconds = String(seconds).padStart(2, '0');
-      const certificateId = `${sanitizedName}${year}${formatedDate}${formattedSeconds}`;
+      const certificateId = `${sanitizedName}${year}${currentMonth}${formatedDate}${formattedSeconds}`;
 
 
       setValues({
