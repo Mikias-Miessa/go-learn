@@ -26,7 +26,7 @@ router
 
     try {
      
-        gfs.pdfs.findOne({ certificateID: query.certificateID }, (err, file) => {
+        gfs.pdfs.findOne({ filename: query.filename }, (err, file) => {
             //check if file
             if (!file || file.length === 0) {
               return res.status(404).json({
@@ -34,13 +34,13 @@ router
               });
             }
       
-            const readstream = gfs.createReadStream(file.certificateID);
+            const readstream = gfs.createReadStream(file.filename);
             readstream.pipe(res);
         });
         // res.send('wii do')
      } catch (err) {
          
-         res.status(500).send('Server Error')
+         res.status(500).send('Server Error!')
      }
   })
 

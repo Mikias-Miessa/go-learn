@@ -10,7 +10,7 @@ const CertificateSchema = new Schema(
     type: String,
     required: true,
   },
-  certificateID: {
+  certificateId: {
     type: String,
     required: true,
   },

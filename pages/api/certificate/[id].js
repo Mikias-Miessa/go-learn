@@ -23,9 +23,12 @@ router
     const { query } = req;
 
     try {
+      // let certificate = await Certificate.findOne({
+      //   certificateId: query.id,
+      // }).populate('student');
       let certificate = await Certificate.findOne({
         certificateId: query.id,
-      }).populate('student');
+      });
       
       // if (!certificate) {
       //   return res.status(400).json({

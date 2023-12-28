@@ -5,18 +5,18 @@ import Certificate from '../../src/components/landing/certificate/Certificate';
 
 const CertificatePage = ({ certificate }) => {
   const pageTitle = certificate
-    ? `${certificate?.student?.name} | Gobeze`
+    ? `${certificate?.name} | Gobeze`
     : 'Not Found';
 
   return (
     <>
       <HeadLayout
         title={pageTitle}
-        image={
-          certificate
-            ? `https://go-learn-mikias-miessa.vercel.app/certificates/${certificate?.certificateImage}`
-            : ''
-        }
+        // image={
+        //   certificate
+        //     ? `https://go-learn-mikias-miessa.vercel.app/certificates/${certificate?.certificateImage}`
+        //     : ''
+        // }
       >
         <Certificate certificate={certificate} />
       </HeadLayout>

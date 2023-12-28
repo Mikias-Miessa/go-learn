@@ -21,15 +21,18 @@ let storage = new GridFsStorage({
 
     if (match.indexOf(file.mimetype) === -1) {
       // If the file is not a PDF, generate a filename based on the original name
-      const filename = `${Date.now()}-gobeze-${file.originalname}`;
-      return { filename, certificateID: req.body.certificateID };
+      // const filename = `${Date.now()}-gobeze-${file.originalname}`;
+      const filename = req.body.certificateId ;
+    
+      return { filename };
     }
 
     // If the file is a PDF, store it in the 'pdfs' bucket with a unique filename
     return {
       bucketName: 'pdfs',
-      filename: `${Date.now()}-gobeze-${file.originalname}`,
-      certificateID: req.body.certificateID,
+      // filename: `${Date.now()}-gobeze-${file.originalname}`,
+      filename: req.body.certificateId,
+      // certificateId: req.body.certificateId,
     };
   },
 });
@@ -54,14 +57,14 @@ router
           errors: [{ msg: 'No file uploaded' }],
         });
       }
-      const { name, course, shareLink, date, certificateID, } = req.body;
-      const pdfFile = '/api/files/pdf/' + certificateID ;
+      const { name, course, shareLink, date, certificateId, } = req.body;
+      const pdfFile = '/api/files/pdf/' + certificateId ;
       let newCertificate = new Certificate({
         name,
         course,
         shareLink,
         date,
-        certificateID,
+        certificateId,
         pdfFile
       });
       await newCertificate.save();

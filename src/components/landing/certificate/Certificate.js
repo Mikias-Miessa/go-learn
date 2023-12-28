@@ -19,6 +19,8 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from 'next-share';
+import { Document } from 'react-pdf'
+
 const Certificate = ({ certificate }) => {
   
   // const imageSrc = certificate
@@ -26,11 +28,11 @@ const Certificate = ({ certificate }) => {
   //     ? `https://gobeze.com/certificates/${certificate?.certificateImage}`
   //     : `http://localhost:3000/certificates/${certificate?.certificateImage}`
   //   : null;
-  const imageSrc = certificate
-    ? process.env.NODE_ENV === 'production'
-      ? `https://gobezelearning.vercel.app/certificates/${certificate?.certificateImage}`
-      : `http://localhost:3000/certificates/${certificate?.certificateImage}`
-    : null;
+  // const imageSrc = certificate
+  //   ? process.env.NODE_ENV === 'production'
+  //     ? `https://gobezelearning.vercel.app/certificates/${certificate?.certificateImage}`
+  //     : `http://localhost:3000/certificates/${certificate?.certificateImage}`
+  //   : null;
 
   let shareUrl;
   if (typeof window !== 'undefined') {
@@ -161,7 +163,10 @@ const Certificate = ({ certificate }) => {
                 },
               }}
             >
-              {imageSrc ? (
+
+              <h1>{ certificate.pdfFile}</h1>
+              {/* <Document file={certificate.pdfFile} /> */}
+              {/* {imageSrc ? (
                 <img src={imageSrc} alt='nat' />
               ) : (
                 <>
@@ -174,7 +179,7 @@ const Certificate = ({ certificate }) => {
                     </Typography>
                   </Box>
                 </>
-              )}
+              )} */}
             </Box>
             {/* <Box
               sx={{

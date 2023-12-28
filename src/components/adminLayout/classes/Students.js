@@ -87,7 +87,8 @@ export default function Students() {
       stname:'',
       course:'',
       courseType: '',
-      shareLink:'',
+      shareLink: '',
+      certificateId:'',
   })
   const fillCertificate = ( selectedStudent ) => {
     // console.log()
@@ -109,8 +110,8 @@ export default function Students() {
         stname: selectedStudent.name ? selectedStudent.name : '',
         course: selectedStudent.course ? selectedStudent.course.course.courseName : '',
         courseType:'Enter course Type here',
-        shareLink: `https://gobezelearning.vercel.app/certificate/${certificateId}`,
-        certificateID:certificateId,
+        shareLink: `http://localhost:3000/certificates/${certificateId}`,
+        certificateId:certificateId,
       })
       
     }
