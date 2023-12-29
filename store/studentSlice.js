@@ -216,7 +216,8 @@ export const saveCertificate = createAsyncThunk(
       const formData = new FormData();
 
       // Append the PDF file to the FormData
-      formData.append('pdf', data.pdf);
+      // formData.append('pdf', data.pdf);
+      formData.append('image', data.pdf);
 
       // Append other data to the FormData
       formData.append('date', data.date);

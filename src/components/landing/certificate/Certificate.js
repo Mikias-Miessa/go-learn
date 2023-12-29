@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { useState } from 'react';
 import {
@@ -20,6 +21,13 @@ import {
   LinkedinIcon,
 } from 'next-share';
 import { Document } from 'react-pdf'
+import { pdfjs } from 'react-pdf';
+import PdfComp from './PdfComp';
+
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+//   'pdfjs-dist/build/pdf.worker.min.js',
+//   import.meta.url,
+// ).toString();
 
 const Certificate = ({ certificate }) => {
   
@@ -164,7 +172,8 @@ const Certificate = ({ certificate }) => {
               }}
             >
 
-              <h1>{ certificate.pdfFile}</h1>
+              {/* <h1>{certificate.pdfFile}</h1> */}
+              <PdfComp certificate={certificate} />
               {/* <Document file={certificate.pdfFile} /> */}
               {/* {imageSrc ? (
                 <img src={imageSrc} alt='nat' />

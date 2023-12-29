@@ -17,7 +17,8 @@ export const config = {
 let storage = new GridFsStorage({
   url: process.env.ATLAS_MONGO_URI,
   file: (req, file) => {
-    const match = ['application/pdf'];
+    const match = ['image/png','application/pdf'];
+    // const match = ['image/png'];
 
     if (match.indexOf(file.mimetype) === -1) {
       // If the file is not a PDF, generate a filename based on the original name
@@ -47,7 +48,7 @@ router
     await connectMongo();
     await next(); // call next in chain
   })
-  .use(upload.single('pdf'))
+  .use(upload.single('image'))
   
   .post( async (req, res) => {
     try {

@@ -3,6 +3,7 @@ import axios from 'axios';
 import HeadLayout from '../../src/components/HeadLayout';
 import Certificate from '../../src/components/landing/certificate/Certificate';
 
+
 const CertificatePage = ({ certificate }) => {
   const pageTitle = certificate
     ? `${certificate?.name} | Gobeze`

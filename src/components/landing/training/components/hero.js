@@ -2,7 +2,8 @@ import Image from 'next/image'
 import hero from '../../../../../public/heroo.jpg'
 import Link from 'next/link';
 
-const Hero = ({training}) => {
+const Hero = ({ training }) => {
+  console.log(training.thumbnail)
   return (
     <div name='hero' className='h-min bg-white w-full lg:mb-14'>
         <div   className="md:bg-[url('/heroo.jpg')] md:bg-cover lg:bg-cotain md:bg-no-repeat  md:h-min md:pb-20 pb-5">

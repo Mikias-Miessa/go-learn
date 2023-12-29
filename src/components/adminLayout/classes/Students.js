@@ -110,7 +110,7 @@ export default function Students() {
         stname: selectedStudent.name ? selectedStudent.name : '',
         course: selectedStudent.course ? selectedStudent.course.course.courseName : '',
         courseType:'Enter course Type here',
-        shareLink: `http://localhost:3000/certificates/${certificateId}`,
+        shareLink: `http://localhost:3000/certificate/${certificateId}`,
         certificateId:certificateId,
       })
       
@@ -157,6 +157,36 @@ export default function Students() {
 
   const containerRef = useRef(null);
 
+const captureAndSendImage = async () => {
+  const containerElement = containerRef.current;
+
+  if (!containerElement) {
+    console.error('Container element not found');
+    return;
+  }
+
+  try {
+    const canvas = await html2canvas(containerElement);
+
+    // Convert the canvas to a Blob
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+
+    // Create a File object from the Blob
+    const imageFile = new File([blob], `${values.stname}.png`, {
+      type: 'image/png',
+    });
+
+    // Dispatch the action with the image File
+    dispatch(saveCertificate({ ...values, pdf:imageFile, }));
+
+  } catch (error) {
+    console.error('Error capturing and sending image', error);
+  }
+};
+
+
+
+
     const convertToPdf = async () => {
   const containerElement = containerRef.current;
 
@@ -193,6 +223,7 @@ export default function Students() {
 
     // Dispatch the action with the PDF file
     dispatch(saveCertificate({ ...values, pdf: pdfFile }));
+   
   } catch (error) {
     console.error('Error converting to PDF', error);
   }
@@ -580,7 +611,7 @@ export default function Students() {
           <div className='flex justify-end gap-4 '>
                 
             <button onClick={handleClose} className='bg-white px-4 py-2 rounded text-orange-500 hover:scale-105 duration-200 shadow-sm' >Cancel</button>
-            <button onClick={convertToPdf} className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
+            <button onClick={captureAndSendImage} className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
           </div>
           
         </Box>
