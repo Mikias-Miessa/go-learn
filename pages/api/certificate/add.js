@@ -1,10 +1,13 @@
 import multer from 'multer';
-import connectMongo from '../../../utils/db';
-import Certificate from '../../../models/Certificate';
-import { createRouter } from 'next-connect';
 import { GridFsStorage } from 'multer-gridfs-storage';
-
-
+import { createRouter } from 'next-connect';
+import slugify from 'slugify';
+import connectMongo from '../../../utils/db';
+// import userAuth from '../../../middleware/userAuth';
+import Certificate from '../../../models/Certificate';
+// import Class from '../../../models/Class';
+// import Course from '../../../models/Course';
+import { join } from 'path'; 
 export const config = {
   api: {
     bodyParser: false,
@@ -14,20 +17,42 @@ export const config = {
 // let storage = new GridFsStorage({
 //   url: process.env.ATLAS_MONGO_URI,
 //   file: (req, file) => {
-//     const match = ['application/pdf'];
+//     const match = ['image/png','application/pdf'];
+//     // const match = ['image/png'];
+
 //     if (match.indexOf(file.mimetype) === -1) {
-//       const filename = `${Date.now()}-gobeze-${file.originalname}`;
+//       // If the file is not a PDF, generate a filename based on the original name
+//       // const filename = `${Date.now()}-gobeze-${file.originalname}`;
+//       const filename = req.body.certificateId ;
+    
 //       return { filename };
 //     }
 
+//     // If the file is a PDF, store it in the 'pdfs' bucket with a unique filename
 //     return {
-//       bucketName: 'certificates',
-//       filename: `${Date.now()}-gobeze-${file.originalname}`,
+//       bucketName: 'pdfs',
+//       // filename: `${Date.now()}-gobeze-${file.originalname}`,
+//       filename: req.body.certificateId,
+//       // certificateId: req.body.certificateId,
 //     };
 //   },
 // });
 
+
 // const upload = multer({ storage });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadFolder = join(process.cwd(), 'public'); // Use process.cwd() to get the current working directory
+    cb(null, uploadFolder);
+  },
+  filename: function (req, file, cb) {
+    // const uniqueName = req.body.certificateId
+    // cb(null, uniqueName)
+    cb(null, file.originalname);
+  }
+})
+
+const upload = multer({ storage: storage })
 
 const router = createRouter();
 
@@ -36,28 +61,46 @@ router
     await connectMongo();
     await next(); // call next in chain
   })
-  // .use(upload.single('pdf'))
-
-.post(async (req, res) => {
-  try {
-    // const { date, shareLink, name, course } = req.body;
-
-    // const newCertificate = new Certificate({
-    //   date: date,
-    //   shareLink: shareLink,
-    //   name: name,
-    //   course: course,
-    // });
-
-    // await newCertificate.save();
-    console.log('it works'+req.body);
+  .use(upload.single('pdf'))
+  
+  .post( async (req, res) => {
+    try {
+    if (!req.file) {
+        // No file was provided in the request
+        return res.status(400).json({
+          errors: [{ msg: 'No file uploaded' }],
+        });
+      }
+      const { name, course, shareLink, date, certificateId, } = req.body;
+      const pdfFile = '/api/files/pdf/' + certificateId ;
+      let newCertificate = new Certificate({
+        name,
+        course,
+        shareLink,
+        date,
+        certificateId,
+        pdfFile
+      });
+      await newCertificate.save();
+      
+      console.log('it works ' + name);
+      console.log(req.file.filename)
 
     res.status(201).json({ message: 'Certificate saved successfully' });
   } catch (error) {
-      console.log(error)
     console.error('Error saving certificate:', error);
     res.status(500).json({ error: 'this is Internal server error' });
   }
-});
+})
 
-export default router;
+// create a handler from router with custom
+// onError and onNoMatch
+export default router.handler({
+  onError: (err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).end('Server Error!');
+  },
+  onNoMatch: (req, res) => {
+    res.status(404).end('Page is not found');
+  },
+});

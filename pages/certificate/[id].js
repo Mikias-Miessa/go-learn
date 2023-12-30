@@ -19,7 +19,11 @@ const CertificatePage = ({ certificate }) => {
         //     : ''
         // }
       >
-        <Certificate certificate={certificate} />
+        
+          <Certificate certificate={certificate} /> 
+           
+        
+        
       </HeadLayout>
     </>
   );

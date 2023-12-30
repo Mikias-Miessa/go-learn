@@ -23,7 +23,7 @@ let storage = new GridFsStorage({
     if (match.indexOf(file.mimetype) === -1) {
       // If the file is not a PDF, generate a filename based on the original name
       // const filename = `${Date.now()}-gobeze-${file.originalname}`;
-      const filename = req.body.certificateId ;
+      const filename = file.originalname ;
     
       return { filename };
     }
@@ -31,8 +31,9 @@ let storage = new GridFsStorage({
     // If the file is a PDF, store it in the 'pdfs' bucket with a unique filename
     return {
       bucketName: 'pdfs',
-      // filename: `${Date.now()}-gobeze-${file.originalname}`,
-      filename: req.body.certificateId,
+      filename: file.originalname,
+      
+      // filename: req.body.certificateId,
       // certificateId: req.body.certificateId,
     };
   },
@@ -48,7 +49,7 @@ router
     await connectMongo();
     await next(); // call next in chain
   })
-  .use(upload.single('image'))
+  .use(upload.single('pdf'))
   
   .post( async (req, res) => {
     try {

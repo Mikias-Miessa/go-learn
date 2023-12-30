@@ -20,14 +20,10 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from 'next-share';
-import { Document } from 'react-pdf'
-import { pdfjs } from 'react-pdf';
-import PdfComp from './PdfComp';
 
-// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-//   'pdfjs-dist/build/pdf.worker.min.js',
-//   import.meta.url,
-// ).toString();
+
+
+
 
 const Certificate = ({ certificate }) => {
   
@@ -171,10 +167,15 @@ const Certificate = ({ certificate }) => {
                 },
               }}
             >
-
-              {/* <h1>{certificate.pdfFile}</h1> */}
-              <PdfComp certificate={certificate} />
-              {/* <Document file={certificate.pdfFile} /> */}
+              {
+                certificate ? <iframe className='w-full h-screen' src={certificate.pdfFile ? certificate.pdfFile : 'notFound'} frameBorder='0'></iframe> :
+                   <div className='flex justify-center items-center h-screen'>
+              <h1 className='text-center font-bold lg:text-8xl text-2xl text-gray-500'>
+                Certificate Not Found!
+              </h1>
+            </div>
+              }
+              
               {/* {imageSrc ? (
                 <img src={imageSrc} alt='nat' />
               ) : (

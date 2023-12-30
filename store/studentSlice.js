@@ -217,7 +217,7 @@ export const saveCertificate = createAsyncThunk(
 
       // Append the PDF file to the FormData
       // formData.append('pdf', data.pdf);
-      formData.append('image', data.pdf);
+      formData.append('pdf', data.pdf);
 
       // Append other data to the FormData
       formData.append('date', data.date);
@@ -230,7 +230,7 @@ export const saveCertificate = createAsyncThunk(
       console.log('this is the form data: ', entry[0], entry[1])
     } 
       // Make the POST request using Axios
-      const response = await axios.post('/api/certificate', formData, {
+      const response = await axios.post('/api/certificate/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set the correct content type for file upload
         },

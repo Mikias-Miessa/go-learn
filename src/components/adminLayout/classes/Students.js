@@ -187,7 +187,50 @@ const captureAndSendImage = async () => {
 
 
 
-    const convertToPdf = async () => {
+//     const convertToPdf = async () => {
+//   const containerElement = containerRef.current;
+
+//   if (!containerElement) {
+//     console.error('Container element not found');
+//     return;
+//   }
+
+//   try {
+//     const canvas = await html2canvas(containerElement);
+
+//     const pdf = new jsPDF({
+//       orientation: 'landscape', // or 'landscape'
+//       unit: 'mm',
+//       format: 'a4', // or [width, height]
+//     });
+
+//     pdf.addImage(
+//       canvas.toDataURL('image/png'),
+//       'PNG',
+//       0,
+//       0,
+//       pdf.internal.pageSize.width,
+//       pdf.internal.pageSize.height
+//     );
+
+//     // Convert the data URL to a Blob
+//     const blob = await fetch(pdf.output('blob')).then((res) => res.blob());
+
+//     // Create a File object from the Blob
+//     const pdfFile = new File([blob], `${values.stname}.pdf`, {
+//       type: 'application/pdf',
+//     });
+
+//     // Dispatch the action with the PDF file
+//     dispatch(saveCertificate({ ...values, pdf: pdfFile }));
+   
+//   } catch (error) {
+//     console.error('Error converting to PDF', error);
+//   }
+// };
+
+  
+ const convertToPdf = async () => {
   const containerElement = containerRef.current;
 
   if (!containerElement) {
@@ -199,9 +242,9 @@ const captureAndSendImage = async () => {
     const canvas = await html2canvas(containerElement);
 
     const pdf = new jsPDF({
-      orientation: 'landscape', // or 'landscape'
+      orientation: 'landscape',
       unit: 'mm',
-      format: 'a4', // or [width, height]
+      format: 'a4',
     });
 
     pdf.addImage(
@@ -213,17 +256,16 @@ const captureAndSendImage = async () => {
       pdf.internal.pageSize.height
     );
 
-    // Convert the data URL to a Blob
-    const blob = await fetch(pdf.output('blob')).then((res) => res.blob());
+    // Save the PDF to a Blob
+    const blob = pdf.output('blob');
 
     // Create a File object from the Blob
-    const pdfFile = new File([blob], `${values.stname}.pdf`, {
+    const pdfFile = new File([blob], `${values.certificateId}`, {
       type: 'application/pdf',
     });
-
+    console.log(pdfFile)
     // Dispatch the action with the PDF file
     dispatch(saveCertificate({ ...values, pdf: pdfFile }));
-   
   } catch (error) {
     console.error('Error converting to PDF', error);
   }
@@ -611,7 +653,7 @@ const captureAndSendImage = async () => {
           <div className='flex justify-end gap-4 '>
                 
             <button onClick={handleClose} className='bg-white px-4 py-2 rounded text-orange-500 hover:scale-105 duration-200 shadow-sm' >Cancel</button>
-            <button onClick={captureAndSendImage} className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
+            <button onClick={convertToPdf} className='bg-orange-500 px-4 py-2 rounded text-white hover:scale-105 duration-200' >Save</button>
           </div>
           
         </Box>
