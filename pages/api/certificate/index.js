@@ -7,7 +7,7 @@ import connectMongo from '../../../utils/db';
 import Certificate from '../../../models/Certificate';
 import Student from '../../../models/Student';
 // import Course from '../../../models/Course';
-
+import { sendEmail } from '../../../utils/certifiedEmail';
 export const config = {
   api: {
     bodyParser: false,
@@ -79,9 +79,11 @@ router
            );
       if (!updatedStudent) {
       console.log('Student not found.');
-    } else {
+      } else {
+        sendEmail(req.body);
       console.log('Student updated successfully:', updatedStudent);
-    }
+        }
+        
       } catch (error) {
         console.error('Error updating student:', error.message);
       }

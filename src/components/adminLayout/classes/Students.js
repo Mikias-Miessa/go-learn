@@ -14,6 +14,7 @@ import {
   TableHead,
   TableRow,
   Button,
+  Backdrop, 
   Paper,
   Box,
   Modal,
@@ -24,7 +25,7 @@ import {
 } from '@mui/material';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getClass } from '../../../../store/classSlice';
-import { saveCertificate } from '../../../../store/studentSlice';
+import { saveCertificate, reset } from '../../../../store/studentSlice';
 import Title from '../../Title';
 import NewStudent from './NewStudent';
 import { TryOutlined } from '@mui/icons-material';
@@ -76,20 +77,22 @@ export default function Students() {
   const router = useRouter();
   const { query } = router;
   const { singleClass, loading } = useSelector((state) => state.classroom);
-
+  const { status, loading:certificateLoading } = useSelector((state) => state.student);
   const [open, setOpen] = useState(false);
   const [openCertify, setOpenCertify] = useState(false)
   const [addReferenceModal, setAddReferenceModal] = useState(false);
   const [copied, setCopied] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [backdrop, setBackdrop] = useState(false);
   const [values, setValues] = useState({
       date :'',
       stname:'',
       course:'',
       courseType: '',
       shareLink: '',
-    certificateId: '',
-      studentId:'',
+      certificateId: '',
+      studentId: '',
+      email:'',
   })
   const fillCertificate = ( selectedStudent ) => {
     // console.log()
@@ -105,6 +108,7 @@ export default function Students() {
       const certificateId = `${sanitizedName}${year}${currentMonth}${formatedDate}${formattedSeconds}`;
       const studentId = selectedStudent._id
       console.log(selectedStudent.name)
+       
       const shareLink = process.env.NODE_ENV === 'production'
       ? `https://gobezelearning.vercel.app/certificate/`
       : `http://localhost:3000/certificate/`
@@ -115,7 +119,8 @@ export default function Students() {
         courseType:'Enter course Type here',
         shareLink: `${shareLink}${certificateId}`,
         certificateId: certificateId,
-        studentId:studentId,
+        studentId: studentId,
+        email:selectedStudent.email ? selectedStudent.email : '',
       })
       
     }
@@ -140,6 +145,24 @@ export default function Students() {
     query && dispatch(getClass(query.id));
   }, [query]);
 
+  useEffect(() => {
+    if (status === 'pending') {
+      setBackdrop(true)
+    }
+    if (status === 'success') {
+      toast.success('Student Certified Successfully')
+      setOpenCertify(false)
+      dispatch(reset())
+      setBackdrop(false)
+      query && dispatch(getClass(query.id));
+    }
+    if (status === 'failed') {
+      toast.error('failed to certify student')
+      setOpenCertify(false)
+      dispatch(reset())
+      setBackdrop(false)
+    }
+  },[status])
   const getClassStudents = () => {
     dispatch(getClass(query.id));
   };
@@ -662,7 +685,8 @@ const captureAndSendImage = async () => {
           value={values.courseType}
           onChange={handleCertificateInputChange}
         />
-        <QRCode name='slug' value={values.shareLink} onChange={handleCertificateInputChange} className='w-14 h-14 mb-8' />
+                <QRCode name='slug' value={values.shareLink} onChange={handleCertificateInputChange} className='w-14 h-14 mb-2' />
+                <h3 className='text-orange-500 text-base text-center '>Scan Me</h3>
       </form>
 
     </div>
@@ -675,6 +699,12 @@ const captureAndSendImage = async () => {
           
         </Box>
       </Modal>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={backdrop}
+      >
+        <CircularProgress color='inherit' />
+      </Backdrop>
     </>
   );
 }

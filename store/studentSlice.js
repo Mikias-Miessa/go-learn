@@ -226,6 +226,7 @@ export const saveCertificate = createAsyncThunk(
       formData.append('course', data.course); 
       formData.append('studentId', data.studentId); 
       formData.append('certificateId', data.certificateId)
+      formData.append('email', data.email)
 
        for (const entry of formData.entries()) {
       console.log('this is the form data: ', entry[0], entry[1])
@@ -366,7 +367,19 @@ export const studentSlice = createSlice({
       })
       .addCase(getRegisteredStudents.rejected, (state, action) => {
         state.loading = false;
-      });
+      })
+      .addCase(saveCertificate.pending, (state) => {
+        state.status = 'pending'
+        state.loading = true
+      })
+      .addCase(saveCertificate.fulfilled, (state) => {
+        state.status = 'success'
+        state.loading = false  
+      })
+      .addCase(saveCertificate.rejected, (state) => {
+        state.status = 'failed'
+        state.loading = false
+      })
   },
 });
 
