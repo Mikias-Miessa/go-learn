@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Box, Button, Backdrop, CircularProgress, FormControl, FormGroup, FormControlLabel, FormLabel, Checkbox } from "@mui/material"
+import { Grid, Box, Button, Backdrop, CircularProgress, FormControl, FormGroup, FormControlLabel, FormLabel, Checkbox, TextField } from "@mui/material"
 import { KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { toast } from 'react-toastify'
@@ -24,17 +24,31 @@ const NewSchedule = ({ setOpen }) => {
         } else {
             const scheduleData = {
                 days,
-                startHour,
-                endHour
+                startHour:values.startHour,
+                endHour:values.endHour,
             };
+            // console.log(scheduleData)
             dispatch(addSchedule(scheduleData))   
         }
     }
 
     const [days, setDays] = useState([]);
-    const [startHour, setStartHour] = useState(new Date());
-    const [endHour, setEndHour] = useState(new Date());
+    // const [startHour, setStartHour] = useState(new Date());
+    // const [endHour, setEndHour] = useState(new Date());
+   
+     const [values, setValues] = useState({
+        startHour :'',
+        endHour:'',
 
+  })
+    const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value
+    })
+  }
     const handleDaysChange = (event) => {
         if(!days.includes(event.target.name)) {
             setDays([...days, event.target.name]);
@@ -43,13 +57,13 @@ const NewSchedule = ({ setOpen }) => {
         }
     };
 
-    const handleStartHourChange = (date) => {
-        setStartHour(date);
-    };
+    // const handleStartHourChange = (date) => {
+    //     setStartHour(date);
+    // };
 
-    const handleEndHourChange = (date) => {
-        setEndHour(date);
-    };
+    // const handleEndHourChange = (date) => {
+    //     setEndHour(date);
+    // };
 
     useEffect(() => {
         if (newScheduleAdded === 'pending') {
@@ -100,23 +114,48 @@ const NewSchedule = ({ setOpen }) => {
                         />
                     </FormGroup>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
         <TimePicker
           onChange={handleStartHourChange}
           value={startHour}
           clearIcon={null}
           clockAriaLabel="Start Hour"
-        />
-      </Grid>
-
+                    />
+                    
+      </Grid> */}
+                <Grid item xs={12} >
+                    
+          <TextField
+            required
+            id="startHour"
+            name="startHour"
+            label="Start Hour"
+            fullWidth
+            variant="standard"
+            
+            onChange={handleInputChange}
+                        />
+        </Grid>
+        <Grid item xs={12} >
+          <TextField
+            required
+            id="endHour"
+            name="endHour"
+            label="End Hour"
+                     
+            fullWidth
+            variant="standard"
+            onChange={handleInputChange}
+                        />
+        </Grid>
       {/* End Hour */}
-      <Grid item xs={12} sm={6}>
+      {/* <Grid item xs={12} sm={6}>
         <TimePicker
           onChange={handleEndHourChange}
           value={endHour}
           clearIcon={null}
         />
-      </Grid>
+      </Grid> */}
             </Grid>
 
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

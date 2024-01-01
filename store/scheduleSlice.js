@@ -85,6 +85,7 @@ export const scheduleSlice = createSlice({
     reducers: {
         reset: (state) => {
             state.scheduleDeleted = ''
+            state.newScheduleAdded= ''
         }
     },
     extraReducers: (builder) => {

@@ -5,7 +5,7 @@ import slugify from 'slugify';
 import connectMongo from '../../../utils/db';
 // import userAuth from '../../../middleware/userAuth';
 import Certificate from '../../../models/Certificate';
-// import Class from '../../../models/Class';
+import Student from '../../../models/Student';
 // import Course from '../../../models/Course';
 
 export const config = {
@@ -59,7 +59,7 @@ router
           errors: [{ msg: 'No file uploaded' }],
         });
       }
-      const { name, course, shareLink, date, certificateId, } = req.body;
+      const { name, course, shareLink, date, certificateId, studentId } = req.body;
       const pdfFile = '/api/files/pdf/' + certificateId ;
       let newCertificate = new Certificate({
         name,
@@ -70,6 +70,22 @@ router
         pdfFile
       });
       await newCertificate.save();
+
+      try {
+        const updatedStudent = await Student.findOneAndUpdate(
+          { _id: studentId },
+          { $set: { status: 'certified' } },
+          { new: true } // Return the modified document
+           );
+      if (!updatedStudent) {
+      console.log('Student not found.');
+    } else {
+      console.log('Student updated successfully:', updatedStudent);
+    }
+      } catch (error) {
+        console.error('Error updating student:', error.message);
+      }
+      
       
       console.log('it works ' + name);
       console.log(req.file.filename)

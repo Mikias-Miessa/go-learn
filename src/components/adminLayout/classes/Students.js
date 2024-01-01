@@ -88,7 +88,8 @@ export default function Students() {
       course:'',
       courseType: '',
       shareLink: '',
-      certificateId:'',
+    certificateId: '',
+      studentId:'',
   })
   const fillCertificate = ( selectedStudent ) => {
     // console.log()
@@ -102,16 +103,19 @@ export default function Students() {
       const formatedDate = String(date).padStart(2, '0');
       const formattedSeconds = String(seconds).padStart(2, '0');
       const certificateId = `${sanitizedName}${year}${currentMonth}${formatedDate}${formattedSeconds}`;
-
+      const studentId = selectedStudent._id
       console.log(selectedStudent.name)
-
+      const shareLink = process.env.NODE_ENV === 'production'
+      ? `https://gobezelearning.vercel.app/certificate/`
+      : `http://localhost:3000/certificate/`
       setValues({
         date: formattedDate,
         stname: selectedStudent.name ? selectedStudent.name : '',
         course: selectedStudent.course ? selectedStudent.course.course.courseName : '',
         courseType:'Enter course Type here',
-        shareLink: `http://localhost:3000/certificate/${certificateId}`,
-        certificateId:certificateId,
+        shareLink: `${shareLink}${certificateId}`,
+        certificateId: certificateId,
+        studentId:studentId,
       })
       
     }
@@ -256,6 +260,7 @@ const captureAndSendImage = async () => {
       pdf.internal.pageSize.height
     );
 
+    pdf.save(values.stname);  
     // Save the PDF to a Blob
     const blob = pdf.output('blob');
 
@@ -331,7 +336,8 @@ const captureAndSendImage = async () => {
                         <Button
                           variant='contained'
                           sx={{ fontSize: '0.75rem', p: '4px 12px' }}
-                          onClick={handleOpen}
+                            onClick={handleOpen}
+                          className='hover:text-white hover:bg-orange-500'
                         >
                           Enroll New Student
                         </Button>
@@ -358,7 +364,7 @@ const captureAndSendImage = async () => {
                           <TableCell>Phone</TableCell>
                           <TableCell>Payment</TableCell>
                           <TableCell>Paid Amount</TableCell>
-                          <TableCell>Certificate</TableCell>
+                          <TableCell className='text-center'>Certificate</TableCell>
                           {/* <TableCell>Price</TableCell> */}
                           {/* <TableCell align="right">Sale Amount</TableCell> */}
                         </TableRow>
@@ -451,7 +457,7 @@ const captureAndSendImage = async () => {
                                       )}
                                     </Box>
                                   </TableCell>
-                                  <TableCell>
+                                  {/* <TableCell>
                                     {row.status === 'certified' && (
                                       <Link
                                         href={`https://gobeze.com/certificate/${row.certificate?.certificateId}`}
@@ -463,9 +469,13 @@ const captureAndSendImage = async () => {
                                     )}
                                     {row.status === 'enrolled' &&
                                       'Not Certified'}
-                                  </TableCell>
+                                  </TableCell> */}
+                                 
                                   <TableCell>
-                                     <Button
+                                     {
+                                      row.status === 'enrolled' ?
+                                        <div className='text-center'>
+                                          <Button
                                             variant='contained'
                                             sx={{
                                               fontSize: '0.75rem',
@@ -477,13 +487,20 @@ const captureAndSendImage = async () => {
                                         setOpenCertify(true);
                                         // setSelectedStudent(row);
                                         fillCertificate(row);
+                                        console.log(row._id)
                                         // console.log(row.course.course.courseName);
                                       }}
-                                      className='px-2 py-1'
+                                      className='px-2 py-1 hover:text-white hover:bg-orange-500'
                                           >
                                       {/* <AddIcon /> */}
                                       Certify Student
-                                          </Button>
+                                        </Button>
+                                        </div>
+                                         :
+                                        <h3 className='text-center text-lg font-semibold text-gray-500'>Certified</h3>
+                                        
+                                  }
+                                     
                                     {/* <Box  sx={{ display: 'flex', gap: '1rem' }}>
                 <Typography>{row.enrolledStudents}</Typography>
          <Link href={`/admin/classes/students`}>See Students</Link>

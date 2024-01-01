@@ -223,7 +223,8 @@ export const saveCertificate = createAsyncThunk(
       formData.append('date', data.date);
       formData.append('shareLink', data.shareLink);
       formData.append('name', data.stname);
-      formData.append('course', data.course);
+      formData.append('course', data.course); 
+      formData.append('studentId', data.studentId); 
       formData.append('certificateId', data.certificateId)
 
        for (const entry of formData.entries()) {

@@ -71,12 +71,14 @@ export default function Schedules() {
   const handleDelete = (e) => {
     e.preventDefault()
     dispatch(deleteSchedule({ id: selectedId }))
+    setOpen(false)
   }
 
   useEffect(() => {
     if (scheduleDeleted === 'success') {
       toast.success('Schedule removed successfully!');
       setOpenDelete(false)
+      setOpen(false)
       dispatch(reset())
     }
   }, [scheduleDeleted])
@@ -116,9 +118,9 @@ export default function Schedules() {
                         {schedule.days && schedule.days.join(', ')}
                       </TableCell>
                       <TableCell>
-                        {schedule.startHour && (new Date(schedule.startHour)).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, hourCycle: 'h12' })}
+                        {schedule.startHour }
                       </TableCell>
-                      <TableCell>{schedule.endHour && (new Date(schedule.endHour)).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, hourCycle: 'h12' })}</TableCell>
+                      <TableCell>{schedule.endHour}</TableCell>
 
                       <TableCell>
                         <Popper
