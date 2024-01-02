@@ -66,6 +66,14 @@ const { user } = useSelector((state) => state.auth);
         <ListItemText primary="Followup" />
       </ListItemButton>
     </Link>
+    <Link href="/admin/instructors" color="primary">
+      <ListItemButton >
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Instructors" />
+      </ListItemButton>
+    </Link>
     <Link href="/admin/users" color="primary">
      {user && user.role && user.role === 'admin' && (
   <ListItemButton>

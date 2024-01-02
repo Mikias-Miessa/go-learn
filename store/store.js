@@ -9,12 +9,13 @@ import auth from './authSlice';
 import classroom from './classSlice';
 import student from './studentSlice';
 import schedule from "./scheduleSlice"
+import instructor from "./instructorSlice";
 
 // initial states here
 const initalState = {};
 
 const combinedReducer = combineReducers({
-  auth,user,course,classroom,student,schedule
+  auth,user,course,classroom,student,schedule,instructor
 })
 
 const masterReducer = (state, action)=>{
@@ -22,9 +23,11 @@ const masterReducer = (state, action)=>{
     const nextState = {
       ...state,
       users:[...action.payload.user.users, ...state.user.users],
+      // instructors:[...action.payload.user.users, ...state.user.users],
       courses:[...action.payload.course.courses, ...state.course.courses],
       classes:[...action.payload.classroom.classes, ...state.classroom.classes],
-      students:[...action.payload.student.students, ...state.student.students],
+      students: [...action.payload.student.students, ...state.student.students],
+      instructors:[...action.payload.instructor.instructors, ...state.instructor.instructors],
       schedules: [...action.payload.schedule.schedules, ...state.schedule.schedules]
     }
     return nextState;
