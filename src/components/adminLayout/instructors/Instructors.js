@@ -34,6 +34,7 @@ import {
 } from '@mui/material';
 import UpdateInstructor from './UpdateInstructor'
 import NewInstructor from './NewInstructor'
+import Image from 'next/image';
 
 const modalStyle = {
   position: 'absolute',
@@ -98,10 +99,10 @@ export default function Instructors() {
     
     useEffect(() => {
         if (status === 'success')
-            // dispatch(getInstructors());  
+            dispatch(getInstructors());  
             dispatch(reset())
    },[status]) 
-    
+ 
 //   useEffect(() => {
 //     if (deleteUserStatus === 'success') {
 //       toast.success('User removed successfully!');
@@ -127,10 +128,11 @@ export default function Instructors() {
           <Table size="small">
             <TableHead>
               <TableRow>
+                <TableCell></TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Email</TableCell>
-                <TableCell></TableCell>
+                <TableCell>Qualification</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -143,9 +145,17 @@ export default function Instructors() {
               ) : (
                 instructors.map((instructor) => (
                   <TableRow key={instructor._id}>
+                    <TableCell>
+                      <div className='my-2'>
+                        <Image src={instructor.imagePath} alt='Instructor Image'
+                        className='rounded-full' width={100} height={100} />
+                      </div>
+                      
+                    </TableCell>
                     <TableCell>{instructor.name}</TableCell>
                     <TableCell>{instructor.phone}</TableCell>
                     <TableCell>{instructor.email}</TableCell>
+                    <TableCell>{instructor.qualifications}</TableCell>
                     {/* <TableCell>
                         <Popper
                           open={openPoper}

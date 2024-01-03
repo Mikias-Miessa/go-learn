@@ -6,6 +6,10 @@ const ClassSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'course',
     },
+    instructor: {
+      type: Schema.Types.ObjectId,
+      ref: 'instructor',
+    },
     slug: {
       type: String,
     },
@@ -18,12 +22,6 @@ const ClassSchema = new Schema(
         ref: 'schedule'
       }
     ],
-    instructor: {
-      type: String,
-    },
-    instructorQualification: {
-      type: String,
-    },
     prerequisites: {
       type: String,
     },

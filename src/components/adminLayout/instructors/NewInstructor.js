@@ -62,13 +62,13 @@ const NewInstructor = ({ setOpen }) => {
       setBackdrop(true)
     }
     if (status === 'success') {
-      toast.success('New Class added successfully!');
+      toast.success('New instructor added successfully!');
       setOpen(false);
       setBackdrop(false)
       dispatch(reset())
     }
     if( status === 'failed'){
-      toast.error('Failed to add Class')
+      toast.error('Failed to add instructor')
       setBackdrop(false)
       dispatch(reset())
       setOpen(false);
@@ -84,9 +84,9 @@ const NewInstructor = ({ setOpen }) => {
     formData.append('phone', values.phone);
     formData.append('image', values.image);
     
-//     for (const entry of formData.entries()) {
-//   console.log(entry[0],' :', entry[1]);
-//     } 
+  //   for (const entry of formData.entries()) {
+  // console.log(entry[0],' :', entry[1]);
+  //   } 
     // console.log(formData);
     validPhoneNumber &&
    validPhoneNumber && dispatch(addInstructor(formData))
@@ -181,7 +181,7 @@ const NewInstructor = ({ setOpen }) => {
               variant="outlined"
               onChange={handleImageChange}
             />
-            {imageInput && <Image src={imageInput} width={200} height={100}/>}
+            {imageInput && <Image src={imageInput} width={100} height={100}/>}
           </Grid>
           
         </Grid>

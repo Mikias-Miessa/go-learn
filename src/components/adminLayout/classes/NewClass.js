@@ -9,12 +9,14 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { addClass, reset } from '../../../../store/classSlice';
 import { getCourses } from '../../../../store/courseSlice';
 import { getSchedules } from '../../../../store/scheduleSlice';
+import { getInstructors } from '../../../../store/instructorSlice';
 
 
 const NewCourse = ({ setOpen }) => {
   const { classes, loading, newClassAdded } = useSelector((state) => state.classroom)
   const { schedules } = useSelector((state) => state.schedule);
   const { courses } = useSelector((state) => state.course)
+  const { instructors } = useSelector((state)=> state.instructor)
   const [backdrop, setBackdrop] = useState(false);
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -23,7 +25,7 @@ const NewCourse = ({ setOpen }) => {
     schedule: [],
     start_date: null,
     instructor: '',
-    instructorQualification:'',
+    // instructorQualification:'',
     prerequisites: '',
     WeeklyCommitment: '',
     WhyChooseUs: '',
@@ -43,6 +45,14 @@ const NewCourse = ({ setOpen }) => {
       <MenuItem key={index + 1} value={course._id && course._id}>{course.courseName && course.courseName}</MenuItem>
     ))
   }
+
+  let instructorOptions = [<MenuItem key={0} value=''>No instructors</MenuItem>];
+  // let courseOptions =  <MenuItem value=''>Choose Courses</MenuItem>;
+  if (instructors.length > 0) {
+    instructorOptions = instructors.map((instructor, index) => instructor && (
+      <MenuItem key={index + 1} value={instructor._id && instructor._id}>{instructor.name && instructor.name}</MenuItem>
+    ))
+  }
   // console.log(courseOptions)
 
   useEffect(() => {
@@ -51,6 +61,9 @@ const NewCourse = ({ setOpen }) => {
 
   useEffect(() => {
     dispatch(getSchedules())
+  }, [])
+  useEffect(() => {
+    dispatch(getInstructors())
   }, [])
 
 
@@ -124,7 +137,7 @@ const handleModulesInputChange = (event) => {
     formData.append('schedule', values.schedule);
     formData.append('start_date', values.start_date);
     formData.append('instructor', values.instructor);
-    formData.append('instructorQualification', values.instructorQualification);
+    // formData.append('instructorQualification', values.instructorQualification);
     formData.append('remark', values.remark);
     formData.append('thumbnail', values.thumbnail);
     formData.append('prerequisites', values.prerequisites);
@@ -199,6 +212,23 @@ const handleModulesInputChange = (event) => {
             <FormHelperText>Required</FormHelperText>
           </Grid>
           <Grid item xs={12} sm={6}>
+            <InputLabel id="instructorSelect">Select Instructor</InputLabel>
+            <Select
+              labelId="instructorSelect"
+              value={values.instructor}
+              name='instructor'
+              label="Instructor *"
+              onChange={handleInputChange}
+              required
+              sx={{
+                minWidth: '200px'
+              }}
+            >
+              {instructorOptions}
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <InputLabel id="schedule">Choose Schedule</InputLabel>
             <Select
               labelId="schedule"
@@ -250,7 +280,7 @@ const handleModulesInputChange = (event) => {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TextField
               required
               name="instructor"
@@ -260,8 +290,8 @@ const handleModulesInputChange = (event) => {
               onChange={handleInputChange}
               value={values.instructor}
             />
-          </Grid>
-          <Grid item xs={12}>
+          </Grid> */}
+          {/* <Grid item xs={12}>
             <TextField
               required
               name="instructorQualification"
@@ -271,7 +301,7 @@ const handleModulesInputChange = (event) => {
               onChange={handleInputChange}
               value={values.instructorQualification}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <TextField
               required

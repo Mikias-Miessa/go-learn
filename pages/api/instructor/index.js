@@ -6,12 +6,12 @@ import connectMongo from '../../../utils/db';
 // import userAuth from '../../../middleware/userAuth';
 import Class from '../../../models/Class';
 import Instructor from '../../../models/Instructor';
-
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
+import { join } from 'path'; 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 let storage = new GridFsStorage({
   url: process.env.ATLAS_MONGO_URI,
@@ -28,7 +28,19 @@ let storage = new GridFsStorage({
     };
   },
 });
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     const uploadFolder = join(process.cwd(), 'public'); // Use process.cwd() to get the current working directory
+//     cb(null, uploadFolder);
+//   },
+//   filename: function (req, file, cb) {
+//     // const uniqueName = req.body.certificateId
+//     // cb(null, uniqueName)
+//     cb(null, file.originalname);
+//   }
+// })
 
+// const upload = multer({ storage: storage })
 const upload = multer({ storage });
 
 const router = createRouter();
@@ -38,44 +50,29 @@ router
     await connectMongo();
     await next(); // call next in chain
   })
-//   .use(upload.single('thumbnail'))
-  .post(async (req, res) => {
-    try {
-    //   if (!req.file) {
-    //     // No file was provided in the request
-    //     return res.status(400).json({
-    //       errors: [{ msg: 'No file uploaded' }],
-    //     });
-    //   }
+  .use(upload.single('image'))
+   .post(async (req, res) => {
+  try {
+    console.log('Body:', req.body);
+    console.log('file:', req.file);
+    const imagePath = '/api/files/images/' + req.file.filename;
+    const { name, email, qualifications, phone } = req.body
+    
+    let newInstructor = new Instructor({
+        name,
+        email,
+        qualifications,
+        phone,
+        imagePath : imagePath,
+      });
+      await newInstructor.save();
 
-   const { name, qualifications, image, email, phone } = req.body;
-
-    // Create a new instructor instance
-    const newInstructor = new Instructor({
-      name,
-      qualifications,
-      image,
-      email,
-      phone,
-    });
-
-    // Save the instructor to the database
-    await newInstructor.save();
-
-    res.status(201).json({ message:'Instructor added successfully', instructor:newInstructor});
-    } catch (err) {
-      console.error(err);
-
-    //   if (err instanceof multer.MulterError) {
-    //     // Multer error occurred (e.g., file size exceeded)
-    //     return res.status(400).json({
-    //       errors: [{ msg: 'File upload error', detail: err.message }],
-    //     });
-    //   }
-
-      res.status(500).send('Server Error');
-    }
-  })
+    res.json(newInstructor);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+})
   .delete(async (req, res) => {
     const { id } = req.query;
     console.log('id from the backnd', id);

@@ -31,34 +31,32 @@ try {
 )
 
 export const addInstructor = createAsyncThunk(
-    'instructor/add',
-    async (formData, thunkAPI) => {
-        
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        };
-        
-        for (const entry of formData.entries()) {
-            console.log('this is the form data: ', entry[0], entry[1])
-        }
-        
-        try {
-            const res = await axios.post('/api/instructor', formData, config);
-            console.log(res.data)
-            return res.data;
-
-        } catch (error) {
-            const message = 
-             (error.response && error.response.data && error.response.data.errors) ||
+  'instructor/add',
+  async (formData, thunkAPI) => {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    for (const entry of formData.entries()) {
+      console.log('this is the form data: ', entry[0], entry[1])
+    }
+    
+    try {
+      const res = await axios.post('/api/instructor', formData, config);
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      
+      const message =
+        (error.response && error.response.data && error.response.data.errors) ||
         error.message ||
         error.toString();
-      console.log(message);
+      // console.log(message);
 
       return thunkAPI.rejectWithValue(message);
-        }
     }
+  }
 );
 
 export const instructorSlice = createSlice({
@@ -66,7 +64,8 @@ export const instructorSlice = createSlice({
     initialState,
     reducers: {
         reset: (state) => {
-          state.getInstructorStatus='idel'
+            state.getInstructorStatus = 'idel'
+            state.status = ''
         }
     },
     extraReducers: (builder) => {
@@ -75,7 +74,10 @@ export const instructorSlice = createSlice({
             
         }).addCase(addInstructor.fulfilled, (state, action) => {
             state.status = 'success'
-                
+          state.instructors = state.instructors.map(instructor => {
+            if (instructor._id === action.payload._id) return action.payload;
+            return instructor
+            })    
         }).addCase(addInstructor.rejected, (state) => {
             state.status = 'failed'
         }).addCase(getInstructors.pending, (state) => {

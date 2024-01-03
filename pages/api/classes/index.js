@@ -48,7 +48,7 @@ router
         });
       }
 
-      const { course, description, schedule, start_date, instructor, remark, Modules, Curriculum, WhatYouWillGain, WhyChooseUs, WeeklyCommitment, prerequisites, instructorQualification, } =
+      const { course, description, schedule, start_date, instructor, remark, Modules, Curriculum, WhatYouWillGain, WhyChooseUs, WeeklyCommitment, prerequisites, } =
         req.body;
 
       // const API =
@@ -76,7 +76,6 @@ router
         start_date,
         thumbnail: thumbnailImage,
         instructor,
-        instructorQualification,
         Modules,
         Curriculum,
         WhatYouWillGain,
