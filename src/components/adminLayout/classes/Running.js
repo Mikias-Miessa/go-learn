@@ -164,7 +164,7 @@ const handleUpdate = () => {
                             Moment(item.start_date).format('MMM DD YYYY ')}
                         </TableCell>
                         <TableCell>
-                          {item.instructor && item.instructor}
+                          {item.instructor&& item.instructor.name}
                         </TableCell>
                         <TableCell>
                           <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -263,7 +263,8 @@ const handleUpdate = () => {
                       </TableRow>
                     )
                 )
-              ) : (
+                )
+                  : (
                 <>
                   <TableRow>
                     <TableCell colSpan={5} sx={{ textAlign: 'center' }}>
@@ -277,7 +278,8 @@ const handleUpdate = () => {
                     </TableCell>
                   </TableRow>
                 </>
-              )}
+                  )}
+                {console.log(runningClasses)}
             </TableBody>
           </Table>
           <Link

@@ -218,7 +218,7 @@ export const saveCertificate = createAsyncThunk(
       // Append the PDF file to the FormData
       // formData.append('pdf', data.pdf);
       formData.append('pdf', data.pdf);
-
+      formData.append('image', data.image);
       // Append other data to the FormData
       formData.append('date', data.date);
       formData.append('shareLink', data.shareLink);
@@ -232,17 +232,17 @@ export const saveCertificate = createAsyncThunk(
       console.log('this is the form data: ', entry[0], entry[1])
     } 
       // Make the POST request using Axios
-      const response = await axios.post('/api/certificate/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Set the correct content type for file upload
-        },
-      });
+      // const response = await axios.post('/api/certificate/', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data', // Set the correct content type for file upload
+      //   },
+      // });
 
-      // Log the response or handle it as needed
-      console.log(response.data);
+      // // Log the response or handle it as needed
+      // console.log(response.data);
 
-      // Return any data you want to include in the Redux store
-      return response.data;
+      // // Return any data you want to include in the Redux store
+      // return response.data;
     } catch (error) {
       // Handle errors or dispatch actions accordingly
       console.error('Error saving certificate:', error);

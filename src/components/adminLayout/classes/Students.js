@@ -268,6 +268,12 @@ const captureAndSendImage = async () => {
   try {
     const canvas = await html2canvas(containerElement);
 
+     // Create an image file from the canvas
+    const imageBlob = canvas.toDataURL('image/png');
+    const imageFile = new File([dataURItoBlob(imageBlob)], `${values.certificateId}`, {
+      type: 'image/png',
+    });
+
     const pdf = new jsPDF({
       orientation: 'landscape',
       unit: 'mm',
@@ -293,12 +299,21 @@ const captureAndSendImage = async () => {
     });
     console.log(pdfFile)
     // Dispatch the action with the PDF file
-    dispatch(saveCertificate({ ...values, pdf: pdfFile }));
+    dispatch(saveCertificate({ ...values, pdf: pdfFile, image:imageFile }));
   } catch (error) {
     console.error('Error converting to PDF', error);
   }
 };
-
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+}
 
   return (
     <>

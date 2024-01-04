@@ -14,13 +14,13 @@ const handler = async (req, res) => {
   if (method === 'GET') {
     try {
       let classes = await Class.find({ status: 'running' }).populate(
-        'course students schedule'
+        'course students instructor schedule'
       );
 
       
       res.json(classes);
     } catch (err) {
-      
+      console.log(err)
       res.status(500).send('Server Error');
     }
   }

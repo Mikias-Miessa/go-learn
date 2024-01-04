@@ -10,6 +10,10 @@ const CertificateSchema = new Schema(
     type: String,
     required: true,
   },
+  imageFile: {
+    type: String,
+    required: true,
+  },
   certificateId: {
     type: String,
     required: true,

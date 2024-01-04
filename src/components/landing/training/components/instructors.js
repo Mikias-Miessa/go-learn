@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import user from '../../../../../public/male.png'
-const Instructors = ({training}) => {
+const Instructors = ({ training }) => {
+  console.log(training)
   return (
     <div name='Instructors' className='h-fit'>
     <div  className='h-fit bg-sky-800 grid md:grid-cols-8 py-10'>
@@ -18,11 +19,11 @@ const Instructors = ({training}) => {
             and support to help you gain confidence with key concepts and tools. </p>
         </div>
         <div className='lg:col-span-1 flex flex-row md:flex-col items-center justify-around ml-4 md:ml-0 md:gap-4  lg:py-20 py-10'>
-            <Image src={user} width={120} height={120} alt='instructor image' className='rounded-full' />
+            <Image src={training.instructor.imagePath} width={150} height={150} alt='instructor image' className='rounded-full' />
             <div className='flex flex-col items-center gap-4'>
-               <h2 className='text-base ' >{training.instructor? training.instructor:'TBA'}</h2>
+               <h2 className='text-base ' >{training.instructor.name? training.instructor.name:'TBA'}</h2>
             <p className='font-light text-center px-10 md:px-0'>
-              {training.instructorQualification?training.instructorQualification:'--'}
+              {training.instructor.qualifications?training.instructor.qualifications:'--'}
             </p>
             </div>
          

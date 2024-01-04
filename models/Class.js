@@ -7,9 +7,9 @@ const ClassSchema = new Schema(
       ref: 'course',
     },
     instructor: {
-      type: Schema.Types.ObjectId,
-      ref: 'instructor',
-    },
+    type: Schema.Types.ObjectId,
+    ref: 'instructor',
+  },
     slug: {
       type: String,
     },

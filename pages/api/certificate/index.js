@@ -14,27 +14,27 @@ export const config = {
   },
 };
 
-let storage = new GridFsStorage({
+const storage = new GridFsStorage({
   url: process.env.ATLAS_MONGO_URI,
   file: (req, file) => {
-    const match = ['image/png','application/pdf'];
-    // const match = ['image/png'];
+    const match = ['image/png', 'application/pdf'];
 
     if (match.indexOf(file.mimetype) === -1) {
-      // If the file is not a PDF, generate a filename based on the original name
-      // const filename = `${Date.now()}-gobeze-${file.originalname}`;
-      const filename = file.originalname ;
-    
+      const filename = file.originalname;
       return { filename };
     }
 
-    // If the file is a PDF, store it in the 'pdfs' bucket with a unique filename
+    if (file.mimetype === 'image/png') {
+      return {
+        bucketName: 'files', // Use the "files" bucket for images
+        filename: file.originalname,
+      };
+    }
+
+    // Use the "pdfs" bucket for PDFs
     return {
       bucketName: 'pdfs',
       filename: file.originalname,
-      
-      // filename: req.body.certificateId,
-      // certificateId: req.body.certificateId,
     };
   },
 });
@@ -53,21 +53,23 @@ router
   
   .post( async (req, res) => {
     try {
-    if (!req.file) {
+    if (!req.files || !req.files.pdf || !req.files.image) {
         // No file was provided in the request
         return res.status(400).json({
-          errors: [{ msg: 'No file uploaded' }],
+          errors: [{ msg: 'PDF and image files are required' }],
         });
       }
       const { name, course, shareLink, date, certificateId, studentId } = req.body;
-      const pdfFile = '/api/files/pdf/' + certificateId ;
+      const pdfFile = '/api/files/pdf/' + certificateId;
+      const imageFile = '/api/files/images/' + certificateId;
       let newCertificate = new Certificate({
         name,
         course,
         shareLink,
         date,
         certificateId,
-        pdfFile
+        pdfFile,
+        imageFile
       });
       await newCertificate.save();
 

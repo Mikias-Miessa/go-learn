@@ -14,7 +14,7 @@ const handler = async (req, res) => {
   if (method === 'GET') {
     try {
       let classes = await Class.find({ status: 'running' })
-        .populate('course students')
+        .populate('course students instructor')
         .lean();
       let foundId = '';
       

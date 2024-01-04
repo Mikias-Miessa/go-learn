@@ -58,7 +58,7 @@ router
       await Schedule.find({})
       let course = await Class.findOne({ slug: query.slug })
       .populate({
-        path: 'course students schedule',
+        path: 'course students schedule instructor',
         populate: {
           path: ' course payment registered_by certificate',
           populate: {
