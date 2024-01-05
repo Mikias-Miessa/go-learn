@@ -105,7 +105,9 @@ const Certificate = ({ certificate }) => {
                 >
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
-                <LinkedinShareButton url={shareUrl}>
+                <LinkedinShareButton url={shareUrl}
+                
+                >
                   <LinkedinIcon size={32} round />
                 </LinkedinShareButton>
               </Box>

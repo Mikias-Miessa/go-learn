@@ -11,6 +11,7 @@ const HeadLayout = ({ title, keywords, description, children, image }) => {
         <meta property="og:url" content="https://gobeze.com" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
+        <meta property="og:image" content={image} />
         <meta property="og:description" content={description} />
         <link rel="canonical" href="https://gobeze.com/" />
         {image && <meta property="og:image" content={image} />}
