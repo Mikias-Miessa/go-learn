@@ -175,7 +175,10 @@ const Certificate = ({ certificate }) => {
                         <Image src={certificate.imageFile} alt='certificate image' width={800} height={500} className='' />
                     </div>
                     
-                    <a className='bg-orange-500  text-white px-4 py-2 rounded font-light hover:scale-105 duration-200' href={certificate.pdfFile}>Download Certificate</a>
+                    <a className='bg-orange-500  text-white px-4 py-2 rounded font-light hover:scale-105 duration-200'
+                      href={certificate.pdfFile} target='_blank'>
+                      Download Certificate
+                    </a>
                   </div>
                   
                   :

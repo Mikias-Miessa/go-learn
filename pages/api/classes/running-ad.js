@@ -46,7 +46,7 @@ const handler = async (req, res) => {
       res.json(adClasses);
     } catch (err) {
       
-      res.status(500).send('Server Error');
+      res.status(500).send(err);
     }
   }
 };
