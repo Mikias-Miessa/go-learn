@@ -168,7 +168,17 @@ const Certificate = ({ certificate }) => {
               }}
             >
               {
-                certificate ? <iframe className='w-full h-screen' src={certificate.pdfFile ? certificate.pdfFile : 'notFound'} frameBorder='0'></iframe> :
+                certificate ?
+                  // <iframe className='w-full h-screen' src={certificate.pdfFile ? certificate.pdfFile : 'notFound'} frameBorder='0'></iframe>
+                  <div className='flex flex-col gap-6 justify-center items-center '>
+                    <div className='h-fit w-fit border shadow-lg'>
+                        <Image src={certificate.imageFile} alt='certificate image' width={800} height={500} className='' />
+                    </div>
+                    
+                    <a className='bg-orange-500  text-white px-4 py-2 rounded font-light hover:scale-105 duration-200' href={certificate.pdfFile}>Download Certificate</a>
+                  </div>
+                  
+                  :
                    <div className='flex justify-center items-center h-screen'>
               <h1 className='text-center font-bold lg:text-8xl text-2xl text-gray-500'>
                 Certificate Not Found!

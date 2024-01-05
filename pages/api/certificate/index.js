@@ -49,11 +49,11 @@ router
     await connectMongo();
     await next(); // call next in chain
   })
-  .use(upload.single('pdf'))
+   .use(upload.fields([{ name: 'pdf', maxCount: 1 }, { name: 'image', maxCount: 1 }]))
   
   .post( async (req, res) => {
     try {
-    if (!req.files || !req.files.pdf || !req.files.image) {
+    if (!req.files|| !req.files.pdf|| !req.files.image  ) {
         // No file was provided in the request
         return res.status(400).json({
           errors: [{ msg: 'PDF and image files are required' }],
@@ -92,7 +92,7 @@ router
       
       
       console.log('it works ' + name);
-      console.log(req.file.filename)
+      // console.log(req.file.filename)
 
     res.status(201).json({ message: 'Certificate saved successfully' });
   } catch (error) {
