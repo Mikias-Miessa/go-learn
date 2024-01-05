@@ -11,10 +11,16 @@ const HeadLayout = ({ title, keywords, description, children, image }) => {
         <meta property="og:url" content="https://gobeze.com" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
-        <meta property="og:image" content={image} />
         <meta property="og:description" content={description} />
         <link rel="canonical" href="https://gobeze.com/" />
-        {image && <meta property="og:image" content={image} />}
+        {image && (
+    <>
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" /> {/* Adjust width as needed */}
+      <meta property="og:image:height" content="627" /> {/* Adjust height as needed */}
+      <meta property="og:image:alt" content={description} />
+    </>
+  )}
         {/* for twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="gobeze.com" />
