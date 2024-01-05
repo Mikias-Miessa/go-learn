@@ -15,7 +15,7 @@ const CertificatePage = ({ certificate }) => {
         title={pageTitle}
         image={
           certificate
-            ? `https://gobezelearning.vercel.app/${certificate?.imageFile}`
+            ? `https://gobezelearning.vercel.app${certificate?.imageFile}`
             : ''
         }
       >
