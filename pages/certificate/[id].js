@@ -13,11 +13,11 @@ const CertificatePage = ({ certificate }) => {
     <>
       <HeadLayout
         title={pageTitle}
-        // image={
-        //   certificate
-        //     ? `https://go-learn-mikias-miessa.vercel.app/certificates/${certificate?.certificateImage}`
-        //     : ''
-        // }
+        image={
+          certificate
+            ? certificate.imageFile
+            : ''
+        }
       >
         
           <Certificate certificate={certificate} /> 
