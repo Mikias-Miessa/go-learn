@@ -4,6 +4,7 @@ import connectMongo from '../../../utils/db';
 import Class from '../../../models/Class';
 import Course from '../../../models/Course';
 import Student from '../../../models/Student';
+import Instructor from '../../../models/Instructor'
 
 const handler = async (req, res) => {
   const { method } = req;
@@ -14,7 +15,7 @@ const handler = async (req, res) => {
   if (method === 'GET') {
     try {
       let classes = await Class.find({ status: 'running' })
-        .populate('course students instructor')
+        .populate('course students ')
         .lean();
       let foundId = '';
       
