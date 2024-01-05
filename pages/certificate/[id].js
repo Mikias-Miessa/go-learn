@@ -18,6 +18,13 @@ const CertificatePage = ({ certificate }) => {
             ? `https://gobezelearning.vercel.app${certificate?.imageFile}`
             : ''
         }
+        description={
+          certificate? `
+          🎓 Exciting Announcement! 🚀 I am thrilled to share that I have successfully 
+          completed the ${certificate.course} at Gobeze - the future of learning! 🌟
+           This transformative experience has equipped me with invaluable 
+           insights and practical skills.`:''
+        }
       >
         
           <Certificate certificate={certificate} /> 
