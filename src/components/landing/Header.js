@@ -5,7 +5,7 @@ import logo from '../../images/logo.png';
 import Link from '../Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-
+// import AdBanner from './AdBanner'
 const Header = () => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <>
-
+      <AdBanner />
         <Box
           sx={{
             pt: 1,
@@ -30,7 +30,8 @@ const Header = () => {
             background: 'rgba(255, 255, 255, 0.8)',
             backdropFilter: 'saturate(200%) blur(30px)',
           }}
-        >
+      >
+        <div>
           <Box
             sx={{
               display: 'flex',
@@ -38,7 +39,8 @@ const Header = () => {
               alignItems: 'center',
               background: 'transparent',
             }}
-          >
+        >
+        
             <Box>
               <Link href='/'>
                 <Image src={logo} alt='gobeze logo' height={40} width={40} />
@@ -177,8 +179,10 @@ const Header = () => {
                   </Box>
                 </Box>
               </Collapse>
-            </Box>
           </Box>
+          
+        </Box>
+        </div>
         </Box>
     </>
   );
