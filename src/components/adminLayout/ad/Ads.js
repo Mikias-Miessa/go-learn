@@ -30,7 +30,7 @@ import {
   Fade,
 } from '@mui/material';
 // import UpdateUser from './UpdateUser'
-// import NewUser from './NewUser'
+import NewAd from './NewAd'
 
 const modalStyle = {
   position: 'absolute',
@@ -111,16 +111,16 @@ export default function Users() {
         }}
       >
         <Button variant='contained' onClick={handleOpen}>
-          New User
+          New Ad
         </Button>
       </Paper>
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell></TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Status</TableCell>
+                {/* <TableCell></TableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -136,7 +136,7 @@ export default function Users() {
                     <TableCell>{user.name}</TableCell>
                     <TableCell>{user.phone}</TableCell>
                     <TableCell>{user.email}</TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                         <Popper
                           open={openPoper}
                           anchorEl={anchorEl}  
@@ -197,7 +197,7 @@ export default function Users() {
                         }}>
                           <MoreVertIcon />
                         </IconButton>
-                      </TableCell>
+                      </TableCell> */}
                   </TableRow>
                 ))
               )}
@@ -216,11 +216,11 @@ export default function Users() {
       </Modal>
       <Modal open={open} onClose={handleClose}>
         <Box sx={{ ...modalStyle, width: '40%' }} className='rounded-md' >
-          <h2 id='parent-modal-title' className='text-lg font-semibold'>New User</h2>
+          <h2 id='parent-modal-title' className='text-lg font-semibold'>New Ad</h2>
           <p id='parent-modal-description' className='text-base font-medium'>
-            Add a new user.
+            Add a new Ad.
           </p>
-          {/* <NewUser setOpen={setOpen} /> */}
+          <NewAd setOpen={setOpen} />
         </Box>
           </Modal>
           <Modal open={openDelete} onClose={handleClose}>
