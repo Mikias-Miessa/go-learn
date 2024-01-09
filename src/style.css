@@ -31,3 +31,9 @@ html {
 .gobeze-primary-bg{
   background-color: #FF7F00;
 }
+.font-Montserrat{
+  font-family:  Montserrat;
+  font-size: 0.85rem;
+  font-weight:500;
+  color:black;
+}

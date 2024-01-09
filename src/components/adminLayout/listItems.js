@@ -74,6 +74,14 @@ const { user } = useSelector((state) => state.auth);
         <ListItemText primary="Instructors" />
       </ListItemButton>
     </Link>
+    <Link href="/admin/ad" color="primary">
+      <ListItemButton >
+        <ListItemIcon>
+          <EventIcon />
+        </ListItemIcon>
+        <ListItemText primary="Ads" />
+      </ListItemButton>
+    </Link>
     <Link href="/admin/users" color="primary">
      {user && user.role && user.role === 'admin' && (
   <ListItemButton>

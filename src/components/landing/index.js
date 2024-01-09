@@ -5,13 +5,13 @@ import Header from "./Header"
 import Hero from './Hero'
 import Stats from './Stats'
 import About from './about'
-
+import NavBar from './Navbar'
 const LandingPage = () =>{
 
     return (
       <>
-        {/* <AdBanner/> */}
-        <Header />
+        <NavBar/>
+        {/* <Header /> */}
         <main>
           <Hero />
           <Paper

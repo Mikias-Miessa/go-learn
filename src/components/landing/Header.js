@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <>
-      <AdBanner />
+      
         <Box
           sx={{
             pt: 1,
